@@ -1,0 +1,33 @@
+{
+  "name": "npm",
+  "version": "1.0.0",
+  "description": "https://docs.google.com/document/d/e/2PACX-1vRauhWRk7vpNEu01MwACXjRWW409xyoJb5UMtY_z6szJgijtQ6B2IesVYpN3ERk45Ac4ovrwpA9F1jI/pub",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack",
+    "watch": "webpack --watch --mode=develpoment --devtool=source-m"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.4.5",
+    "@babel/plugin-transform-react-jsx": "^7.3.0",
+    "babel-loader": "^8.0.6",
+    "webpack": "^4.32.2",
+    "webpack-cli": "^3.3.2"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Learning-Fuze/c319_DIYblogging_tracker.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Learning-Fuze/c319_DIYblogging_tracker/issues"
+  },
+  "homepage": "https://github.com/Learning-Fuze/c319_DIYblogging_tracker#readme"
+}
