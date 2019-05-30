@@ -1,6 +1,7 @@
 import React from 'react';
 import Header from './header';
 import ProjectCatalog from './project-catalog';
+import ProjectDetails from './project-details';
 
 export default class App extends React.Component{
     constructor(props){
@@ -29,6 +30,7 @@ export default class App extends React.Component{
             </div>
             <div className="container-fluid">
                 <ProjectCatalog />
+                <ProjectDetails />
             </div>
             </React.Fragment>
 
