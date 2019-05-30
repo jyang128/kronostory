@@ -23,10 +23,15 @@ export default class App extends React.Component{
 
     render(){
         return(
-            <div className="container">
-                <Header title="Progress Tracker" />
+            <React.Fragment>
+            <div className="container-fluid">
+                <Header title="Progress Tracker" />    
+            </div>
+            <div className="container-fluid">
                 <ProjectCatalog />
             </div>
+            </React.Fragment>
+
         );
     }
 }

@@ -1,0 +1,12 @@
+.header-bg {
+    background-color: #4A306D;
+    color: white;
+}
+.menu-nav > * {
+    margin-left: 10px;
+    cursor: pointer;
+}
+.btn-primary {
+    background-color: #A167A5;
+    
+}
