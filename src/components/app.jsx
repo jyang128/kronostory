@@ -1,17 +1,31 @@
 import React from 'react';
-import Header from './components/header.jsx';
-import ProjectCatalog from './components/project-catalog.jsx';
+import Header from './header';
+import ProjectCatalog from './project-catalog';
 
 export default class App extends React.Component{
     constructor(props){
         super(props);
-        
+        this.state = {
+            projects: []
+        }
     }
+
+    componentDidMount() {
+        this.getProjects();
+    }
+    
+
+    getProjects() {
+        fetch('/api/projects.php')
+            .then(res => res.json())
+            .then(data => this.setState({ projects: data }, ()=>console.log("work?")));
+    }
+
     render(){
         return(
             <div className="container">
-                <Header title="Progress Tracker"/>
-                <ProjectCatalog/>
+                <Header title="Progress Tracker" />
+                <ProjectCatalog />
             </div>
         );
     }

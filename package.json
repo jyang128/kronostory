@@ -5,8 +5,9 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "webpack-dev-server",
     "build": "webpack",
-    "watch": "webpack --watch --mode=develpoment --devtool=source-m"
+    "watch": "webpack --watch --mode=development --devtool=source-m"
   },
   "keywords": [],
   "author": "",
@@ -20,7 +21,8 @@
     "@babel/plugin-transform-react-jsx": "^7.3.0",
     "babel-loader": "^8.0.6",
     "webpack": "^4.32.2",
-    "webpack-cli": "^3.3.2"
+    "webpack-cli": "^3.3.2",
+    "webpack-dev-server": "3.3.1"
   },
   "repository": {
     "type": "git",
