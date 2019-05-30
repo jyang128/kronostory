@@ -1,5 +1,5 @@
 <?php
 
-    $conn = mysqli_connect('localhost', 'root', 'root', 'progress_tracker');
+$conn = mysqli_connect('localhost', 'root', 'root', 'progress_tracker');
 
 ?>
