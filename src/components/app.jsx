@@ -9,8 +9,11 @@ export default class App extends React.Component{
     constructor(props){
         super(props);
         this.state = {
-            projects: []
-
+            projects: [],
+            view: {
+                name: 'createProjectForm',
+                params: {}
+            }
         }
     }
 
@@ -23,16 +26,33 @@ export default class App extends React.Component{
             .then(data => this.setState({ projects: data }, ()=>console.log("work?")));
     }
     render(){
+        let currentPage;
+        const pageName = this.state.view.name;
+        switch (pageName) {
+            case 'catalog':
+                currentPage = <ProjectCatalog />;
+                break;
+            case 'dashboard':
+                currentPage = <Dashboard />;
+                break;
+            case 'projectDetails':
+                currentPage = <ProjectDetails />;
+                break;
+            case 'createProjectForm':
+                currentPage = <CreateProjectForm />;
+        }
+
         return(
             <React.Fragment>
             <div className="container-fluid header-bg">
                 <Header title="KronoStory" />    
             </div>
             <div className="container-fluid">
-                <ProjectCatalog />
+                {/* <ProjectCatalog />
                 <Dashboard />
                 <ProjectDetails />
-                <CreateProjectForm/>
+                <CreateProjectForm/> */}
+                {currentPage}
             </div>
             </React.Fragment>
 

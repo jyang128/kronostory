@@ -9,4 +9,4 @@ export default class ProductsUsedItems extends React.Component {
             </div>
         )
     }
-}
+} 

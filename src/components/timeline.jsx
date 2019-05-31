@@ -34,26 +34,6 @@ export default class Timeline extends React.Component {
                 </div>
                 <div className="px-5">
                     <Slider {...settings}>
-                        {/* <div className="col">
-                            <img src="https://bit.ly/2QC2RiM" className="img-fluid img-thumbnail" alt=""/>
-                            Hamster
-                        </div>
-                        <div className='col'>
-                            <img src="https://bit.ly/2QC2RiM" className="img-fluid img-thumbnail" alt=""/>
-                            Hamster
-                        </div>
-                        <div className='col'>
-                            <img src="https://bit.ly/2QC2RiM" className="img-fluid img-thumbnail" alt=""/>
-                        </div>
-                        <div className='col'>
-                        <img src="https://bit.ly/2QC2RiM" className="img-fluid img-thumbnail" alt=""/>
-                        </div>
-                        <div className='col'>
-                        <img src="https://bit.ly/2QC2RiM" className="img-fluid img-thumbnail" alt=""/>
-                        </div>
-                        <div className='col'>
-                        <img src="https://bit.ly/2QC2RiM" className="img-fluid img-thumbnail" alt=""/>
-                        </div> */}
                         {timelineEntries}
                     </Slider>
                 </div>
