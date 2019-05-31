@@ -3,6 +3,7 @@ import Header from './header';
 import ProjectCatalog from './project-catalog';
 import ProjectDetails from './project-details';
 import Dashboard from './dashboard';
+import CreateProjectForm from './create-project-form';
 
 export default class App extends React.Component{
     constructor(props){
@@ -22,14 +23,15 @@ export default class App extends React.Component{
     render(){
         return(
             <React.Fragment>
-            <div className="container-fluid header-bg">
-                <Header title="Progress Tracker" />    
-            </div>
-            <div className="container-fluid">
-                <ProjectCatalog />
-                <Dashboard />
-                <ProjectDetails />
-            </div>
+                <div className="container-fluid header-bg">
+                    <Header title="Progress Tracker" />    
+                </div>
+                <div className="container-fluid">
+                    {/* <ProjectCatalog />
+                    <Dashboard />
+                    <ProjectDetails /> */}
+                    <CreateProjectForm/>
+                </div>
             </React.Fragment>
 
         );
