@@ -18,11 +18,11 @@ export default class ProductsUsed extends React.Component {
 
         return (
             <div className="col-4 bg-light">
-                <div className="title">
-                    <h3>Products used:</h3>
-                </div>
-                <div className="row">
-                    {usedItems}
+                <h3>Products used:</h3>
+                <div className="prod-sidebar">
+                    <div className="row">
+                        {usedItems}
+                    </div>
                 </div>
             </div>
         )
