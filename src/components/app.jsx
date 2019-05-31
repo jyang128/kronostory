@@ -25,7 +25,7 @@ export default class App extends React.Component{
             <div className="container-fluid header-bg">
                 <Header title="Progress Tracker" />    
             </div>
-            <div className="container-fluid">
+            <div>
                 <ProjectCatalog />
                 <Dashboard />
                 <ProjectDetails />

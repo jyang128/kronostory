@@ -1,5 +1,6 @@
 import React from 'react';
 import ProductsUsed from './products-used';
+import Timeline from './timeline';
 
 export default class ProjectDetails extends React.Component {
     render() {
@@ -18,7 +19,7 @@ export default class ProjectDetails extends React.Component {
                         <ProductsUsed />
                     </div>
                 </div>
-                {/* <Timeline /> */}
+                <Timeline />
             </div>
         )
     }
