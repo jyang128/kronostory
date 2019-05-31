@@ -31,8 +31,10 @@ export default class ProductsUsed extends React.Component {
         )
 
         return (
-            <div className="col-12 px-5">
-                <h3>Products used:</h3>
+            <div className="col-12 py-3 my-4">
+                <h3 className="mb-4 text-center">
+                    Items Used
+                </h3>
                 <div>
                 <Slider {...settings}>
                     {usedItems}
