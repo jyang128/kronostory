@@ -10,8 +10,10 @@ export default class App extends React.Component{
         super(props);
         this.state = {
             projects: []
+
         }
     }
+
     componentDidMount() {
         this.getProjects();
     }
@@ -24,9 +26,9 @@ export default class App extends React.Component{
         return(
             <React.Fragment>
             <div className="container-fluid header-bg">
-                <Header title="Progress Tracker" />    
+                <Header title="KronoStory" />    
             </div>
-            <div>
+            <div className="container-fluid">
                 <ProjectCatalog />
                 <Dashboard />
                 <ProjectDetails />

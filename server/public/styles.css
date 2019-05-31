@@ -7,8 +7,16 @@
     margin-left: 10px;
     cursor: pointer;
 }
-
-/* project card styling */
+/* hero-panel component styling */
+.hero-bg {
+    background: url('https://bit.ly/2Kj2doT') no-repeat;
+    background-size: cover;
+    height: 600px;
+}
+.hero-content {
+    background-color: rgba(255, 255, 255, 0.6);
+}
+/* project-card component styling */
 .card-body {
     position: relative;
 }
@@ -20,7 +28,6 @@
     right: 15px;
     cursor: pointer;
 }
-
 /* button styling */
 .btn-primary {
     background-color: #A167A5;
@@ -29,12 +36,11 @@
 .btn-primary:hover {
     background-color: #8b508f;
 }
-
+/*timeline component styling*/
 .prod-sidebar {
     max-height: 350px;
     overflow-y: scroll;
 }
-
 .timeline-background {
     background-color: #8b508f;
 }

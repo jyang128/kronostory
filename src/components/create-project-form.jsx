@@ -26,22 +26,22 @@ export default class CreateProjectForm extends React.Component {
                                     <small className="form-text text-muted">A short description that says it all. Maximum 140 characters.</small>
                                 </div>
                                 <div className="form-group">
-                                    <label for="exampleFormControlFile1">Main Image</label>
+                                    <label>Main Image</label>
                                     <input type="file" className="form-control-file"/>
                                 </div>
                                 <div className="form-row">
                                     <div className="form-group col-md-6">
-                                        <label for="exampleFormControlFile1">Add Item</label>
+                                        <label>Add Item</label>
                                         <input type="text" className="form-control mb-2" placeholder="Item Name"/>
                                         <input type="file" className="form-control-file"/>
                                     </div>
                                     <div className="form-group col-md-6">
-                                        <label for="exampleFormControlFile1">Add Item</label>
+                                        <label>Add Item</label>
                                         <input type="text" className="form-control mb-2" placeholder="Item Name"/>
                                         <input type="file" className="form-control-file"/>
                                     </div>
                                     <div className="form-group col-md-6">
-                                        <label for="exampleFormControlFile1">Add Item</label>
+                                        <label>Add Item</label>
                                         <input type="text" className="form-control mb-2" placeholder="Item Name"/>
                                         <input type="file" className="form-control-file"/>
                                     </div>

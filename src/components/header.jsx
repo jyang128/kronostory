@@ -6,7 +6,7 @@ export default class Header extends React.Component {
     }
     render(){
         return(
-            <div className="row d-flex justify-content-between py-3 mb-4 mx-2">
+            <div className="row d-flex justify-content-between py-3 mx-2">
                 <h1 className="align-self-center">{this.props.title}</h1>
                 <div className="menu-nav align-self-center">
                     <span>Sign Up</span>
