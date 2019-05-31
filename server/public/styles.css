@@ -18,13 +18,10 @@
 }
 /* feature-panel component styling */
 .feature-bg {
-    /* background: url('https://bit.ly/2Kj2doT') no-repeat; */
-    background-color: rgba(0, 0, 0, 0.4);
-    background-size: cover;
-    height: 40%;
+    padding: 60px 0;
 }
-.feature-content {
-    background-color: rgba(255, 255, 255, 0.4);
+.feature-icon{
+    max-width: 125px;
 }
 /* project-card component styling */
 .card-body {

@@ -28,7 +28,7 @@ export default class ProjectCatalog extends React.Component{
                     <ProjectCard/>
                 </div>
                 </div>
-                <div className="row d-flex mb-4 feature-bg">
+                <div className="row d-flex mb-4 feature-bg py-5">
                     <FeaturePanel/>
                 </div>
             </React.Fragment>
