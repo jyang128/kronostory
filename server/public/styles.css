@@ -35,6 +35,17 @@
     right: 15px;
     cursor: pointer;
 }
+/* project-items component */
+.used-item-height {
+    height: 220px;
+}
+/* timeline component */
+.plus{
+    cursor: pointer;
+}
+.plus:hover {
+    color: #A167A5;
+}
 /* button styling */
 .btn-primary {
     background-color: #A167A5;
@@ -42,8 +53,4 @@
 }
 .btn-primary:hover {
     background-color: #8b508f;
-}
-
-.used-item-height {
-    height: 220px;
 }

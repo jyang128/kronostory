@@ -8,6 +8,10 @@ export default class CreateProjectForm extends React.Component {
         event.preventDefault();
         this.props.setView('projectDetails', {});
     }
+    handleCancel(event) {
+        event.preventDefault();
+        this.props.setView('dashboard', {});
+    }
     render(){
         return(
             <React.Fragment>
@@ -53,7 +57,8 @@ export default class CreateProjectForm extends React.Component {
                                 <div>
                                     <button className="btn btn-primary mb-2">+ Add Another</button>   
                                 </div>
-                                <button type="submit" className="btn btn-primary" onClick={event => this.handleSubmitPress(event)}>Submit</button>
+                                <button type="submit" className="btn btn-primary mr-2" onClick={event => this.handleSubmitPress(event)}>Submit</button>
+                                <button type="submit" className="btn btn-primary" onClick={event => this.handleCancel(event)}>Cancel</button>
                             </form>
                         </div>
                     </div>

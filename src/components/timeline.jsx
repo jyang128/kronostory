@@ -27,10 +27,11 @@ export default class Timeline extends React.Component {
           const timelineEntries = this.testCarousel.map(step => <TimelineEntry key={step.id} image={step.img} product={step.product} />)
 
         return (
-            <div className="col-12 py-3 my-4">
+            <React.Fragment>
+            <div className="col-12 py-3 mb-4">
                 <div className="mb-4 text-center">
                     <h3>Timeline</h3>
-                    <div>Check out the timline of the project.</div>
+                    <div className="plus my-2"><i className="fas fa-plus-circle"></i> Add to Timeline</div>
                 </div>
                 <div className="px-5">
                     <Slider {...settings}>
@@ -38,6 +39,8 @@ export default class Timeline extends React.Component {
                     </Slider>
                 </div>
             </div>
+            </React.Fragment>
+            
         )
     }
 }
