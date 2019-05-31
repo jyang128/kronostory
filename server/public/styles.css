@@ -36,11 +36,7 @@
 .btn-primary:hover {
     background-color: #8b508f;
 }
-/*timeline component styling*/
-.prod-sidebar {
-    max-height: 350px;
-    overflow-y: scroll;
-}
-.timeline-background {
-    background-color: #8b508f;
+
+.used-item-height {
+    height: 220px;
 }
