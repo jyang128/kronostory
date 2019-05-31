@@ -30,11 +30,6 @@
     background-color: #8b508f;
 }
 
-.prod-sidebar {
-    max-height: 350px;
-    overflow-y: scroll;
-}
-
-.timeline-background {
-    background-color: #8b508f;
+.used-item-height {
+    height: 220px;
 }
