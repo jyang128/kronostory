@@ -29,3 +29,9 @@
 .btn-primary:hover {
     background-color: #8b508f;
 }
+
+.prod-sidebar {
+    max-height: 350px;
+    overflow-y: scroll;
+}
+
