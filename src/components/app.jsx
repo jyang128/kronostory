@@ -11,10 +11,11 @@ export default class App extends React.Component{
         this.state = {
             projects: [],
             view: {
-                name: 'createProjectForm',
+                name: 'dashboard',
                 params: {}
             }
         }
+        this.setView = this.setView.bind(this)
     }
 
     componentDidMount() {
@@ -25,33 +26,33 @@ export default class App extends React.Component{
             .then(res => res.json())
             .then(data => this.setState({ projects: data }, ()=>console.log("work?")));
     }
+    setView(name, params) {
+        const view = {name, params};
+        this.setState({view});
+    }
     render(){
         let currentPage;
         const pageName = this.state.view.name;
         switch (pageName) {
             case 'catalog':
-                currentPage = <ProjectCatalog />;
+                currentPage = <ProjectCatalog setView={this.setView} />;
                 break;
             case 'dashboard':
-                currentPage = <Dashboard />;
+                currentPage = <Dashboard setView={this.setView} />;
                 break;
             case 'projectDetails':
-                currentPage = <ProjectDetails />;
+                currentPage = <ProjectDetails setView={this.setView} />;
                 break;
             case 'createProjectForm':
-                currentPage = <CreateProjectForm />;
+                currentPage = <CreateProjectForm setView={this.setView} />;
         }
 
         return(
             <React.Fragment>
             <div className="container-fluid header-bg">
-                <Header title="KronoStory" />    
+                <Header title="KronoStory" setView={this.setView}/>    
             </div>
             <div className="container-fluid">
-                {/* <ProjectCatalog />
-                <Dashboard />
-                <ProjectDetails />
-                <CreateProjectForm/> */}
                 {currentPage}
             </div>
             </React.Fragment>
