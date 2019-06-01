@@ -3,6 +3,9 @@ import ProductsUsed from './products-used';
 import Timeline from './timeline';
 
 export default class ProjectDetails extends React.Component {
+    componentDidMount() {
+        window.scrollTo(0, 0)
+    }
     render() {
         return (
             <div>
