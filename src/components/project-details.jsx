@@ -1,8 +1,29 @@
 import React from 'react';
+import axios from 'axios';
 import ProductsUsed from './products-used';
 import Timeline from './timeline';
 
 export default class ProjectDetails extends React.Component {
+  constructor(props){
+    super(props);
+  }
+  componentDidMount() {
+      this.getProjects();
+  }
+  getProjects() {
+      axios.get('/api/project-details.php')
+          .then(response => {
+              // handle success
+              console.log(response);
+          })
+          .catch(function (error) {
+              // handle error
+              console.log(error);
+          })
+          .finally(function (response) {
+            
+          });
+  }
     render() {
         return (
             <div>
