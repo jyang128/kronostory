@@ -4,6 +4,7 @@ import ProjectCatalog from './project-catalog';
 import ProjectDetails from './project-details';
 import Dashboard from './dashboard';
 import CreateProjectForm from './create-project-form';
+import axios from 'axios';
 
 export default class App extends React.Component{
     constructor(props){
@@ -22,9 +23,18 @@ export default class App extends React.Component{
         this.getProjects();
     }
     getProjects() {
-        fetch('/api/projects.php')
-            .then(res => res.json())
-            .then(data => this.setState({ projects: data }, ()=>console.log("work?")));
+        axios.get('/api/projects.php')
+            .then(function (response) {
+                // handle success
+                console.log(response.data);
+            })
+            .catch(function (error) {
+                // handle error
+                console.log(error);
+            })
+            .finally(function () {
+                // always executed
+            });
     }
     setView(name, params) {
         const view = {name, params};
