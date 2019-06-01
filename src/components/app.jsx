@@ -24,16 +24,18 @@ export default class App extends React.Component{
     }
     getProjects() {
         axios.get('/api/projects.php')
-            .then(function (response) {
+            .then(response => {
                 // handle success
                 console.log(response.data);
+                this.setState({projects: response.data});
+                console.log(this.state);
             })
             .catch(function (error) {
                 // handle error
                 console.log(error);
             })
-            .finally(function () {
-                // always executed
+            .finally(function (response) {
+              
             });
     }
     setView(name, params) {
@@ -45,10 +47,10 @@ export default class App extends React.Component{
         const pageName = this.state.view.name;
         switch (pageName) {
             case 'catalog':
-                currentPage = <ProjectCatalog setView={this.setView} />;
+                currentPage = <ProjectCatalog setView={this.setView} projects={this.state.projects}/>;
                 break;
             case 'dashboard':
-                currentPage = <Dashboard setView={this.setView} />;
+                currentPage = <Dashboard setView={this.setView} projects={this.state.projects}/>;
                 break;
             case 'projectDetails':
                 currentPage = <ProjectDetails setView={this.setView} />;
