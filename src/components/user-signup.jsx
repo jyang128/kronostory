@@ -8,17 +8,18 @@ export default class UserSignup extends React.Component {
                     <h1 className="font-weight-light text-primary">KronoStory</h1>
                     <h1 className="h3 mb-3 font-weight-light">Sign Up</h1>
                     <label htmlFor="inputEmail" className="sr-only">Email address</label>
-                    <input type="email" id="inputEmail" className="form-control" placeholder="Email address" required="text" autoFocus />
+                    <input type="email" id="inputEmail" className="form-control mb-2" placeholder="Email address" required="text" autoFocus />
                     <label htmlFor="inputPassword" className="sr-only">Password</label>
-                    <input type="password" id="inputPassword" className="form-control" placeholder="Password" required="password" />
-                    <div className="checkbox mb-3">
-                        <label>
-                            <input type="checkbox" value="remember-me" /> Remember me
-                        </label>
+                    <input type="password" id="inputPassword" className="form-control mb-2" placeholder="Password" required="password" />
+                    <label htmlFor="inputPassword" className="sr-only">Re-enter Password</label>
+                    <input type="password" id="inputPassword" className="form-control mb-2" placeholder="Re-enter Password" required="password" />
+                    <label htmlFor="inputPassword" className="sr-only">First Name</label>
+                    <input type="password" id="inputPassword" className="form-control mb-2" placeholder="First Name" required="password" />
+                    <label htmlFor="inputPassword" className="sr-only">Last Name</label>
+                    <input type="password" id="inputPassword" className="form-control mb-2" placeholder="Last Name" required="password" />
+                    <div className="checkbox">
                     </div>
-                    <button className="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
-                    <p className="mt-5 mb-2 text-muted">Don't have an account?</p>
-                    <button className="btn btn-lg btn-outline-primary btn-block">Sign Up</button>
+                    <button className="btn btn-lg btn-primary btn-block">Sign Up</button>
                 </form>
             </div>
         )
