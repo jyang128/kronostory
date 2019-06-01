@@ -13,7 +13,7 @@ export default class App extends React.Component{
         this.state = {
             projects: [],
             view: {
-                name: 'userLogin',
+                name: 'catalog',
                 params: {}
             }
         }
