@@ -10,6 +10,10 @@ export default class Dashboard extends React.Component{
         this.props.setView('createProjectForm', {});
     }
     render(){
+        let userProjectCards = this.props.projects.map( (project) => {
+            console.log(project.id);
+            return <ProjectCard setView={this.props.setView} key={project.id} projectData={project}/>;
+        })
         return(
             <React.Fragment>
                 <div className="row d-flex justify-content-between py-3 mx-2">
@@ -24,15 +28,7 @@ export default class Dashboard extends React.Component{
                     </button>
                 </div>
                 <div className="row d-flex">
-                    <div className="col-12 col-sm-4 mb-4">
-                        <ProjectCard setView={this.props.setView}/>
-                    </div>
-                    <div className="col-12 col-sm-4 mb-4">
-                        <ProjectCard setView={this.props.setView}/>
-                    </div>
-                    <div className="col-12 col-sm-4 mb-4">
-                        <ProjectCard setView={this.props.setView}/>
-                    </div>
+                    {userProjectCards}
                 </div>
             </React.Fragment>
         );
