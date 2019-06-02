@@ -4,6 +4,7 @@ import ProjectCatalog from './project-catalog';
 import ProjectDetails from './project-details';
 import Dashboard from './dashboard';
 import CreateProjectForm from './create-project-form';
+import UserLogin from './user-login';
 import axios from 'axios';
 
 export default class App extends React.Component{
@@ -49,8 +50,11 @@ export default class App extends React.Component{
             case 'catalog':
                 currentPage = <ProjectCatalog setView={this.setView} projects={this.state.projects}/>;
                 break;
+            case 'userLogin':
+                currentPage = <UserLogin setView={this.setView} />;
+                break;
             case 'dashboard':
-                currentPage = <Dashboard setView={this.setView} projects={this.state.projects}/>;
+                currentPage = <Dashboard setView={this.setView} projects={this.state.projects} />;
                 break;
             case 'projectDetails':
                 currentPage = <ProjectDetails setView={this.setView} />;
@@ -62,7 +66,7 @@ export default class App extends React.Component{
         return(
             <React.Fragment>
             <div className="container-fluid header-bg">
-                <Header title="KronoStory" setView={this.setView}/>    
+                <Header title="KronoStory" setView={this.setView} />    
             </div>
             <div className="container-fluid">
                 {currentPage}

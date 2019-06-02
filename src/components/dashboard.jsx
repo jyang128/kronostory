@@ -5,6 +5,9 @@ export default class Dashboard extends React.Component{
     constructor(props){
         super(props);
     }
+    componentDidMount() {
+        window.scrollTo(0, 0)
+    }
     handleNewProject(event) {
         event.preventDefault();
         this.props.setView('createProjectForm', {});
