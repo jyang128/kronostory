@@ -1,7 +1,7 @@
-body{
-    width: 100vw;
-    height: 100vh;
+body {
+    font-family: 'Muli', sans-serif;
 }
+
 /* header and nav styling */
 .header-bg {
     background-color: #4A306D;
