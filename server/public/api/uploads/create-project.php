@@ -1,16 +1,24 @@
 <?php
 
+    require_once '../functions.php';
+
+    set_exception_handler("error_handler");
+
+    startup();
+
+    
+
     $output = ["error"=> "none", "upload"=>"Success"];
 
     $target_dir = 'image-uploads/';
     $target_file = $target_dir . $_FILES["imageToUpload"]["name"];
 
-    // if (file_exists($target_file)) {
-    //     $output["error"] = 'File already exists';
-    //     $output["upload"] = 'Fail';
-    //     echo json_encode($output);
-    //     return;
-    // }
+    if (file_exists($target_file)) {
+        $output["error"] = 'File already exists';
+        $output["upload"] = 'Fail';
+        echo json_encode($output);
+        return;
+    }
 
     if (isset($_POST["hasUpload"])){
         
@@ -36,6 +44,11 @@
             }
         }
     }
+
+    print_r("the file: " . $_FILES);
+    print("the file: " . $_FILES);
+    var_dump( $_FILES);
+    echo json_encode($_FILES);
 
     echo json_encode($output);
 

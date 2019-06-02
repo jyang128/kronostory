@@ -12,7 +12,6 @@ export default class CreateProjectForm extends React.Component {
     }
     handleSubmitPress(event) {
         event.preventDefault();
-        this.handleFormSubmit();
         this.props.setView('projectDetails', {});
     }
     handleCancel(event) {
@@ -22,9 +21,11 @@ export default class CreateProjectForm extends React.Component {
     onFileChange(e) {
         this.setState({file:e.target.files[0]}, ()=>console.log(this.state.file));
     }
-    handleFormSubmit() {
+    handleFormSubmit(event) {
         console.log("handle form submit");
-        axios.post('/api/uploads/create-project.php', this.state.file, {
+        event.preventDefault();
+        let formData = new FormData(event.target);
+        axios.post('/api/uploads/create-project.php', formData, {
               headers: {
                 'Content-Type': 'multipart/form-data'
               }
@@ -46,8 +47,8 @@ export default class CreateProjectForm extends React.Component {
                     </div>
                     <div className="row">
                         <div className="col-6 offset-3">
-                            <form className="my-4">
-                                <div className="form-group">
+                            <form className="my-4" onSubmit={this.handleFormSubmit}>
+                                <div className="form-group" >
                                     <label>Give it a short title</label>
                                     <input type="text" className="form-control" placeholder="Enter Title"/>
                                     <small className="form-text text-muted">Make it sound cool! Maximum 60 characters.</small>
@@ -59,14 +60,15 @@ export default class CreateProjectForm extends React.Component {
                                 </div>
                                 <div className="form-group">
                                     <label>Main Image</label>
-                                    <input type="file" className="form-control-file" onChange={this.onFileChange}/>
+                                    <input type="hidden" name="hasUpload" value="true" />
+                                    <input type="file" className="form-control-file" name="imageToUpload" onChange={this.onFileChange}/>
                                 </div>
                                 <div className="form-row">
                                     <div className="form-group col-md-6">
                                         <label>Add Item</label>
                                         <input type="text" className="form-control mb-2" placeholder="Item Name"/>
-                                        <input type="hidden" name="hasUpload" value="true" />
-                                        <input type="file" name="imageToUpload"  className="form-control-file"/>
+                                       
+                                        <input type="file" className="form-control-file"/>
                                     </div>
                                     <div className="form-group col-md-6">
                                         <label>Add Item</label>
@@ -82,7 +84,7 @@ export default class CreateProjectForm extends React.Component {
                                 <div>
                                     <button className="btn btn-primary mb-2">+ Add Another</button>   
                                 </div>
-                                <button type="submit" className="btn btn-primary mr-2" onClick={event => this.handleSubmitPress(event)}>Submit</button>
+                                <button type="submit" className="btn btn-primary mr-2" >Submit</button>
                                 <button type="submit" className="btn btn-primary" onClick={event => this.handleCancel(event)}>Cancel</button>
                             </form>
                         </div>
