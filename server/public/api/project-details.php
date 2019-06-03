@@ -31,7 +31,6 @@ if ($result = mysqli_query($conn, $query)) {
     $numRows = mysqli_num_rows($result);
     $itemResult = mysqli_query($conn, $itemQuery);
     $timelineResult = mysqli_query($conn, $timelineQuery);
-
 } else {
     throw new Exception('there is an error' . mysqli_connect_error());
 }
