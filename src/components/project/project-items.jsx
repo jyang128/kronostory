@@ -1,8 +1,10 @@
 import React from 'react';
-import ProductsUsedItems from './products-used-items';
+import ProjectItem from './project-item';
 import Slider from 'react-slick';
+import './project.css';
 
-export default class ProductsUsed extends React.Component {
+
+export default class ProjectItems extends React.Component {
     constructor(props) {
         super(props);
         this.testArray = [
@@ -27,7 +29,7 @@ export default class ProductsUsed extends React.Component {
         };
 
         const usedItems = this.testArray.map(item => 
-            <ProductsUsedItems key={item.id} image={item.img} product={item.product} />
+            <ProjectItem key={item.id} image={item.img} product={item.product} />
         )
 
         return (

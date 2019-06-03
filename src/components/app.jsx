@@ -1,13 +1,13 @@
 import React from 'react';
 import axios from 'axios';
-import CreateProjectForm from './create-project-form';
-import Dashboard from './dashboard';
-import Footer from './footer';
-import Header from './header';
-import ProjectCatalog from './project-catalog';
-import ProjectDetails from './project-details';
-import UserLogin from './user-login';
-import UserSignup from './user-signup';
+import CreateProjectForm from './profile/create-project-form';
+import Dashboard from './profile/dashboard';
+import Footer from './layout/footer';
+import Header from './layout/header';
+import ProjectCatalog from './project/project-catalog';
+import ProjectDetails from './project/project-details';
+import UserLogin from './forms/user-login';
+import UserSignup from './forms/user-signup';
 
 export default class App extends React.Component{
     constructor(props){

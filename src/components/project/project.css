@@ -1,0 +1,23 @@
+/* project-card component styling */
+.card-body {
+    position: relative;
+}
+.dots {
+    position: absolute;
+    color: slategray;
+    font-size: 1.5em;
+    top: 10px;
+    right: 15px;
+    cursor: pointer;
+}
+/* project-items component */
+.used-item-height {
+    height: 220px;
+}
+/* timeline component */
+.plus{
+    cursor: pointer;
+}
+.plus:hover {
+    color: #A167A5;
+}

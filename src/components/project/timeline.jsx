@@ -2,6 +2,7 @@ import React from 'react';
 import TimelineEntry from './timeline-entry';
 import TimelineEntryForm from './timeline-entry-form';
 import Slider from 'react-slick';
+import './project.css';
 
 export default class Timeline extends React.Component {
     constructor(props) {

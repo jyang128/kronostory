@@ -1,5 +1,5 @@
 import React from 'react';
-import ProjectCard from './project-card';
+import ProjectCard from '../project/project-card';
 
 export default class Dashboard extends React.Component{
     constructor(props){
