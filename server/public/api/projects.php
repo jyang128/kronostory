@@ -10,10 +10,10 @@ if(!$conn){
   throw new Exception('there is an error' . mysqli_connect_error());
 }
 
-$user = $_GET['user'];
-if (!$user) {
+if (empty($_GET['user'])) {
   $targetUser = "* FROM `project`";
 } else {
+  $user = $_GET['user'];
   $targetUser = "p.`*`, u.`username` 
     FROM `project` AS p
     JOIN `user` AS u
