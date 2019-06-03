@@ -1,9 +1,11 @@
 import React from 'react';
+import axios from 'axios';
 import ProductsUsed from './products-used';
 import Timeline from './timeline';
 import axios from 'axios';
 
 export default class ProjectDetails extends React.Component {
+
     constructor(props){
         super(props);
         this.state = {
@@ -30,6 +32,7 @@ export default class ProjectDetails extends React.Component {
         window.scrollTo(0, 0);
         this.getProjectDetails();
     }
+
     render() {
         return (
             <div>

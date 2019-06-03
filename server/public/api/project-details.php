@@ -10,6 +10,7 @@ if(!$conn){
   throw new Exception('there is an error' . mysqli_connect_error());
 }
 
+
 $projectId = $_GET['id'];
 
 $query = "SELECT p.`id`, p.`title` AS project_title, p.`description` AS project_description, p.`date_created`, p.`primary_image`, p.`secondary_images`, p.`category`, u.`username` 
@@ -43,6 +44,7 @@ if ($numRows === 0) {
 $output = [];
 
 while ($row = mysqli_fetch_assoc($result)) {
+  
   $row['items_used'] = [];
   $row['timeline_entry'] = [];
   while ($itemRow = mysqli_fetch_assoc($itemResult)) {
@@ -51,6 +53,7 @@ while ($row = mysqli_fetch_assoc($result)) {
   while ($timelineRow = mysqli_fetch_assoc($timelineResult)) {
     array_push($row['timeline_entry'], $timelineRow);
   }
+
   $output[] = $row;
 }
 

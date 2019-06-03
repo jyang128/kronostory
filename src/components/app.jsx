@@ -1,12 +1,13 @@
 import React from 'react';
+import axios from 'axios';
+import CreateProjectForm from './create-project-form';
+import Dashboard from './dashboard';
+import Footer from './footer';
 import Header from './header';
 import ProjectCatalog from './project-catalog';
 import ProjectDetails from './project-details';
-import Dashboard from './dashboard';
-import CreateProjectForm from './create-project-form';
 import UserLogin from './user-login';
 import UserSignup from './user-signup';
-import axios from 'axios';
 
 export default class App extends React.Component{
     constructor(props){
@@ -74,6 +75,7 @@ export default class App extends React.Component{
             </div>
             <div className="container-fluid">
                 {currentPage}
+                <Footer setView={this.setView} />
             </div>
             </React.Fragment>
 
