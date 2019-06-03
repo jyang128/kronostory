@@ -1,55 +1,6 @@
 body {
     font-family: 'Muli', sans-serif;
 }
-
-/* header and nav styling */
-.header-bg {
-    background-color: #4A306D;
-    color: white;
-}
-.menu-nav > * {
-    margin-left: 10px;
-    cursor: pointer;
-}
-/* hero-panel component styling */
-.hero-bg {
-    background: url('https://bit.ly/2Kj2doT') no-repeat;
-    background-size: cover;
-    height: 600px;
-}
-.hero-content {
-    background-color: rgba(255, 255, 255, 0.6);
-}
-/* feature-panel component styling */
-.feature-bg {
-    padding: 60px 0;
-}
-.feature-icon{
-    max-width: 125px;
-}
-/* project-card component styling */
-.card-body {
-    position: relative;
-}
-.dots {
-    position: absolute;
-    color: slategray;
-    font-size: 1.5em;
-    top: 10px;
-    right: 15px;
-    cursor: pointer;
-}
-/* project-items component */
-.used-item-height {
-    height: 220px;
-}
-/* timeline component */
-.plus{
-    cursor: pointer;
-}
-.plus:hover {
-    color: #A167A5;
-}
 /* button styling */
 .btn-primary {
     background-color: #A167A5;
@@ -58,7 +9,7 @@ body {
 .btn-primary:hover {
     background-color: #8b508f;
 }
-/* timeline entry form */
+/* modal (timeline entry form) */
 .overlay {
     position: fixed;
     top: 0;
@@ -89,3 +40,4 @@ body {
 .modal-form.is-open {
     transform: translate(-50%, -50%);
 }
+

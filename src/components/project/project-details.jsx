@@ -1,8 +1,8 @@
 import React from 'react';
 import axios from 'axios';
-import ProductsUsed from './products-used';
+import ProjectItems from './project-items';
 import Timeline from './timeline';
-import axios from 'axios';
+import './project.css';
 
 export default class ProjectDetails extends React.Component {
 
@@ -47,7 +47,7 @@ export default class ProjectDetails extends React.Component {
                     </div>
                 </div>
                 <div className="row">
-                    <ProductsUsed />
+                    <ProjectItems />
                 </div>
                 <div className="row bg-light">
                     <Timeline />

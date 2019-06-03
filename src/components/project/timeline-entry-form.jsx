@@ -1,4 +1,5 @@
 import React from 'react';
+import './project.css';
 
 export default class TimelineEntryForm extends React.Component {
     constructor(props) {

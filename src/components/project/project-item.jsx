@@ -1,6 +1,7 @@
 import React from 'react';
+import './project.css';
 
-export default class ProductsUsedItems extends React.Component {
+export default class ProjectItem extends React.Component {
     render() {
         return (
             <div className="col">

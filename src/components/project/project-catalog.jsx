@@ -1,7 +1,8 @@
 import React from 'react';
 import ProjectCard from './project-card';
-import HeroPanel from './hero-panel';
-import FeaturePanel from './feature-panel';
+import HeroPanel from '../layout/hero-panel';
+import FeaturePanel from '../layout/feature-panel';
+import './project.css';
 
 export default class ProjectCatalog extends React.Component{
     constructor(props){
