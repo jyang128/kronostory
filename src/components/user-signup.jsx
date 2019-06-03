@@ -1,6 +1,14 @@
 import React from 'react';
 
 export default class UserSignup extends React.Component {
+  constructor(props){
+    super(props);
+    this.signupHandler=this.signupHandler.bind(this);
+  }
+    signupHandler(event){
+      event.preventDefault();
+      this.props.setView("dashboard",{});
+    }
     render() {
         return (
             <div className="text-center mt-5 col-4 offset-4">
@@ -12,14 +20,14 @@ export default class UserSignup extends React.Component {
                     <label htmlFor="inputPassword" className="sr-only">Password</label>
                     <input type="password" id="inputPassword" className="form-control mb-2" placeholder="Password" required="password" />
                     <label htmlFor="inputPassword" className="sr-only">Re-enter Password</label>
-                    <input type="password" id="inputPassword" className="form-control mb-2" placeholder="Re-enter Password" required="password" />
+                    <input type="password" id="reEnter" className="form-control mb-2" placeholder="Re-enter Password" required="password" />
                     <label htmlFor="inputPassword" className="sr-only">First Name</label>
-                    <input type="password" id="inputPassword" className="form-control mb-2" placeholder="First Name" required="password" />
+                    <input type="text" id="firstName" className="form-control mb-2" placeholder="First Name" />
                     <label htmlFor="inputPassword" className="sr-only">Last Name</label>
-                    <input type="password" id="inputPassword" className="form-control mb-2" placeholder="Last Name" required="password" />
+                    <input type="text" id="lastName" className="form-control mb-2" placeholder="Last Name" />
                     <div className="checkbox">
                     </div>
-                    <button className="btn btn-lg btn-primary btn-block">Sign Up</button>
+                    <button className="btn btn-lg btn-primary btn-block" onClick={this.signupHandler}>Sign Up</button>
                 </form>
             </div>
         )
