@@ -5,6 +5,7 @@ import ProjectDetails from './project-details';
 import Dashboard from './dashboard';
 import CreateProjectForm from './create-project-form';
 import UserLogin from './user-login';
+import UserSignup from './user-signup';
 import axios from 'axios';
 
 export default class App extends React.Component{
@@ -13,7 +14,7 @@ export default class App extends React.Component{
         this.state = {
             projects: [],
             view: {
-                name: 'catalog',
+                name: 'userSignup',
                 params: {}
             }
         }
@@ -52,6 +53,9 @@ export default class App extends React.Component{
                 break;
             case 'userLogin':
                 currentPage = <UserLogin setView={this.setView} />;
+                break;
+            case 'userSignup':
+                currentPage = <UserSignup setView={this.setView} />;
                 break;
             case 'dashboard':
                 currentPage = <Dashboard setView={this.setView} projects={this.state.projects} />;
