@@ -1,8 +1,38 @@
 import React from 'react';
-import ProductsUsed from './products-used';
+import axios from 'axios';
+import ProjectItems from './project-items';
 import Timeline from './timeline';
+import './project.css';
 
 export default class ProjectDetails extends React.Component {
+
+    constructor(props){
+        super(props);
+        this.state = {
+            project: {}
+        }
+    }
+    getProjectDetails() {
+        axios.get('/api/project-details.php')
+            .then(response => {
+                // handle success
+                console.log(response.data);
+                this.setState({project: response.data});
+                console.log('axios call in project details ', this.state);
+            })
+            .catch(function (error) {
+                // handle error
+                console.log(error);
+            })
+            .finally(function (response) {
+              
+            });
+    }
+    componentDidMount() {
+        window.scrollTo(0, 0);
+        this.getProjectDetails();
+    }
+
     render() {
         return (
             <div>
@@ -17,7 +47,7 @@ export default class ProjectDetails extends React.Component {
                     </div>
                 </div>
                 <div className="row">
-                    <ProductsUsed />
+                    <ProjectItems />
                 </div>
                 <div className="row bg-light">
                     <Timeline />

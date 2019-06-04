@@ -1,9 +1,12 @@
 import React from 'react';
-import ProjectCard from './project-card';
+import ProjectCard from '../project/project-card';
 
 export default class Dashboard extends React.Component{
     constructor(props){
         super(props);
+    }
+    componentDidMount() {
+        window.scrollTo(0, 0)
     }
     handleNewProject(event) {
         event.preventDefault();

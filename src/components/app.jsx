@@ -1,11 +1,13 @@
 import React from 'react';
-import Header from './header';
-import ProjectCatalog from './project-catalog';
-import ProjectDetails from './project-details';
-import Dashboard from './dashboard';
-import CreateProjectForm from './create-project-form';
-import UserLogin from './user-login';
 import axios from 'axios';
+import CreateProjectForm from './forms/create-project-form';
+import Dashboard from './profile/dashboard';
+import Footer from './layout/footer';
+import Header from './layout/header';
+import ProjectCatalog from './project/project-catalog';
+import ProjectDetails from './project/project-details';
+import UserLogin from './forms/user-login';
+import UserSignup from './forms/user-signup';
 
 export default class App extends React.Component{
     constructor(props){
@@ -28,7 +30,11 @@ export default class App extends React.Component{
             .then(response => {
                 // handle success
                 console.log(response.data);
-                this.setState({projects: response.data});
+                this.setState({
+                    projects: response.data, 
+                    userId: response.data[1].user_id
+                }, ()=>console.log("userid: ", this.state.userId)
+                );
                 console.log(this.state);
             })
             .catch(function (error) {
@@ -53,6 +59,9 @@ export default class App extends React.Component{
             case 'userLogin':
                 currentPage = <UserLogin setView={this.setView} />;
                 break;
+            case 'userSignup':
+                currentPage = <UserSignup setView={this.setView} />;
+                break;
             case 'dashboard':
                 currentPage = <Dashboard setView={this.setView} projects={this.state.projects} />;
                 break;
@@ -60,7 +69,7 @@ export default class App extends React.Component{
                 currentPage = <ProjectDetails setView={this.setView} />;
                 break;
             case 'createProjectForm':
-                currentPage = <CreateProjectForm setView={this.setView} />;
+                currentPage = <CreateProjectForm setView={this.setView} userId={this.state.userId} />;
         }
 
         return(
@@ -70,6 +79,7 @@ export default class App extends React.Component{
             </div>
             <div className="container-fluid">
                 {currentPage}
+                <Footer setView={this.setView} />
             </div>
             </React.Fragment>
 

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /* header and nav styling */
 .header-bg {
     background-color: #4A306D;
@@ -53,6 +54,10 @@
 }
 .plus:hover {
     color: #A167A5;
+=======
+body {
+    font-family: 'Muli', sans-serif;
+>>>>>>> 4d663e4f7a39d19be64e65b3a27c9502456d01dd
 }
 /* button styling */
 .btn-primary {
@@ -62,3 +67,35 @@
 .btn-primary:hover {
     background-color: #8b508f;
 }
+/* modal (timeline entry form) */
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 100vw;
+    background-color: rgba(0, 0, 0, 0); 
+    transform: translateX(-100%);
+}
+.overlay.is-applied{
+    transform: translateX(0px);
+    background-color: rgba(0, 0, 0, 0.6); 
+}
+.modal-form{
+    box-sizing: border-box;
+    padding: 20px;
+    width: 50%;
+    height: 80%;
+    background-color: white;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-100%, -50%);
+}
+.modal-form:hover {
+    cursor: pointer;
+}
+.modal-form.is-open {
+    transform: translate(-50%, -50%);
+}
+

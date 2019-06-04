@@ -10,7 +10,18 @@ if(!$conn){
   throw new Exception('there is an error' . mysqli_connect_error());
 }
 
-$query = "SELECT * FROM `project`";
+if (empty($_GET['user'])) {
+  $targetUser = "* FROM `project`";
+} else {
+  $user = $_GET['user'];
+  $targetUser = "p.`*`, u.`username` 
+    FROM `project` AS p
+    JOIN `user` AS u
+    ON p.`user_id` = u.`id`
+    WHERE u.`username` = '{$user}'";
+}
+
+$query = "SELECT {$targetUser}";
 
 if ($result = mysqli_query($conn, $query)) {
     $numRows = mysqli_num_rows($result);
