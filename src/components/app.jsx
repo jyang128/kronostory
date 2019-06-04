@@ -8,20 +8,17 @@ import ProjectCatalog from './project/project-catalog';
 import ProjectDetails from './project/project-details';
 import UserLogin from './forms/user-login';
 import UserSignup from './forms/user-signup';
+import { Route, Switch } from 'react-router-dom';
 
 export default class App extends React.Component{
     constructor(props){
         super(props);
         this.state = {
             projects: [],
-            view: {
-                name: 'catalog',
-                params: {}
-            }
+            params: {}
         }
         this.setView = this.setView.bind(this)
     }
-
     componentDidMount() {
         this.getProjects();
     }
@@ -45,40 +42,44 @@ export default class App extends React.Component{
               
             });
     }
-    setView(name, params) {
-        const view = {name, params};
-        this.setState({view});
-    }
     render(){
-        let currentPage;
-        const pageName = this.state.view.name;
-        switch (pageName) {
-            case 'catalog':
-                currentPage = <ProjectCatalog setView={this.setView} projects={this.state.projects}/>;
-                break;
-            case 'userLogin':
-                currentPage = <UserLogin setView={this.setView} />;
-                break;
-            case 'userSignup':
-                currentPage = <UserSignup setView={this.setView} />;
-                break;
-            case 'dashboard':
-                currentPage = <Dashboard setView={this.setView} projects={this.state.projects} />;
-                break;
-            case 'projectDetails':
-                currentPage = <ProjectDetails setView={this.setView} />;
-                break;
-            case 'createProjectForm':
-                currentPage = <CreateProjectForm setView={this.setView} userId={this.state.userId} />;
-        }
-
+        // let currentPage;
+        // const pageName = this.state.view.name;
+        // switch (pageName) {
+        //     case 'catalog':
+        //         currentPage = <ProjectCatalog setView={this.setView} projects={this.state.projects}/>;
+        //         break;
+        //     case 'userLogin':
+        //         currentPage = <UserLogin setView={this.setView} />;
+        //         break;
+        //     case 'userSignup':
+        //         currentPage = <UserSignup setView={this.setView} />;
+        //         break;
+        //     case 'dashboard':
+        //         currentPage = <Dashboard setView={this.setView} projects={this.state.projects} />;
+        //         break;
+        //     case 'projectDetails':
+        //         currentPage = <ProjectDetails setView={this.setView} />;
+        //         break;
+        //     case 'createProjectForm':
+        //         currentPage = <CreateProjectForm setView={this.setView} userId={this.state.userId} />;
+        // }
         return(
             <React.Fragment>
-            <div className="container-fluid header-bg">
+            <div className="container-fluid header">
                 <Header title="KronoStory" setView={this.setView} />    
             </div>
             <div className="container-fluid">
-                {currentPage}
+                <Switch>
+                    <Route exact path="/" render={props => <ProjectCatalog {...props} projects={this.state.projects}/> }/>
+                    <Route path="/user-login" component={UserLogin}/>
+                    <Route path="/user-signup" component={UserSignup}/>
+                    <Route path="/dashboard" render={props => <Dashboard {...props} projects={this.state.projects}/> }/>
+                    <Route path="/project-details" render={props => <ProjectDetails {...props} projectId={this.state.params}/> }/>
+                    <Route path="/create-project" render={props => <CreateProjectForm {...props} userId={this.state.userId}/> }/>
+                </Switch>
+            </div>
+            <div className="container-fluid footer">
                 <Footer setView={this.setView} />
             </div>
             </React.Fragment>

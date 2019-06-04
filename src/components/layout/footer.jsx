@@ -1,5 +1,6 @@
 import React from 'react';
 import './layout.css';
+import { Link } from 'react-router-dom';
 
 export default class Footer extends React.Component {
     constructor(props){
@@ -7,22 +8,15 @@ export default class Footer extends React.Component {
     }
     render(){
         return(
-            <div className="footer container">
-              <div className="row">
-                <div className="col-6">
-                  <p>Copyright &copy; TitleHere 2019</p>
-                </div>
-                <div className="col-6">
-                  <p>
-                    <a href="#" className="mr-3" onClick={()=>{this.props.setView('catalog', {});}}>Home</a>
-                    <a href="#" className="mr-3">About</a>
-                    <a href="#" className="mr-3">Contact</a>
-                    <a href="#" className="mr-3" onClick={()=>{this.props.setView('dashboard', {});}}>Account</a>
-                  </p>
-                </div>
-              </div>
+        <div className="row d-flex justify-content-between py-3 mx-2">
+            <div>Copyright &copy;2019 Kronostory</div>
+            <div>
+                <Link to ="/" className="mr-3">About</Link>
+                <Link to ="/dashboard" className="mr-3">Dashboard</Link>
+                <Link to ="/user-signup" className="mr-3">Sign Up</Link>
+                <Link to ="/user-login" className="mr-3">Log In</Link>
             </div>
-            
-        );
+        </div>        
+    );
     }
 }
