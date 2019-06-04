@@ -10,14 +10,14 @@ export default class CreateProjectForm extends React.Component {
         this.handleFormSubmit = this.handleFormSubmit.bind(this);
         this.onFileChange = this.onFileChange.bind(this);
     }
-    handleSubmitPress(event) {
-        event.preventDefault();
-        this.props.setView('projectDetails', {});
-    }
-    handleCancel(event) {
-        event.preventDefault();
-        this.props.setView('dashboard', {});
-    }
+    // handleSubmitPress(event) {
+    //     event.preventDefault();
+    //     this.props.setView('projectDetails', {});
+    // }
+    // handleCancel(event) {
+    //     event.preventDefault();
+    //     this.props.setView('dashboard', {});
+    // }
     onFileChange(e) {
         this.setState({file:e.target.files[0]}, ()=>console.log(this.state.file));
     }
@@ -49,43 +49,37 @@ export default class CreateProjectForm extends React.Component {
                         <div className="col-6 offset-3">
                             <form className="my-4" onSubmit={this.handleFormSubmit}>
                                 <div className="form-group" >
-                                    <label>Give it a short title</label>
-                                    <input type="text" className="form-control" placeholder="Enter Title"/>
+                                    <label htmlFor="proj-name">Give it a short title</label>
+                                    <input id="proj-name" name="proj-name" type="text" className="form-control" placeholder="Enter Title"/>
                                     <small className="form-text text-muted">Make it sound cool! Maximum 60 characters.</small>
                                 </div>
                                 <div className="form-group">
-                                    <label>Summary</label>
-                                    <textarea className="form-control" placeholder="Summary of the project."></textarea>
+                                    <label htmlFor="proj-desc">Summary</label>
+                                    <textarea id="proj-desc" name="proj-desc" className="form-control" placeholder="Summary of the project."></textarea>
                                     <small className="form-text text-muted">A short description that says it all. Maximum 140 characters.</small>
                                 </div>
                                 <div className="form-group">
-                                    <label>Main Image</label>
-                                    <input type="hidden" name="hasUpload" value="true" />
-                                    <input type="file" className="form-control-file" name="imageToUpload" onChange={this.onFileChange}/>
+                                    <label htmlFor="main-proj-img">Main Image</label>
+                                    <input id="main-proj-img" type="file" className="form-control-file" name="main-proj-img" onChange={this.onFileChange}/>
                                 </div>
+                                <hr />
                                 <div className="form-row">
-                                    <div className="form-group col-md-6">
-                                        <label>Add Item</label>
-                                        <input type="text" className="form-control mb-2" placeholder="Item Name"/>
-                                       
-                                        <input type="file" className="form-control-file"/>
+                                    <div className="form-group col-12">
+                                        <label htmlFor="proj-item-title">Add items used in project</label>
                                     </div>
                                     <div className="form-group col-md-6">
-                                        <label>Add Item</label>
-                                        <input type="text" className="form-control mb-2" placeholder="Item Name"/>
-                                        <input type="file" className="form-control-file"/>
+                                        <input id="proj-item-title" type="text" className="form-control mb-2" placeholder="Item Name"/>
+                                        <input id="proj-item-img" name="proj-item-img" type="file" className="form-control-file"/>
                                     </div>
                                     <div className="form-group col-md-6">
-                                        <label>Add Item</label>
-                                        <input type="text" className="form-control mb-2" placeholder="Item Name"/>
-                                        <input type="file" className="form-control-file"/>
+                                        <button className="btn btn-primary"><i className="fas fa-plus"></i> Add another item</button>
                                     </div>
                                 </div>
-                                <div>
-                                    <button className="btn btn-primary mb-2">+ Add Another</button>   
-                                </div>
+                                <hr />
+                                <input type="hidden" name="hasUpload" value="true" />
+                                <input type="hidden" name="user-id" value={this.props.userId} />
                                 <button type="submit" className="btn btn-primary mr-2" >Submit</button>
-                                <button type="submit" className="btn btn-primary" onClick={event => this.handleCancel(event)}>Cancel</button>
+                                <button className="btn btn-primary" onClick={event => this.handleCancel(event)}>Cancel</button>
                             </form>
                         </div>
                     </div>

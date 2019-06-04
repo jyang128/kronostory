@@ -1,6 +1,6 @@
 import React from 'react';
 import axios from 'axios';
-import CreateProjectForm from './profile/create-project-form';
+import CreateProjectForm from './forms/create-project-form';
 import Dashboard from './profile/dashboard';
 import Footer from './layout/footer';
 import Header from './layout/header';
@@ -15,7 +15,7 @@ export default class App extends React.Component{
         this.state = {
             projects: [],
             view: {
-                name: 'userSignup',
+                name: 'catalog',
                 params: {}
             }
         }
@@ -30,7 +30,11 @@ export default class App extends React.Component{
             .then(response => {
                 // handle success
                 console.log(response.data);
-                this.setState({projects: response.data});
+                this.setState({
+                    projects: response.data, 
+                    userId: response.data[1].user_id
+                }, ()=>console.log("userid: ", this.state.userId)
+                );
                 console.log(this.state);
             })
             .catch(function (error) {
@@ -65,7 +69,7 @@ export default class App extends React.Component{
                 currentPage = <ProjectDetails setView={this.setView} />;
                 break;
             case 'createProjectForm':
-                currentPage = <CreateProjectForm setView={this.setView} />;
+                currentPage = <CreateProjectForm setView={this.setView} userId={this.state.userId} />;
         }
 
         return(
