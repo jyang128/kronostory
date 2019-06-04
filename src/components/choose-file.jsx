@@ -12,7 +12,7 @@ export default class ChooseFile extends React.Component{
   }
   render(){
     return(
-      <div className={this.props.dimensions === "wide" ? "col-7" : "col-6"}>
+      <div className="col-6">
         <button className={"btn-primary "+this.props.dimensions} onClick={this.handleButtonClick}>Choose File</button>
         <input
           ref={this.fileInputRef}
