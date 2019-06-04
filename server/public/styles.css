@@ -23,6 +23,9 @@
 .feature-icon{
     max-width: 125px;
 }
+.project-label{
+  font-size: 16px;
+}
 /* project-card component styling */
 .card-body {
     position: relative;
@@ -38,6 +41,11 @@
 /* project-items component */
 .used-item-height {
     height: 220px;
+}
+.wide{
+  display: inline-block;
+  height: 50px;
+  width: 100%;
 }
 /* timeline component */
 .plus{
