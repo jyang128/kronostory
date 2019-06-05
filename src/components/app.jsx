@@ -15,7 +15,7 @@ export default class App extends React.Component{
         this.state = {
             projects: [],
             view: {
-                name: 'catalog',
+                name: 'createProjectForm',
                 params: {}
             }
         }
@@ -77,10 +77,8 @@ export default class App extends React.Component{
             <div className="container-fluid header-bg">
                 <Header title="KronoStory" setView={this.setView} />    
             </div>
-            <div className="container-fluid">
-                {currentPage}
-                <Footer setView={this.setView} />
-            </div>
+            {currentPage}
+            <Footer setView={this.setView} />
             </React.Fragment>
 
         );

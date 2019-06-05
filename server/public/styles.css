@@ -9,6 +9,18 @@ body {
 .btn-primary:hover {
     background-color: #8b508f;
 }
+
+.btn-outline-primary {
+    border-color: #A167A5;
+    color: #A167A5;
+}
+
+.btn-outline-primary:hover {
+    border-color: #A167A5;
+    background-color: #A167A5;
+    color: #FFF;
+}
+
 /* modal (timeline entry form) */
 .overlay {
     position: fixed;
@@ -41,3 +53,35 @@ body {
     transform: translate(-50%, -50%);
 }
 
+.radio-container label {
+    margin-left: 15px;
+}
+
+.radio-container input[type=radio] {
+    display: none;
+}
+
+.radio-container input[type=radio] + label {
+    position: relative;
+}
+
+.radio-container input[type=radio] + label:before {
+    content: "";
+    position: absolute;
+    left: -25px;
+    top:50%;
+    transform: translateY(-50%);
+    width: 20px;
+    height: 20px;
+    background-color: #fff;
+    border: 1px solid #CCC;
+}
+
+.radio-container input[type=radio]:checked + label {
+    font-weight:bold;
+}
+
+.radio-container input[type=radio]:checked + label:before {
+    background-image: url(images/checkmark.svg);
+    background-position: center;
+}

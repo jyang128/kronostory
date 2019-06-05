@@ -18,7 +18,7 @@ export default class Dashboard extends React.Component{
             return <ProjectCard setView={this.props.setView} key={project.id} projectData={project}/>;
         })
         return(
-            <React.Fragment>
+            <div className="container-fluid">
                 <div className="row d-flex justify-content-between py-3 mx-2">
                     <h3 className="align-self-center">Dashboard - Anonymous || Projects by Anonymous</h3>
                 </div>
@@ -33,7 +33,7 @@ export default class Dashboard extends React.Component{
                 <div className="row d-flex">
                     {userProjectCards}
                 </div>
-            </React.Fragment>
+            </div>
         );
     }
 }
