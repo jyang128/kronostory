@@ -15,15 +15,26 @@ export default class App extends React.Component{
         this.state = {
             projects: [],
             view: {
-                name: 'catalog',
+                name: 'userLogin',
                 params: {}
-            }
+            },
+            user: null
         }
         this.setView = this.setView.bind(this)
     }
 
     componentDidMount() {
         this.getProjects();
+    }
+    loginUser(loginInfo) {
+        const submittedEmail = loginInfo.email;
+        axios.get(`/api/login.php?email=${submittedEmail}`)
+            .then(response => {
+                console.log(response.data);
+                this.setState({user: response.data[0]})
+            })
+            .catch( error => console.error(error))
+            .finally( response => console.log('inside .finally login ', response))
     }
     getProjects() {
         axios.get('/api/projects.php')
@@ -57,7 +68,7 @@ export default class App extends React.Component{
                 currentPage = <ProjectCatalog setView={this.setView} projects={this.state.projects}/>;
                 break;
             case 'userLogin':
-                currentPage = <UserLogin setView={this.setView} />;
+                currentPage = <UserLogin setView={this.setView} loginAxios={loginInfo => this.loginUser(loginInfo)} />;
                 break;
             case 'userSignup':
                 currentPage = <UserSignup setView={this.setView} />;

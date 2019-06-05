@@ -11,10 +11,10 @@ if (!$conn){
   throw new Exception('there is an error' . mysqli_connect_error());
 }
 
-$username = $_GET['username'];
+$email = $_GET['email'];
 
 $query = "SELECT * FROM `user` 
-    WHERE `username` = '{$username}'";
+    WHERE `email` = '{$email}'";
 
 if ($result = mysqli_query($conn, $query)) {
     $numRows = mysqli_num_rows($result);
