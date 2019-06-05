@@ -81,13 +81,13 @@ export default class App extends React.Component{
 
         return(
             <React.Fragment>
-            <div className="container-fluid header-bg">
+            <div className="container-fluid header">
                 <Header title="KronoStory" setView={this.setView} currentUser={this.state.user} />
             </div>
             <div className="container-fluid">
                 <Switch>
                     <Route exact path="/" render={props => <ProjectCatalog {...props} projects={this.state.projects}/> }/>
-                    <Route path="/user-login" component={UserLogin}/>
+                    <Route path="/user-login" render={props => <UserLogin {...props} loginAxios={loginInfo => this.loginUser(loginInfo)} /> } />
                     <Route path="/user-signup" component={UserSignup}/>
                     <Route path="/dashboard" render={props => <Dashboard {...props} projects={this.state.projects}/> }/>
                     <Route 
