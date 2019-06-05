@@ -8,25 +8,26 @@ export default class ProjectDetails extends React.Component {
     constructor(props){
         super(props);
         this.state = {
-            project: {}
+            project: {},
+            items: [],
+            timelineentries: []
         }
     }
     getProjectDetails(id) {
         axios.get(`/api/project-details.php?id=${id}`)
             .then(response => {
-                // handle success
-                // receive project id from this.props.match.params.id and pass in request
-                console.log(response.data);
-                this.setState({project: response.data});
-                console.log('axios call in project details ', this.state);
+                console.log('full response', response.data[0]);
+                console.table(response.data[0]['items_used']);
+                console.table(response.data[0]['timeline_entry']);
+                this.setState({
+                    project: response.data[0],
+                    items: response.data[0]['items_used'],
+                    timelineentries: response.data[0]['timeline_entry']
+                });
             })
             .catch(function (error) {
-                // handle error
-                console.log(error);
+                console.error(error);
             })
-            .finally(function (response) {
-              
-            });
     }
     componentDidMount() {
         this.getProjectDetails(this.props.match.params.id);
@@ -36,19 +37,19 @@ export default class ProjectDetails extends React.Component {
             <div>
                 <div className="row bg-light p-4">
                     <div className="col-12 col-md-5">
-                        <img src="https://bit.ly/2WxCQpY" className="img-fluid" alt="Project Image" />
+                        <img src={this.state.project.primary_image} className="img-fluid" alt="Project Image" />
                     </div>
                     <div className="col-12 col-md-7 mt-4 mt-md-0">
-                        <h3>Flower Garden</h3>
-                        <div className="font-weight-light mt-3">By: Pugnelius McPugpug</div>
-                        <div className=" mt-4">Spicy jalapeno bacon ipsum dolor amet alcatra flank rump fatback pancetta porchetta pig swine pork chop bresaola drumstick salami t-bone ground round meatloaf. Pork loin alcatra cow spare ribs. Tenderloin spare ribs pig strip steak alcatra salami brisket chicken shankle tri-tip. Ribeye shank salami, capicola andouille doner beef ribs jowl ham kielbasa biltong boudin. Cupim short ribs fatback pork chop, doner corned beef ball tip turkey sausage kielbasa.</div>
+                        <h3>{this.state.project.project_title}</h3>
+                        <div className="font-weight-light mt-3">By: {this.state.project.username}</div>
+                        <div className=" mt-4">{this.state.project.project_description}</div>
                     </div>
                 </div>
                 <div className="row">
-                    <ProjectItems />
+                    <ProjectItems items={this.state.items}/>
                 </div>
                 <div className="row bg-light">
-                    <Timeline />
+                    <Timeline entries={this.state.timelineentries}/>
                 </div>
             </div>
         )
