@@ -22,14 +22,24 @@ export default class Header extends React.Component {
                 >
                     {this.props.title}
                 </h1>
-                <div className="menu-nav align-self-center">
-                    <span>Sign Up</span>
-                    <i 
-                        className="far fa-user-circle"
-                        onClick={event => this.handleUserClick(event)}
-                    ></i>
-                    <span>Log In</span>
-                </div>
+                
+                    {this.props.currentUser 
+                    ? <div className="menu-nav align-self-center">
+                            <span>{this.props.currentUser.username}</span><i 
+                            className="far fa-user-circle"
+                            onClick={event => this.handleUserClick(event)}
+                        ></i>
+                    </div>
+                    : <div className="menu-nav align-self-center">
+                        <span>Sign Up</span>
+                        <i 
+                            className="far fa-user-circle"
+                            onClick={event => this.handleUserClick(event)}
+                        ></i>
+                        <span>Log In</span>
+                    </div>
+                    }
+                
             </div>
             
         );

@@ -86,7 +86,7 @@ export default class App extends React.Component{
         return(
             <React.Fragment>
             <div className="container-fluid header-bg">
-                <Header title="KronoStory" setView={this.setView} />    
+                <Header title="KronoStory" setView={this.setView} currentUser={this.state.user} />    
             </div>
             <div className="container-fluid">
                 {currentPage}
