@@ -19,7 +19,7 @@ export default class ProjectItems extends React.Component {
             variableWidth: false
         };
 
-        const itemsUsed = this.props.items.map((item, index) => 
+        const itemsUsed = this.props.items.map(item => 
             <ProjectItem key={item.project_item_id} image={item.project_item_image} product={item.project_item_title} />
         )
 
