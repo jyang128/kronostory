@@ -7,15 +7,6 @@ import './project.css';
 export default class ProjectItems extends React.Component {
     constructor(props) {
         super(props);
-        this.testArray = [
-            {id: 1, img: 'https://bit.ly/2QxSRa4', product: 'Meat'},
-            {id: 2, img: 'https://bit.ly/2K9Hx2O', product: 'Cheese'},
-            {id: 3, img: 'https://bit.ly/2Z3Cbud', product: 'Cinnamon'},
-            {id: 4, img: 'https://bit.ly/2QC2RiM', product: 'Hamster'},
-            {id: 5, img: 'https://bit.ly/2QC2RiM', product: 'Hamster'},
-            {id: 6, img: 'https://bit.ly/2QC2RiM', product: 'Hamster'},
-            {id: 7, img: 'https://bit.ly/2QC2RiM', product: 'Hamster'}
-        ]
     }
     render() {
         var settings = {
@@ -28,8 +19,8 @@ export default class ProjectItems extends React.Component {
             variableWidth: false
         };
 
-        const usedItems = this.testArray.map(item => 
-            <ProjectItem key={item.id} image={item.img} product={item.product} />
+        const itemsUsed = this.props.items.map((item, index) => 
+            <ProjectItem key={item.project_item_id} image={item.project_item_image} product={item.project_item_title} />
         )
 
         return (
@@ -39,7 +30,7 @@ export default class ProjectItems extends React.Component {
                 </h3>
                 <div>
                 <Slider {...settings}>
-                    {usedItems}
+                    {itemsUsed}
                 </Slider>
                 </div>
             </div>
