@@ -16,7 +16,7 @@ export default class App extends React.Component{
         this.state = {
             projects: [],
             view: {
-                name: 'userLogin',
+                name: 'catalog',
                 params: {}
             },
             user: null
@@ -27,10 +27,14 @@ export default class App extends React.Component{
     }
     loginUser(loginInfo) {
         const submittedEmail = loginInfo.email;
+        const goToDashboard = {
+            name: 'dashboard',
+            params: this.state.view.params
+        };
         axios.get(`/api/login.php?email=${submittedEmail}`)
             .then(response => {
                 console.log(response.data);
-                this.setState({user: response.data[0]})
+                this.setState({user: response.data[0], view: goToDashboard})
             })
             .catch( error => console.error(error))
             .finally( response => console.log('inside .finally login ', response))
