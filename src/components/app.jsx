@@ -15,11 +15,25 @@ export default class App extends React.Component{
         super(props);
         this.state = {
             projects: [],
-            params: {}
+            view: {
+                name: 'userLogin',
+                params: {}
+            },
+            user: null
         }
     }
     componentDidMount() {
         this.getProjects();
+    }
+    loginUser(loginInfo) {
+        const submittedEmail = loginInfo.email;
+        axios.get(`/api/login.php?email=${submittedEmail}`)
+            .then(response => {
+                console.log(response.data);
+                this.setState({user: response.data[0]})
+            })
+            .catch( error => console.error(error))
+            .finally( response => console.log('inside .finally login ', response))
     }
     getProjects() {
         axios.get('/api/projects.php')
@@ -42,31 +56,33 @@ export default class App extends React.Component{
             });
     }
     render(){
-        // let currentPage;
-        // const pageName = this.state.view.name;
-        // switch (pageName) {
-        //     case 'catalog':
-        //         currentPage = <ProjectCatalog setView={this.setView} projects={this.state.projects}/>;
-        //         break;
-        //     case 'userLogin':
-        //         currentPage = <UserLogin setView={this.setView} />;
-        //         break;
-        //     case 'userSignup':
-        //         currentPage = <UserSignup setView={this.setView} />;
-        //         break;
-        //     case 'dashboard':
-        //         currentPage = <Dashboard setView={this.setView} projects={this.state.projects} />;
-        //         break;
-        //     case 'projectDetails':
-        //         currentPage = <ProjectDetails setView={this.setView} />;
-        //         break;
-        //     case 'createProjectForm':
-        //         currentPage = <CreateProjectForm setView={this.setView} userId={this.state.userId} />;
-        // }
+
+        let currentPage;
+        const pageName = this.state.view.name;
+        switch (pageName) {
+            case 'catalog':
+                currentPage = <ProjectCatalog setView={this.setView} projects={this.state.projects}/>;
+                break;
+            case 'userLogin':
+                currentPage = <UserLogin setView={this.setView} loginAxios={loginInfo => this.loginUser(loginInfo)} />;
+                break;
+            case 'userSignup':
+                currentPage = <UserSignup setView={this.setView} />;
+                break;
+            case 'dashboard':
+                currentPage = <Dashboard setView={this.setView} projects={this.state.projects} />;
+                break;
+            case 'projectDetails':
+                currentPage = <ProjectDetails setView={this.setView} />;
+                break;
+            case 'createProjectForm':
+                currentPage = <CreateProjectForm setView={this.setView} userId={this.state.userId} />;
+        }
+
         return(
             <React.Fragment>
-            <div className="container-fluid header">
-                <Header title="KronoStory" setView={this.setView} />    
+            <div className="container-fluid header-bg">
+                <Header title="KronoStory" setView={this.setView} currentUser={this.state.user} />
             </div>
             <div className="container-fluid">
                 <Switch>
