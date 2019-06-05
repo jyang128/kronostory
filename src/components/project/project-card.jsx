@@ -1,10 +1,10 @@
 import React from 'react';
 import './project.css';
+import { Link } from 'react-router-dom';
 
 export default class ProjectCard extends React.Component{
-    handleProjectClick(event) {
-        event.preventDefault();
-        this.props.setView('projectDetails', {});
+    constructor(props){
+        super(props);
     }
     render(){
         return(
@@ -14,12 +14,11 @@ export default class ProjectCard extends React.Component{
                 <div className="card-body">
                 <h5 className="card-title">{this.props.projectData.title}</h5>
                 <p className="card-text">{this.props.projectData.description}</p>
-                <button 
-                    className="btn btn-primary" 
-                    onClick={event => this.handleProjectClick(event)}
-                >
-                    setView('project-details')
-                </button>
+                <Link to={`project-details/${this.props.projectData.id}`}>
+                    <button className="btn btn-primary">
+                        Go To Project
+                    </button>
+                </Link>
                 <div className="dots">...</div>
                 </div>
                 </div>

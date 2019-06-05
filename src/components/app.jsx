@@ -17,7 +17,6 @@ export default class App extends React.Component{
             projects: [],
             params: {}
         }
-        this.setView = this.setView.bind(this)
     }
     componentDidMount() {
         this.getProjects();
@@ -75,7 +74,17 @@ export default class App extends React.Component{
                     <Route path="/user-login" component={UserLogin}/>
                     <Route path="/user-signup" component={UserSignup}/>
                     <Route path="/dashboard" render={props => <Dashboard {...props} projects={this.state.projects}/> }/>
-                    <Route path="/project-details" render={props => <ProjectDetails {...props} projectId={this.state.params}/> }/>
+                    <Route 
+                        path="/project-details/:id"
+                        render={props => (
+                            <ProjectDetails 
+                                user = {this.state.projects.filter(project =>
+                                    project.id === parseInt(props.match.params.id, 10)
+                                    )[0]
+                                }
+                                {...props}
+                            />) }
+                    />
                     <Route path="/create-project" render={props => <CreateProjectForm {...props} userId={this.state.userId}/> }/>
                 </Switch>
             </div>
@@ -83,7 +92,6 @@ export default class App extends React.Component{
                 <Footer setView={this.setView} />
             </div>
             </React.Fragment>
-
         );
     }
 }
