@@ -15,7 +15,7 @@ export default class App extends React.Component{
         super(props);
         this.state = {
             projects: [],
-            params: {}
+            user: null
         }
         this.delete = this.delete.bind(this);
     }
@@ -42,6 +42,16 @@ export default class App extends React.Component{
               
             });
     }
+    loginUser(loginInfo) {
+        const submittedEmail = loginInfo.email;
+        axios.get(`/api/login.php?email=${submittedEmail}`)
+            .then(response => {
+                console.log(response.data);
+                this.setState({user: response.data[0]})
+            })
+            .catch( error => console.error(error))
+            .finally( response => console.log('inside .finally login ', response))
+    }
     getProjects() {
         axios.get('/api/projects.php')
             .then(response => {
@@ -63,38 +73,17 @@ export default class App extends React.Component{
             });
     }
     render(){
-        // let currentPage;
-        // const pageName = this.state.view.name;
-        // switch (pageName) {
-        //     case 'catalog':
-        //         currentPage = <ProjectCatalog setView={this.setView} projects={this.state.projects}/>;
-        //         break;
-        //     case 'userLogin':
-        //         currentPage = <UserLogin setView={this.setView} />;
-        //         break;
-        //     case 'userSignup':
-        //         currentPage = <UserSignup setView={this.setView} />;
-        //         break;
-        //     case 'dashboard':
-        //         currentPage = <Dashboard setView={this.setView} projects={this.state.projects} />;
-        //         break;
-        //     case 'projectDetails':
-        //         currentPage = <ProjectDetails setView={this.setView} />;
-        //         break;
-        //     case 'createProjectForm':
-        //         currentPage = <CreateProjectForm setView={this.setView} userId={this.state.userId} />;
-        // }
         return(
             <React.Fragment>
             <div className="container-fluid header">
-                <Header title="KronoStory" setView={this.setView} />    
+                <Header title="KronoStory" setView={this.setView} currentUser={this.state.user} />
             </div>
             <div className="container-fluid">
                 <Switch>
                     <Route exact path="/" render={props => <ProjectCatalog {...props} projects={this.state.projects}/> }/>
-                    <Route path="/user-login" component={UserLogin}/>
+                    <Route path="/user-login" render={props => <UserLogin {...props} loginAxios={loginInfo => this.loginUser(loginInfo)} /> } />
                     <Route path="/user-signup" component={UserSignup}/>
-                    <Route path="/dashboard" render={props => <Dashboard {...props} projects={this.state.projects} delete={this.delete}/> }/>
+                    <Route path="/dashboard" render={props => <Dashboard {...props} projects={this.state.projects} delete={this.delete} userStatus={this.state.user}/> }/>
                     <Route 
                         path="/project-details/:id"
                         render={props => (

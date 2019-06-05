@@ -18,7 +18,7 @@ if (empty($_GET['user'])) {
     FROM `project` AS p
     JOIN `user` AS u
     ON p.`user_id` = u.`id`
-    WHERE u.`username` = '{$user}'";
+    WHERE u.`username` = '{$user}' AND `status` = 'published'";
 }
 
 $query = "SELECT {$targetUser}";
