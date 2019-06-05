@@ -5,17 +5,17 @@ import Timeline from './timeline';
 import './project.css';
 
 export default class ProjectDetails extends React.Component {
-
     constructor(props){
         super(props);
         this.state = {
             project: {}
         }
     }
-    getProjectDetails() {
-        axios.get('/api/project-details.php')
+    getProjectDetails(id) {
+        axios.get(`/api/project-details.php?id=${id}`)
             .then(response => {
                 // handle success
+                // receive project id from this.props.match.params.id and pass in request
                 console.log(response.data);
                 this.setState({project: response.data});
                 console.log('axios call in project details ', this.state);
@@ -29,10 +29,8 @@ export default class ProjectDetails extends React.Component {
             });
     }
     componentDidMount() {
-        window.scrollTo(0, 0);
-        this.getProjectDetails();
+        this.getProjectDetails(this.props.match.params.id);
     }
-
     render() {
         return (
             <div>

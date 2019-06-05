@@ -1,13 +1,10 @@
 import React from 'react';
 import './layout.css';
+import { Link } from 'react-router-dom';
 
 export default class HeroPanel extends React.Component {
     constructor(props){
         super(props);
-    }
-    handleHeroCardButton(event) {
-        event.preventDefault();
-        this.props.setView('projectDetails', {});
     }
     render(){
         return(
@@ -17,12 +14,11 @@ export default class HeroPanel extends React.Component {
                         <div className="hero-content p-4">
                             <h3>Title Here</h3>
                             <p>Here's some placeholder content for the hero panel; has a white bg from CSS rule in .hero-content so we can see how wide the text can possibly get. Padding/margin can be tweaked with spacer classes. The button could click through to a featured project.</p>
-                            <button 
-                                className="btn btn-primary"
-                                onClick={event => this.handleHeroCardButton(event)}
-                            >
-                                setView('project-details')
-                                </button>   
+                            <Link to="project-details/1">
+                                <button className="btn btn-primary">
+                                    setView('project-details')
+                                </button>  
+                            </Link> 
                         </div>
                     </div>
                 </div>

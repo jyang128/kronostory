@@ -1,7 +1,22 @@
 /* header and nav styling */
-.header-bg {
+.header {
     background-color: #4A306D;
     color: white;
+}
+.header a {
+    color: white;
+}
+.header a:hover {
+    color: white;
+    text-decoration: none;
+}
+/* footer styling */
+.footer a {
+    color: #A167A5;
+}
+.footer a:hover {
+    color: #A167A5;
+    text-decoration: none;
 }
 .menu-nav > * {
     margin-left: 10px;
