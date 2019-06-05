@@ -12,7 +12,7 @@ export default class Dashboard extends React.Component{
     render(){
         let userProjectCards = this.props.projects.map( (project) => {
             console.log(project.id);
-            return <ProjectCard setView={this.props.setView} key={project.id} projectData={project}/>;
+            return <ProjectCard setView={this.props.setView} key={project.id} projectData={project} delete={this.props.delete}/>;
         })
         return(
             <React.Fragment>

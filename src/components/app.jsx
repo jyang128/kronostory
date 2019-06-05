@@ -17,9 +17,30 @@ export default class App extends React.Component{
             projects: [],
             params: {}
         }
+        this.delete = this.delete.bind(this);
     }
     componentDidMount() {
         this.getProjects();
+    }
+    delete(id){
+        axios.patch('/api/delete.php',{"id":id})
+            .then(response => {
+                let newProjects = this.state.projects.slice(0);
+                for(let i = 0; i < newProjects.length; i++){
+                    if(newProjects[i].id === id){
+                        newProjects.splice(i,1);
+                        break;
+                    }
+                }
+                this.setState({projects:newProjects});
+            })
+            .catch(function (error) {
+                // handle error
+                console.log(error);
+            })
+            .finally(function (response) {
+              
+            });
     }
     getProjects() {
         axios.get('/api/projects.php')
@@ -73,7 +94,7 @@ export default class App extends React.Component{
                     <Route exact path="/" render={props => <ProjectCatalog {...props} projects={this.state.projects}/> }/>
                     <Route path="/user-login" component={UserLogin}/>
                     <Route path="/user-signup" component={UserSignup}/>
-                    <Route path="/dashboard" render={props => <Dashboard {...props} projects={this.state.projects}/> }/>
+                    <Route path="/dashboard" render={props => <Dashboard {...props} projects={this.state.projects} delete={this.delete}/> }/>
                     <Route 
                         path="/project-details/:id"
                         render={props => (

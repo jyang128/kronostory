@@ -11,10 +11,10 @@ if(!$conn){
 }
 
 if (empty($_GET['user'])) {
-  $targetUser = "* FROM `project`";
+  $targetUser = "* FROM `project` WHERE `status` = 'published'";
 } else {
   $user = $_GET['user'];
-  $targetUser = "p.`*`, u.`username` 
+  $targetUser = "p.`*`, u.`username`
     FROM `project` AS p
     JOIN `user` AS u
     ON p.`user_id` = u.`id`
@@ -35,7 +35,7 @@ if ($numRows === 0) {
 
 $output = [];
 
-while ($row = mysqli_fetch_assoc($result)) {   
+while ($row = mysqli_fetch_assoc($result)) {
   $output[] = $row;
 }
 
