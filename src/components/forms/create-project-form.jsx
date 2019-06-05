@@ -71,10 +71,10 @@ export default class CreateProjectForm extends React.Component {
                                     <textarea id="proj-timeline-desc" name="proj-timeline-desc" className="form-control" placeholder="A short description about your timeline."></textarea>
                                 </div>
                                 <div className="form-group">
-                                    <label htmlFor="main-proj-img">Main Project Image</label>
+                                    <label htmlFor="proj-main-img">Main Project Image</label>
                                     <div className="custom-file">
-                                        <label className="custom-file-label" htmlFor="main-proj-img">{this.state.mainFile ? this.state.mainFile.name : "Choose File"}</label>
-                                        <input id="main-proj-img" type="file" className="form-control-file" name="main-proj-img" onChange={this.onFileChange}/>
+                                        <label className="custom-file-label" htmlFor="proj-main-img">{this.state.mainFile ? this.state.mainFile.name : "Choose File"}</label>
+                                        <input id="proj-main-img" type="file" className="form-control-file" name="proj-main-img" onChange={this.onFileChange}/>
                                     </div>
                                 </div>
                                 <div className="form-group">
@@ -110,7 +110,7 @@ export default class CreateProjectForm extends React.Component {
                                 <ul className="list-group">
                                     <li className="list-group-item">
                                         <div className="radio-container">
-                                            <input type="radio" id="art" name="proj-category" value="education" /> <label htmlFor="art">Art</label>
+                                            <input type="radio" id="art" name="proj-category" value="art" /> <label htmlFor="art">Art</label>
                                         </div>
                                     </li>
                                     <li className="list-group-item">
@@ -130,7 +130,7 @@ export default class CreateProjectForm extends React.Component {
                                     </li>
                                     <li className="list-group-item">
                                         <div className="radio-container">
-                                            <input type="radio" id="pets" name="proj-category" value="pets" /> <label htmlFor="pets">Pets</label>
+                                            <input type="radio" id="animal" name="proj-category" value="animal" /> <label htmlFor="animal">Animal</label>
                                         </div>
                                     </li>
                                 </ul>
