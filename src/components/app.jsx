@@ -8,6 +8,7 @@ import ProjectCatalog from './project/project-catalog';
 import ProjectDetails from './project/project-details';
 import UserLogin from './forms/user-login';
 import UserSignup from './forms/user-signup';
+import { Route, Switch } from 'react-router-dom';
 
 export default class App extends React.Component{
     constructor(props){
@@ -20,9 +21,7 @@ export default class App extends React.Component{
             },
             user: null
         }
-        this.setView = this.setView.bind(this)
     }
-
     componentDidMount() {
         this.getProjects();
     }
@@ -56,11 +55,8 @@ export default class App extends React.Component{
               
             });
     }
-    setView(name, params) {
-        const view = {name, params};
-        this.setState({view});
-    }
     render(){
+
         let currentPage;
         const pageName = this.state.view.name;
         switch (pageName) {
@@ -86,14 +82,32 @@ export default class App extends React.Component{
         return(
             <React.Fragment>
             <div className="container-fluid header-bg">
-                <Header title="KronoStory" setView={this.setView} currentUser={this.state.user} />    
+                <Header title="KronoStory" setView={this.setView} currentUser={this.state.user} />
             </div>
             <div className="container-fluid">
-                {currentPage}
+                <Switch>
+                    <Route exact path="/" render={props => <ProjectCatalog {...props} projects={this.state.projects}/> }/>
+                    <Route path="/user-login" component={UserLogin}/>
+                    <Route path="/user-signup" component={UserSignup}/>
+                    <Route path="/dashboard" render={props => <Dashboard {...props} projects={this.state.projects}/> }/>
+                    <Route 
+                        path="/project-details/:id"
+                        render={props => (
+                            <ProjectDetails 
+                                user = {this.state.projects.filter(project =>
+                                    project.id === parseInt(props.match.params.id, 10)
+                                    )[0]
+                                }
+                                {...props}
+                            />) }
+                    />
+                    <Route path="/create-project" render={props => <CreateProjectForm {...props} userId={this.state.userId}/> }/>
+                </Switch>
+            </div>
+            <div className="container-fluid footer">
                 <Footer setView={this.setView} />
             </div>
             </React.Fragment>
-
         );
     }
 }
