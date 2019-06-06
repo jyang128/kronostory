@@ -6,7 +6,11 @@ export default class Dashboard extends React.Component{
     constructor(props){
         super(props);
     }
+    
     render(){
+        // console.log('User Status is ', this.props.userStatus);
+        // const userUsername = this.props.userStatus.username;
+        // const userName = this.props.userStatus.first_name + ' ' + this.props.userStatus.last_name;
         let userProjectCards = this.props.projects.map( (project) => {
             console.log(project.id);
             return <ProjectCard setView={this.props.setView} key={project.id} projectData={project} delete={this.props.delete} userStatus={this.props.userStatus}/>;
@@ -14,7 +18,7 @@ export default class Dashboard extends React.Component{
         return(
             <React.Fragment>
                 <div className="row d-flex justify-content-between py-3 mx-2">
-                    <h3 className="align-self-center">Dashboard - Anonymous || Projects by Anonymous</h3>
+                    <h3 className="align-self-center">Dashboard -  || Projects by </h3>
                 </div>
                 <div className="row d-flex justify-content-between py-3 mb-4 mx-2">
                     <Link to="/create-project">

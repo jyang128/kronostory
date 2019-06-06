@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react';ShadowRoot
 import './project.css';
 import { Link } from 'react-router-dom';
 import { UncontrolledDropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
@@ -29,7 +29,7 @@ export default class ProjectCard extends React.Component{
                       <img className="card-img-top" src={this.props.projectData.primary_image} alt="project card"/>
                       <div className="card-body">
                       <h5 className="card-title">{this.props.projectData.title}</h5>
-                      <h6>By: UserNameHere</h6>
+                      <h6>By: {this.props.projectData.username}</h6>
                       <p className="card-text text-truncate">{this.props.projectData.description}</p>
                       <Link to={`project-details/${this.props.projectData.id}`}>
                           <button className="btn btn-primary">

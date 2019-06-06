@@ -53,10 +53,14 @@ class App extends React.Component{
                 }
             })
             .catch( error => console.error(error))
-            .finally( response => console.log('inside .finally login ', response))
+            .finally( () => {})
     }
-    getProjects() {
-        axios.get('/api/projects.php')
+    getProjects(id) {
+        let query = '';
+        if(id) {
+            query = `?user=${id}`;
+        }
+        axios.get(`/api/projects.php${query}`)
             .then(response => {
                 // handle success
                 console.log(response.data);

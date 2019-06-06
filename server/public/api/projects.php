@@ -11,7 +11,11 @@ if(!$conn){
 }
 
 if (empty($_GET['user'])) {
-  $targetUser = "* FROM `project` WHERE `status` = 'published'";
+  $targetUser = "p.`*`, u.`username` 
+    FROM `project` AS p 
+    JOIN `user` AS u 
+    ON u.`id` = p.`user_id` 
+    WHERE `status` = 'published'";
 } else {
   $user = $_GET['user'];
   $targetUser = "p.`*`, u.`username`
