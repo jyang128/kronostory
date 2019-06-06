@@ -3,14 +3,6 @@ body {
     position: relative;
     height: 100vh;
 }
-/* button styling */
-.btn-primary {
-    background-color: #A167A5;
-    border: none;
-}
-.btn-primary:hover {
-    background-color: #8b508f;
-}
 /* modal (timeline entry form) */
 .overlay {
     position: fixed;
@@ -42,4 +34,44 @@ body {
 .modal-form.is-open {
     transform: translate(-50%, -50%);
 }
+/* button styling */
+.btn-primary {
+    background-color: #A167A5;
+    border: none;
+}
+.btn-primary:hover {
+    background-color: #8b508f;
+}
 
+.radio-container label {
+    margin-left: 15px;
+}
+
+.radio-container input[type=radio] {
+    display: none;
+}
+
+.radio-container input[type=radio] + label {
+    position: relative;
+}
+
+.radio-container input[type=radio] + label:before {
+    content: "";
+    position: absolute;
+    left: -25px;
+    top:50%;
+    transform: translateY(-50%);
+    width: 20px;
+    height: 20px;
+    background-color: #fff;
+    border: 1px solid #CCC;
+}
+
+.radio-container input[type=radio]:checked + label {
+    font-weight:bold;
+}
+
+.radio-container input[type=radio]:checked + label:before {
+    background-image: url(images/checkmark.svg);
+    background-position: center;
+}

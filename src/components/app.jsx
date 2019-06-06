@@ -8,16 +8,17 @@ import ProjectCatalog from './project/project-catalog';
 import ProjectDetails from './project/project-details';
 import UserLogin from './forms/user-login';
 import UserSignup from './forms/user-signup';
-import { Route, Switch } from 'react-router-dom';
+import { Route, Switch, withRouter } from 'react-router-dom';
 
-export default class App extends React.Component{
+class App extends React.Component{
     constructor(props){
         super(props);
         this.state = {
             projects: [],
-            user: null
+            user: null,
         }
         this.delete = this.delete.bind(this);
+        this.createNewProject = this.createNewProject.bind(this);
     }
     componentDidMount() {
         this.getProjects();
@@ -46,23 +47,22 @@ export default class App extends React.Component{
         const submittedEmail = loginInfo.email;
         axios.get(`/api/login.php?email=${submittedEmail}`)
             .then(response => {
-                console.log(response.data);
-                this.setState({user: response.data[0]})
+                if (response.data[0].id) {
+                    this.setState({user: response.data[0]}, () => {
+                        this.props.history.push('/dashboard');
+                    });
+                }
             })
             .catch( error => console.error(error))
-            .finally( response => console.log('inside .finally login ', response))
+            .finally( () => {})
     }
     getProjects() {
-        axios.get('/api/projects.php')
+        axios.get(`/api/projects.php`)
             .then(response => {
                 // handle success
-                console.log(response.data);
                 this.setState({
-                    projects: response.data, 
-                    userId: response.data[1].user_id
-                }, ()=>console.log("userid: ", this.state.userId)
-                );
-                console.log(this.state);
+                    projects: response.data
+                })
             })
             .catch(function (error) {
                 // handle error
@@ -71,6 +71,23 @@ export default class App extends React.Component{
             .finally(function (response) {
               
             });
+    }
+    createNewProject(formData){
+        axios.post('/api/uploads/create-project.php', formData, {
+            headers: {
+              'Content-Type': 'multipart/form-data'
+            }
+          })
+          .then(response => {
+              let newProjects = [...this.state.projects,response.data[0]]
+              this.setState({projects: newProjects}, () => {
+                this.props.history.push('/dashboard');
+            });
+            
+          })
+          .catch(function (error) {
+              console.log(error);
+          });
     }
     render(){
         return(
@@ -83,7 +100,13 @@ export default class App extends React.Component{
                     <Route exact path="/" render={props => <ProjectCatalog {...props} projects={this.state.projects}/> }/>
                     <Route path="/user-login" render={props => <UserLogin {...props} loginAxios={loginInfo => this.loginUser(loginInfo)} /> } />
                     <Route path="/user-signup" component={UserSignup}/>
-                    <Route path="/dashboard" render={props => <Dashboard {...props} projects={this.state.projects} delete={this.delete} userStatus={this.state.user}/> }/>
+                    <Route path="/dashboard" render={props => (
+                        <Dashboard {...props} 
+                            delete={this.delete} 
+                            userStatus={this.state.user}
+                        />
+                        )
+                    }/>
                     <Route 
                         path="/project-details/:id"
                         render={props => (
@@ -95,7 +118,7 @@ export default class App extends React.Component{
                                 {...props}
                             />) }
                     />
-                    <Route path="/create-project" render={props => <CreateProjectForm {...props} userId={this.state.userId}/> }/>
+                    <Route path="/create-project" render={props => <CreateProjectForm {...props} userId={this.state.user.id} createNewProject={this.createNewProject}/> }/>
                 </Switch>
             </div>
             <div className="container-fluid footer">
@@ -105,3 +128,5 @@ export default class App extends React.Component{
         );
     }
 }
+
+export default withRouter(App);
