@@ -20,7 +20,6 @@
     $projTimelineDesc= $_POST["proj-timeline-desc"];
     $projCategory = $_POST["proj-category"];
 
-
     if ($_POST["status"] === "published") {
         $projStatus = 1;
     }

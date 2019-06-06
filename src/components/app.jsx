@@ -79,7 +79,8 @@ class App extends React.Component{
             }
           })
           .then(response => {
-              this.setState({projects: this.state.projects.concat(response)}, () => {
+              let newProjects = [...this.state.projects,response.data[0]]
+              this.setState({projects: newProjects}, () => {
                 this.props.history.push('/dashboard');
             });
             
@@ -89,7 +90,6 @@ class App extends React.Component{
           });
     }
     render(){
-        console.log('after creation', this.state.projects)
         return(
             <React.Fragment>
             <div className="container-fluid header">
