@@ -13,14 +13,6 @@ export default class ProjectDetails extends React.Component {
             timelineentries: []
         }
     }
-    handleUsernameClick(event) {
-        event.preventDefault();
-        this.props.history.push({
-            pathname: '/dashboard',
-            search: `?user=${this.state.project.id}`,
-            state: {userId: this.state.project.id, username: this.state.project.username}
-        });
-    }
     getProjectDetails(id) {
         axios.get(`/api/project-details.php?id=${id}`)
             .then(response => {
@@ -49,12 +41,7 @@ export default class ProjectDetails extends React.Component {
                     </div>
                     <div className="col-12 col-md-7 mt-4 mt-md-0">
                         <h3>{this.state.project.project_title}</h3>
-                        <div 
-                            className="font-weight-light mt-3" 
-                            onClick={event => this.handleUsernameClick(event)}
-                        >
-                            <div>By: {this.state.project.username}</div>
-                        </div>
+                        <div className="font-weight-light mt-3">By: {this.state.project.username}</div>
                         <div className=" mt-4">{this.state.project.project_description}</div>
                     </div>
                 </div>
