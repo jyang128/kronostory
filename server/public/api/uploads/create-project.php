@@ -20,6 +20,10 @@
     $projTimelineDesc= $_POST["proj-timeline-desc"];
     $projCategory = $_POST["proj-category"];
 
+    if ($_POST["status"] === "published") {
+        $projStatus = 1;
+    }
+
     $targetProjMainImg = NULL;
     $targetProjItemImg = NULL;
 
@@ -72,7 +76,7 @@
 
 
     print_r("$projName - $projDesc - $userId -  $targetProjMainImg - $projSecImages - $projTimelineDesc - $projCategory");
-    $postQuery = "INSERT INTO `project` (`title`, `description`, `user_id`, `primary_image`, `secondary_images`, `timeline_description`, `category`) VALUES ('{$projName}','{$projDesc}',{$userId},'{$targetProjMainImg}','{$projSecImages}','{$projTimelineDesc}','{$projCategory}')";
+    $postQuery = "INSERT INTO `project` (`title`, `description`, `user_id`, `primary_image`, `secondary_images`, `timeline_description`, `category`, `status`) VALUES ('{$projName}','{$projDesc}',{$userId},'{$targetProjMainImg}','{$projSecImages}','{$projTimelineDesc}','{$projCategory}', {$projStatus})";
 
     $response = mysqli_query($conn, $postQuery);
 
@@ -96,7 +100,9 @@
           $outputResult[] = $row;
         }
 
-        if ($_POST["projImgHasUpload"] != 'false' || $projItemName = $_POST["proj-item-name"]) {
+        $projItemName = $_POST["proj-item-name"];
+
+        if (($projItemName != 'undefined') || $_POST["projImgHasUpload"] != 'false') {
             $postProdItemQuery = "INSERT INTO `project_items` (`title`, `image`, `project_id`) VALUES ('{$projItemName}', '{$targetProjItemImg}', $lastId)";
             $postProdItemResult = mysqli_query($conn, $postProdItemQuery);
 

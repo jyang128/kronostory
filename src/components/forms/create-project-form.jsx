@@ -152,6 +152,7 @@ export default class CreateProjectForm extends React.Component {
                             <div className="col-9">
                                 <div className="row">
                                     <input type="hidden" name="formHasUpload" value="true" />
+                                    <input type="hidden" name="status" value="published" />
                                     <div className="form-group col-6"><button type="submit" className="btn btn-primary mr-2 btn-block">Create Project</button></div>
                                     <div className="form-group col-6"><button className="btn btn-secondary btn-block" onClick={event => this.handleCancel(event)}>Cancel</button></div>
                                 </div>
