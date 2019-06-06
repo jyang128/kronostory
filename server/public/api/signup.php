@@ -10,16 +10,17 @@ if(!$conn){
   throw new Exception('there is an error' . mysqli_connect_error());
 }
 $body = file_get_contents('php://input');
-$user = json_decode($body);
-/*$firstName = $user['first_name'];
+$user = json_decode($body, true);
+$firstName = $user['first_name'];
 $lastName = $user['last_name'];
 $username = $user['username'];
 $password = $user['password'];
-$email = $user['email'];*/
+$email = $user['email'];
 
-/*$postQuery = "INSERT INTO `user`(`first_name`, `last_name`, `username`, `password`, `email`)
-    VALUES ({$firstName},{$lastName},{$username},{$password},{$email})";
+$postQuery = "INSERT INTO `user`(`first_name`, `last_name`, `username`, `password`, `email`)
+    VALUES ('{$firstName}','{$lastName}','{$username}','{$password}','{$email}')";
 
+print($postQuery);
 $response = mysqli_query($conn, $postQuery);
 
 if ($response) {
@@ -47,7 +48,7 @@ if ($response) {
     print $json_output;
 
 } else {
-    throw new Exception("failed to create user: " . mysqli_connect_error());
-}*/
+    throw new Exception("failed to create  user: " . mysqli_connect_error());
+}
 
 ?>
