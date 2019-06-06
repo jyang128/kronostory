@@ -15,7 +15,7 @@ class App extends React.Component{
         super(props);
         this.state = {
             projects: [],
-            user: null
+            user: null,
         }
         this.delete = this.delete.bind(this);
     }
@@ -59,13 +59,9 @@ class App extends React.Component{
         axios.get('/api/projects.php')
             .then(response => {
                 // handle success
-                console.log(response.data);
                 this.setState({
-                    projects: response.data, 
-                    userId: response.data[1].user_id
-                }, ()=>console.log("userid: ", this.state.userId)
-                );
-                console.log(this.state);
+                    projects: response.data
+                })
             })
             .catch(function (error) {
                 // handle error
@@ -76,6 +72,7 @@ class App extends React.Component{
             });
     }
     render(){
+        console.log(this.state)
         return(
             <React.Fragment>
             <div className="container-fluid header">
@@ -98,7 +95,7 @@ class App extends React.Component{
                                 {...props}
                             />) }
                     />
-                    <Route path="/create-project" render={props => <CreateProjectForm {...props} userId={this.state.userId}/> }/>
+                    <Route path="/create-project" render={props => <CreateProjectForm {...props} userId={this.state.user.id}/> }/>
                 </Switch>
             </div>
             <div className="container-fluid footer">

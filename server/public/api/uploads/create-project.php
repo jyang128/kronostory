@@ -1,53 +1,130 @@
 <?php
-    //require_once '../db_connection.php';
+    require_once '../db_connection.php';
     require_once '../functions.php';
 
     set_exception_handler("error_handler");
 
-    //r$output = ["error"=> "none", "upload"=>"Success"];
+    startup();
+
+    if(!$conn){
+        throw new Exception('there is an error' . mysqli_connect_error());
+    }
+
+    $output = ["error"=> "none", "upload"=>"Success"];
 
     $userId = $_POST["user-id"];
     $userId = json_decode($userId, true);
+    $projName= $_POST["proj-name"];
+    $projDesc= $_POST["proj-desc"];
+    $projSecImages = '';
+    $projTimelineDesc= $_POST["proj-timeline-desc"];
+    $projCategory = $_POST["proj-category"];
+
+    if ($_POST["status"] === "published") {
+        $projStatus = 1;
+    }
+
+    $targetProjMainImg = NULL;
+    $targetProjItemImg = NULL;
 
     $target_dir = 'image-uploads/' . $userId . '/';
-    $target_file = $target_dir . $_FILES["main-proj-img"]["name"];
 
-    if (is_dir($target_dir)) {
-        if (file_exists($target_file)) {
-            $output["error"] = 'File already exists';
-            $output["upload"] = 'Fail';
-            echo json_encode($output);
-            return;
-        }
-    } else {
+    //file upload
+    if (!(is_dir($target_dir))) {
         mkdir($target_dir);
     }
 
-    if (isset($_POST["hasUpload"])){
-        
-        $file = $_FILES["main-proj-img"];
-        $pathExtension = strtolower(pathinfo($file["name"], PATHINFO_EXTENSION));
+    if ($_POST["mainImgHasUpload"] != 'false') {
+        $projMainImgFile = $_FILES["proj-main-img"];
+        $projMainImgName = $projMainImgFile["name"];
+        $targetProjMainImg = $target_dir . $projMainImgName;
+        $pathExtension = strtolower(pathinfo($projMainImgName, PATHINFO_EXTENSION));
 
-        if($file["size"] > 3000000) {
+        if($projMainImgFile["size"] > 4000000) {
             $output["error"] = 'The file is too large';
             $output["upload"] = 'Fail';
-
         } elseif(($pathExtension !== 'jpg') && ($pathExtension !== 'png') && ($pathExtension !== 'gif') && ($pathExtension !== 'jpeg')) {
-
             $output["error"] = 'Wrong File Name. Must be jpg, png, jpeg, or gif';
             $output["upload"] = 'Fail';
-            //throw new Exception('Wrong file name');
-
         } else {
-            
-            if(move_uploaded_file($_FILES["main-proj-img"]["tmp_name"], $target_file)) {
-                $output["filepath"] = stripslashes($target_file);
-                $output["msg"] = "The file " . $_FILES["main-proj-img"]["name"] . " has been uploaded.";
+            if(move_uploaded_file($projMainImgFile["tmp_name"], $targetProjMainImg)) {
+                $output["filepath"] = stripslashes($targetProjMainImg);
+                $output["msg"] = "The file " . $projMainImgName . " has been uploaded.";
+            }
+        }
+    }
+
+    if ($_POST["projImgHasUpload"] != 'false') {
+        $projItemImgFile = $_FILES["proj-item-img"];
+        $projItemImgName = $projItemImgFile["name"];
+        $targetProjItemImg = $target_dir . $projItemImgName;
+        $pathExtension = strtolower(pathinfo($projItemImgName, PATHINFO_EXTENSION));
+
+        if($projItemImgFile["size"] > 4000000) {
+            $output["error"] = 'The file is too large';
+            $output["upload"] = 'Fail';
+        } elseif(($pathExtension !== 'jpg') && ($pathExtension !== 'png') && ($pathExtension !== 'gif') && ($pathExtension !== 'jpeg')) {
+            $output["error"] = 'Wrong File Name. Must be jpg, png, jpeg, or gif';
+            $output["upload"] = 'Fail';
+        } else {
+            if(move_uploaded_file($projItemImgFile["tmp_name"], $targetProjItemImg)) {
+                $output["itemFilepath"] = stripslashes($targetProjItemImg);
+                $output["itemMsg"] = "The file " . $projItemImgName . " has been uploaded.";
             }
         }
     }
 
 
-    echo json_encode($output);
+    print_r("$projName - $projDesc - $userId -  $targetProjMainImg - $projSecImages - $projTimelineDesc - $projCategory");
+    $postQuery = "INSERT INTO `project` (`title`, `description`, `user_id`, `primary_image`, `secondary_images`, `timeline_description`, `category`, `status`) VALUES ('{$projName}','{$projDesc}',{$userId},'{$targetProjMainImg}','{$projSecImages}','{$projTimelineDesc}','{$projCategory}', {$projStatus})";
 
+    $response = mysqli_query($conn, $postQuery);
+
+    if ($response) {
+        $lastId = mysqli_insert_id($conn);
+        $getQuery = "SELECT * FROM `project` WHERE `id` = {$lastId}";
+        $result = mysqli_query($conn, $getQuery);
+
+        if ($result) {
+            $numRows = mysqli_num_rows($result);
+        } else {
+            throw new Exception('there is an error' . mysqli_connect_error());
+        }
+        if ($numRows === 0) {
+          throw new Exception("no projects!");
+        }
+
+        $outputResult = [];
+
+        while ($row = mysqli_fetch_assoc($result)) {   
+          $outputResult[] = $row;
+        }
+
+        $projItemName = $_POST["proj-item-name"];
+
+        if (($projItemName != 'undefined') || $_POST["projImgHasUpload"] != 'false') {
+            $postProdItemQuery = "INSERT INTO `project_items` (`title`, `image`, `project_id`) VALUES ('{$projItemName}', '{$targetProjItemImg}', $lastId)";
+            $postProdItemResult = mysqli_query($conn, $postProdItemQuery);
+
+            if ($postProdItemResult) {
+                $prodItemNumRows = mysqli_num_rows($postProdItemResult);
+            } else {
+                throw new Exception('there is an error' . mysqli_connect_error());
+            }
+            if ($prodItemNumRows === 0) {
+                throw new Exception("no project items!");
+            }
+            while ($projItemRow = mysqli_fetch_assoc($postProdItemResult)) {   
+                $outputResult[] = $projItemRow;
+            }
+        }
+
+        $json_output = json_encode($outputResult);
+        print $json_output;
+    
+    } else {
+        throw new Exception("failed to create project: " . mysqli_connect_error());
+    }
+
+    echo json_encode($output);
 ?>
