@@ -9,7 +9,6 @@ export default class ProjectCard extends React.Component{
     }
     render(){
         let deleteButton;
-        console.log(this.props.userStatus);
         if(this.props.userStatus){
             deleteButton = (<UncontrolledDropdown className="dots">
               <DropdownToggle caret>
