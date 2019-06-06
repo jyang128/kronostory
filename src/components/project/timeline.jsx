@@ -36,7 +36,7 @@ export default class Timeline extends React.Component {
             swipeToSlide: true
         };
         const timelineEntries = this.props.entries.map((entry, index) => <TimelineEntry key={entry.timeline_id} entryData={this.props.entries[index]} />)
-        
+
         let modalContent = null;
         let overlayStatus = null;
         if (!this.state.opened) {
@@ -67,7 +67,6 @@ export default class Timeline extends React.Component {
             </div>
             </div>
             </React.Fragment>
-            
         )
     }
 }

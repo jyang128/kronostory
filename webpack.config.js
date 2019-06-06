@@ -38,6 +38,9 @@ module.exports = {
     contentBase: publicPath,
     historyApiFallback: true,
     watchContentBase: true,
+    watchOptions: {
+      ignored: [/node_modules/, /server/]
+    },
     stats: 'minimal',
     proxy: {
       '/api': {
