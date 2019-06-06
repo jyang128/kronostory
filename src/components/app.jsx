@@ -8,9 +8,9 @@ import ProjectCatalog from './project/project-catalog';
 import ProjectDetails from './project/project-details';
 import UserLogin from './forms/user-login';
 import UserSignup from './forms/user-signup';
-import { Route, Switch } from 'react-router-dom';
+import { Route, Switch, withRouter } from 'react-router-dom';
 
-export default class App extends React.Component{
+class App extends React.Component{
     constructor(props){
         super(props);
         this.state = {
@@ -46,8 +46,11 @@ export default class App extends React.Component{
         const submittedEmail = loginInfo.email;
         axios.get(`/api/login.php?email=${submittedEmail}`)
             .then(response => {
-                console.log(response.data);
-                this.setState({user: response.data[0]})
+                if (response.data[0].id) {
+                    this.setState({user: response.data[0]}, () => {
+                        this.props.history.push('/dashboard');
+                    });
+                }
             })
             .catch( error => console.error(error))
             .finally( response => console.log('inside .finally login ', response))
@@ -105,3 +108,5 @@ export default class App extends React.Component{
         );
     }
 }
+
+export default withRouter(App);
