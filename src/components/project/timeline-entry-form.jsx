@@ -12,10 +12,20 @@ export default class TimelineEntryForm extends React.Component {
             description: '',
             image: null
         };
+        this.onChangeHandler = this.onChangeHandler.bind(this);
     }
     handleSubmitPress(event){
         event.preventDefault();
         console.log('submitting entry', this.state);
+    }
+    onChangeHandler(event){
+        switch(event.target.id){
+            case "inputTitle":
+                this.setState({title: event.target.value});
+                break;
+            case "inputDescription":
+                this.setState({description: event.target.value});
+        }
     }
     render() {
         return (
@@ -29,8 +39,11 @@ export default class TimelineEntryForm extends React.Component {
                         <Label>Give it a short title</Label>
                         <Input 
                             type="text" 
+                            id="inputTitle" 
+                            value={this.state.title}
                             className="form-control" 
                             placeholder="Enter Title"
+                            onChange={this.onChangeHandler}
                         />
                         <small className="form-text text-muted">Make it sound cool! Maximum 60 characters.</small>
                     </FormGroup>
@@ -38,8 +51,11 @@ export default class TimelineEntryForm extends React.Component {
                         <Label>Summary</Label>
                         <Input 
                             type="textarea" 
+                            id="inputDescription" 
+                            value={this.state.description}
                             className="form-control" 
                             placeholder="Summary of the project."
+                            onChange={this.onChangeHandler}
                         />
                         <small className="form-text text-muted">A short description that says it all. Maximum 140 characters.</small>
                     </FormGroup>
