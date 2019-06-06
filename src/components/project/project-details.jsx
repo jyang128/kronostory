@@ -17,7 +17,8 @@ export default class ProjectDetails extends React.Component {
         event.preventDefault();
         this.props.history.push({
             pathname: '/dashboard',
-            search: `?user=${this.state.project.id}`
+            search: `?user=${this.state.project.id}`,
+            state: {userId: this.state.project.id, username: this.state.project.username}
         });
     }
     getProjectDetails(id) {
