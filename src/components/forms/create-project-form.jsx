@@ -7,7 +7,9 @@ export default class CreateProjectForm extends React.Component {
         super(props);
         this.state={
             mainFile: null,
-            itemFile: null
+            itemFile: null,
+            mainImgHasUpload: false,
+            projImgHasUpload: false
         }
         this.handleFormSubmit = this.handleFormSubmit.bind(this);
         this.onFileChange = this.onFileChange.bind(this);
@@ -22,10 +24,20 @@ export default class CreateProjectForm extends React.Component {
         this.props.setView('dashboard', {});
     }
     onFileChange(e) {
-        this.setState({mainFile:e.target.files[0]}, ()=>console.log("the file: ", this.state.mainFile));
+        console.log("the target file: ", e.target.files[0]);
+        if (e.target.files[0] !== undefined) {
+            this.setState({ mainFile:e.target.files[0], mainImgHasUpload: true });
+        } else {
+            this.setState({mainFile:'', mainImgHasUpload: false });
+        }
     }
     onFileChangeItem(e) {
-        this.setState({itemFile:e.target.files[0]} , ()=>console.log("the file: ", this.state.itemFile));
+        console.log("the target file: ", e.target.files[0]);
+        if (e.target.files[0] !== undefined) {
+            this.setState({ itemFile:e.target.files[0], projImgHasUpload: true });
+        } else {
+            this.setState({ itemFile:'', projImgHasUpload: false });
+        }
     }
     handleFormSubmit(event) {
         console.log("handle form submit");
@@ -79,6 +91,7 @@ export default class CreateProjectForm extends React.Component {
                                 </div>
                                 <div className="form-group">
                                     <button className="btn btn-outline-primary"><i className="fas fa-plus"></i> Add another image</button>
+                                    <input id="mainImgHasUpload" type="hidden" name="mainImgHasUpload" value={this.state.mainImgHasUpload} />
                                 </div>
                                 <hr />
                                 <div className="form-row">
@@ -94,6 +107,7 @@ export default class CreateProjectForm extends React.Component {
                                         <div className="custom-file">
                                             <label className="custom-file-label" htmlFor="proj-item-img">{this.state.itemFile ? this.state.itemFile.name : "Choose File"}</label>
                                             <input id="proj-item-img" name="proj-item-img" type="file" className="form-control-file" onChange={this.onFileChangeItem}/>
+                                            <input id="projImgHasUpload" type="hidden" name="projImgHasUpload" value={this.state.projImgHasUpload} />
                                         </div>
                                     </div>
                                     <div className="form-group col-12">
@@ -101,7 +115,6 @@ export default class CreateProjectForm extends React.Component {
                                     </div>
                                 </div>
                                 <hr />
-                                <input type="hidden" name="hasUpload" value="true" />
                                 <input type="hidden" name="user-id" value={this.props.userId} />
                             </div>
                             <div className="col-4">
@@ -138,6 +151,7 @@ export default class CreateProjectForm extends React.Component {
 
                             <div className="col-9">
                                 <div className="row">
+                                    <input type="hidden" name="formHasUpload" value="true" />
                                     <div className="form-group col-6"><button type="submit" className="btn btn-primary mr-2 btn-block">Create Project</button></div>
                                     <div className="form-group col-6"><button className="btn btn-secondary btn-block" onClick={event => this.handleCancel(event)}>Cancel</button></div>
                                 </div>
