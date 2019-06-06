@@ -20,6 +20,7 @@
     $projTimelineDesc= $_POST["proj-timeline-desc"];
     $projCategory = $_POST["proj-category"];
 
+
     if ($_POST["status"] === "published") {
         $projStatus = 1;
     }
@@ -74,8 +75,6 @@
         }
     }
 
-
-    print_r("$projName - $projDesc - $userId -  $targetProjMainImg - $projSecImages - $projTimelineDesc - $projCategory");
     $postQuery = "INSERT INTO `project` (`title`, `description`, `user_id`, `primary_image`, `secondary_images`, `timeline_description`, `category`, `status`) VALUES ('{$projName}','{$projDesc}',{$userId},'{$targetProjMainImg}','{$projSecImages}','{$projTimelineDesc}','{$projCategory}', {$projStatus})";
 
     $response = mysqli_query($conn, $postQuery);
@@ -104,27 +103,22 @@
 
         if (($projItemName != 'undefined') || $_POST["projImgHasUpload"] != 'false') {
             $postProdItemQuery = "INSERT INTO `project_items` (`title`, `image`, `project_id`) VALUES ('{$projItemName}', '{$targetProjItemImg}', $lastId)";
+
+
             $postProdItemResult = mysqli_query($conn, $postProdItemQuery);
 
             if ($postProdItemResult) {
-                $prodItemNumRows = mysqli_num_rows($postProdItemResult);
+                $prodItemNumRows = mysqli_affected_rows($conn);
             } else {
                 throw new Exception('there is an error' . mysqli_connect_error());
             }
             if ($prodItemNumRows === 0) {
                 throw new Exception("no project items!");
             }
-            while ($projItemRow = mysqli_fetch_assoc($postProdItemResult)) {   
-                $outputResult[] = $projItemRow;
-            }
-        }
-
-        $json_output = json_encode($outputResult);
-        print $json_output;
-    
+        }    
     } else {
         throw new Exception("failed to create project: " . mysqli_connect_error());
     }
-
-    echo json_encode($output);
+    $json_output = json_encode($outputResult);
+    print $json_output;
 ?>

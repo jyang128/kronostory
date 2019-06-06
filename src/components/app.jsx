@@ -18,6 +18,7 @@ class App extends React.Component{
             user: null,
         }
         this.delete = this.delete.bind(this);
+        this.createNewProject = this.createNewProject.bind(this);
     }
     componentDidMount() {
         this.getProjects();
@@ -71,8 +72,24 @@ class App extends React.Component{
               
             });
     }
+    createNewProject(formData){
+        axios.post('/api/uploads/create-project.php', formData, {
+            headers: {
+              'Content-Type': 'multipart/form-data'
+            }
+          })
+          .then(response => {
+              this.setState({projects: this.state.projects.concat(response)}, () => {
+                this.props.history.push('/dashboard');
+            });
+            
+          })
+          .catch(function (error) {
+              console.log(error);
+          });
+    }
     render(){
-        console.log(this.state)
+        console.log('after creation', this.state.projects)
         return(
             <React.Fragment>
             <div className="container-fluid header">
@@ -95,7 +112,7 @@ class App extends React.Component{
                                 {...props}
                             />) }
                     />
-                    <Route path="/create-project" render={props => <CreateProjectForm {...props} userId={this.state.user.id}/> }/>
+                    <Route path="/create-project" render={props => <CreateProjectForm {...props} userId={this.state.user.id} createNewProject={this.createNewProject}/> }/>
                 </Switch>
             </div>
             <div className="container-fluid footer">

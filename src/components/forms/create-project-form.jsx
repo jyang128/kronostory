@@ -43,17 +43,7 @@ export default class CreateProjectForm extends React.Component {
         console.log("handle form submit");
         event.preventDefault();
         let formData = new FormData(event.target);
-        axios.post('/api/uploads/create-project.php', formData, {
-              headers: {
-                'Content-Type': 'multipart/form-data'
-              }
-            })
-            .then(response => {
-                this.props.callback(response)
-            })
-            .catch(function (error) {
-                console.log(error);
-            });
+        this.props.createNewProject(formData);
     }
     render(){
         return(
