@@ -8,15 +8,18 @@ export default class Timeline extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            opened: false
+            modal: false
         }
         this.handleOpen = this.handleOpen.bind(this);
         this.handleClose = this.handleClose.bind(this);
     }
     handleOpen(){
-        this.setState({
-            opened: !this.state.opened
-        });
+        this.setState(prevState => ({
+            modal: !prevState.modal
+          }));
+        // this.setState({
+        //     opened: !this.state.opened
+        // });
         console.log('handling open');
     }
     handleClose(){
@@ -36,16 +39,6 @@ export default class Timeline extends React.Component {
             swipeToSlide: true
         };
         const timelineEntries = this.props.entries.map((entry, index) => <TimelineEntry key={entry.timeline_id} entryData={this.props.entries[index]} />)
-        
-        let modalContent = null;
-        let overlayStatus = null;
-        if (!this.state.opened) {
-            modalContent = 'modal-form';
-            overlayStatus = 'overlay';
-        } else {
-        modalContent = 'modal-form is-open align-self-center';
-        overlayStatus = 'overlay is-applied';
-        }
 
         return (
             <React.Fragment>
@@ -61,13 +54,8 @@ export default class Timeline extends React.Component {
                     </Slider>
                 </div>
             </div>
-            <div className={overlayStatus} onClick={this.handleClose}>
-            <div className={modalContent}>
-                <TimelineEntryForm/>
-            </div>
-            </div>
+            <TimelineEntryForm toggle={this.handleOpen} modal={this.state.modal}/>
             </React.Fragment>
-            
         )
     }
 }
