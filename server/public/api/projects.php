@@ -10,19 +10,15 @@ if(!$conn){
   throw new Exception('there is an error' . mysqli_connect_error());
 }
 
-if (empty($_GET['userId'])) {
-  $targetUser = "p.`*`, u.`username` 
-    FROM `project` AS p 
-    JOIN `user` AS u 
-    ON u.`id` = p.`user_id` 
-    WHERE `status` = 'published'";
+if (empty($_GET['user'])) {
+  $targetUser = "* FROM `project` WHERE `status` = 'published'";
 } else {
-  $user = $_GET['userId'];
+  $user = $_GET['user'];
   $targetUser = "p.`*`, u.`username`
     FROM `project` AS p
     JOIN `user` AS u
     ON p.`user_id` = u.`id`
-    WHERE p.`user_id` = '{$user}' AND `status` = 'published'";
+    WHERE u.`username` = '{$user}' AND `status` = 'published'";
 }
 
 $query = "SELECT {$targetUser}";

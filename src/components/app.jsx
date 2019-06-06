@@ -54,10 +54,10 @@ class App extends React.Component{
                 }
             })
             .catch( error => console.error(error))
-            .finally( () => {})
+            .finally( response => console.log('inside .finally login ', response))
     }
     getProjects() {
-        axios.get(`/api/projects.php`)
+        axios.get('/api/projects.php')
             .then(response => {
                 // handle success
                 this.setState({
@@ -100,13 +100,7 @@ class App extends React.Component{
                     <Route exact path="/" render={props => <ProjectCatalog {...props} projects={this.state.projects}/> }/>
                     <Route path="/user-login" render={props => <UserLogin {...props} loginAxios={loginInfo => this.loginUser(loginInfo)} /> } />
                     <Route path="/user-signup" component={UserSignup}/>
-                    <Route path="/dashboard" render={props => (
-                        <Dashboard {...props} 
-                            delete={this.delete} 
-                            userStatus={this.state.user}
-                        />
-                        )
-                    }/>
+                    <Route path="/dashboard" render={props => <Dashboard {...props} projects={this.state.projects} delete={this.delete} userStatus={this.state.user}/> }/>
                     <Route 
                         path="/project-details/:id"
                         render={props => (
