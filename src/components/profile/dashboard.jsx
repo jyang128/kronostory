@@ -12,7 +12,6 @@ export default class Dashboard extends React.Component{
         }
     }
     componentDidMount() {
-        debugger
         const id = this.props.location.state.userId * 1;
         this.getIndividualProjects(id);
     }
@@ -31,7 +30,6 @@ export default class Dashboard extends React.Component{
                         })
                     }
                 } else {
-                    debugger
                     this.setState({
                         individualProjects: response.data, 
                     }, ()=>console.log("userid: ", this.state.userId)
