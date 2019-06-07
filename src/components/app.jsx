@@ -49,15 +49,19 @@ class App extends React.Component{
             .then(response => {
                 if (response.data[0].id) {
                     this.setState({user: response.data[0]}, () => {
-                        this.props.history.push('/dashboard');
+                        this.props.history.push({
+                            pathname: '/dashboard',
+                            search: `?user=${this.state.user.id}`,
+                            state: {userId: this.state.user.id, username: this.state.user.username, loggedUser: this.state.user}
+                        });
                     });
                 }
             })
             .catch( error => console.error(error))
-            .finally( response => console.log('inside .finally login ', response))
+            .finally( () => {})
     }
     getProjects() {
-        axios.get('/api/projects.php')
+        axios.get(`/api/projects.php`)
             .then(response => {
                 // handle success
                 this.setState({
@@ -93,14 +97,20 @@ class App extends React.Component{
         return(
             <React.Fragment>
             <div className="container-fluid header">
-                <Header title="KronoStory" setView={this.setView} currentUser={this.state.user} />
+                <Header title="KronoStory" currentUser={this.state.user} />
             </div>
             <div className="container-fluid">
                 <Switch>
                     <Route exact path="/" render={props => <ProjectCatalog {...props} projects={this.state.projects}/> }/>
                     <Route path="/user-login" render={props => <UserLogin {...props} loginAxios={loginInfo => this.loginUser(loginInfo)} /> } />
                     <Route path="/user-signup" component={UserSignup}/>
-                    <Route path="/dashboard" render={props => <Dashboard {...props} projects={this.state.projects} delete={this.delete} userStatus={this.state.user}/> }/>
+                    <Route path="/dashboard" render={props => (
+                        <Dashboard {...props} 
+                            delete={this.delete} 
+                            userStatus={this.state.user}
+                        />
+                        )
+                    }/>
                     <Route 
                         path="/project-details/:id"
                         render={props => (
@@ -110,6 +120,7 @@ class App extends React.Component{
                                     )[0]
                                 }
                                 {...props}
+                                loggedUser={this.state.user}
                             />) }
                     />
                     <Route path="/create-project" render={props => <CreateProjectForm {...props} userId={this.state.user.id} createNewProject={this.createNewProject}/> }/>
