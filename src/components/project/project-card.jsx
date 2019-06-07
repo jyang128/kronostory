@@ -1,23 +1,35 @@
 import React from 'react';
 import './project.css';
 import { Link } from 'react-router-dom';
-import { UncontrolledDropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
 
 export default class ProjectCard extends React.Component{
 	constructor(props){
 		super(props);
 	}
+	dropdown(event){
+		if(!event.target.querySelector(".delete")){
+			return;
+		}
+		if(event.target.querySelector(".delete").className === "delete d-none"){
+			event.target.querySelector(".delete").className = "delete";
+		}
+		else{
+			event.target.querySelector(".delete").className += " d-none";
+		}
+	}
     render(){
         let deleteButton;
         if(this.props.userStatus){
-            deleteButton = (<UncontrolledDropdown className="dots">
-					<DropdownToggle caret>
-					...
-					</DropdownToggle>
-					<DropdownMenu>
-						<DropdownItem onClick={()=>{this.props.delete(this.props.projectData.id);console.log("click")}}>Delete</DropdownItem>
-					</DropdownMenu>
-				</UncontrolledDropdown>);
+            deleteButton = (
+				<div>
+					<div className="dots" onClick={this.dropdown}>
+						...
+						<div className="delete d-none" onClick={()=>{this.props.delete(this.props.projectData.id);console.log("click")}}>
+							delete
+						</div>
+					</div>
+				</div>
+			);
         }
         else{
             deleteButton = null;
