@@ -4,13 +4,40 @@ body {
     height: 100vh;
 }
 /* modal (timeline entry form) */
+.dropdown-low{
+    display: inline-block;
+    position: absolute;
+    top: 70px;
+    right: 0;
+    border: 2px solid grey;
+    background-color: white;
+}
+.dropdown{
+    display: inline-block;
+    position: absolute;
+    top: 40px;
+    right: 0;
+    border: 2px solid grey;
+    background-color: white;
+}
+.dropdown.btn-danger{
+    background-color: #FF0000;
+    color: white;
+}
+.dropdown a.dropdown-link{
+    display: block;
+    color: black;
+}
+.dropdown a.dropdown-link:hover{
+    color: black;
+}
 .overlay {
     position: fixed;
     top: 0;
     left: 0;
     height: 100vh;
     width: 100vw;
-    background-color: rgba(0, 0, 0, 0.6); 
+    background-color: rgba(0, 0, 0, 0.6);
 }
 .modal-body{
     box-sizing: border-box;
@@ -31,7 +58,7 @@ body {
 }
 /* button styling */
 .btn-primary {
-    background-color: #A167A5;
+
     border: none;
 }
 .btn-primary:hover {

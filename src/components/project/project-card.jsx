@@ -10,8 +10,8 @@ export default class ProjectCard extends React.Component{
 		if(!event.target.querySelector(".delete")){
 			return;
 		}
-		if(event.target.querySelector(".delete").className === "delete d-none"){
-			event.target.querySelector(".delete").className = "delete";
+		if(event.target.querySelector(".delete").className === "dropdown delete btn-danger d-none"){
+			event.target.querySelector(".delete").className = "dropdown delete btn-danger";
 		}
 		else{
 			event.target.querySelector(".delete").className += " d-none";
@@ -24,7 +24,7 @@ export default class ProjectCard extends React.Component{
 				<div>
 					<div className="dots" onClick={this.dropdown}>
 						...
-						<div className="delete d-none" onClick={()=>{this.props.delete(this.props.projectData.id);console.log("click")}}>
+						<div className="dropdown delete btn-danger d-none" onClick={()=>{this.props.delete(this.props.projectData.id);console.log("click")}}>
 							delete
 						</div>
 					</div>

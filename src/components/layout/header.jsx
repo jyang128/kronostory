@@ -6,6 +6,19 @@ export default class Header extends React.Component {
     constructor(props){
         super(props);
     }
+    dropdown(event){
+		if(!event.target.querySelector(".dropdown")){
+			return;
+		}
+        console.log("click");
+		if(event.target.querySelector(".dropdown").className === "dropdown d-none"){
+            console.log("not showing yet");
+			event.target.querySelector(".dropdown").className = "dropdown";
+		}
+		else{
+			event.target.querySelector(".dropdown-item").className += " d-none";
+		}
+	}
     render(){
         return(
             <div className="row d-flex justify-content-between py-3 mx-2">
@@ -17,18 +30,34 @@ export default class Header extends React.Component {
 
                 {this.props.currentUser 
                     ?   <div className="menu-nav align-self-center">
-                            <Link to={{
-                                pathname: '/dashboard',
-                                search: `?user=${this.props.currentUser.id}`,
-                                state: {
-                                    userId: this.props.currentUser.id, 
-                                    username: this.props.currentUser.username, 
-                                    loggedUser: this.props.currentUser
-                                }
-                            }}>
-                                <span className="mr-1">{this.props.currentUser.username}</span>
-                                <i className="far fa-user-circle"></i>  
-                            </Link>
+                            <span className="mr-1" onClick={this.dropdown}>
+                                {this.props.currentUser.username}
+                                <div className="dropdown-low d-none">
+                                    <Link to={{
+                                        pathname: '/login',
+                                        search: `?user=${this.props.currentUser.id}`,
+                                        state: {
+                                            userId: this.props.currentUser.id, 
+                                            username: this.props.currentUser.username, 
+                                            loggedUser: this.props.currentUser
+                                        }
+                                    }} className="logout dropdown-link">
+                                        logout
+                                    </Link>
+                                    <Link to={{
+                                        pathname: '/dashboard',
+                                        search: `?user=${this.props.currentUser.id}`,
+                                        state: {
+                                            userId: this.props.currentUser.id, 
+                                            username: this.props.currentUser.username, 
+                                            loggedUser: this.props.currentUser
+                                        }
+                                    }} className="dashboard dropdown-link">
+                						dashboard
+                					</Link>
+                                </div>
+                            </span>
+                            <i className="far fa-user-circle"></i>  
                         </div>
                     :  <div className="menu-nav align-self-center">
                             <Link to="/user-signup">Sign Up</Link> <Link to="/user-login">Log In</Link>
