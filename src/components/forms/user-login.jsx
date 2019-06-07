@@ -64,4 +64,3 @@ export default class UserLogin extends React.Component {
         )
     }
 }
-
