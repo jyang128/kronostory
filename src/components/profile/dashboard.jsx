@@ -12,7 +12,8 @@ export default class Dashboard extends React.Component{
             userSeshData: {
                 id: null,
                 username: ''
-            }
+            },
+            loading: false
         }
     }
     componentDidMount() {
@@ -21,7 +22,8 @@ export default class Dashboard extends React.Component{
     }
     getIndividualProjects(id) {
         // before - loading screen
-        axios.get(`/api/projects.php?userId=${id}`)
+        this.setState({loading: true}, ()=>{
+            axios.get(`/api/projects.php?userId=${id}`)
             .then(response => {
                 this.setState({
                     userSeshData: response.data[0],
@@ -31,11 +33,13 @@ export default class Dashboard extends React.Component{
             .catch(function (error) {
                 console.error(error);
             })
-            .finally(
-                //set state and remove loading screen
-            )
+            .finally(()=>{
+                this.setState({loading: false});
+            })
+        })
     }
     render(){
+        console.log(this.state.loading);
         let userProjectCards = this.state.individualProjects.map( (project) => {
             return <ProjectCard 
                 key={project.id} 
@@ -55,6 +59,10 @@ export default class Dashboard extends React.Component{
         } else {
             createProjectButton = null;
         }
+        let loader = null;
+        if (this.state.loading) {
+            loader = <div className="loader"><img className="loading-icon" src="/images/loader.svg" /></div>
+        }
         return(
             <div className="container-fluid">
                 <div className="row d-flex justify-content-between py-3 mx-2">
@@ -68,6 +76,7 @@ export default class Dashboard extends React.Component{
                 <div className="row d-flex">
                     {userProjectCards}
                 </div>
+                {loader}
             </div>
         );
     }
