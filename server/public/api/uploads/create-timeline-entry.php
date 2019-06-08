@@ -43,9 +43,8 @@ $query = "INSERT INTO `timeline_entries` (`title`, `description`, `primary_image
 $result = mysqli_query($conn, $query);
 if($result){
     $lastId = mysqli_insert_id($conn);
-    $projectQuery = "SELECT te.`id` AS timeline_id, te.`title` AS timeline_entry_title, te.`date`, te.`description` AS timeline_entry_description, te.`primary_image` AS timeline_primary_image FROM `timeline_entries` AS te
-    WHERE `id` = {$lastId}
-    ORDER BY `date` ASC";
+    $projectQuery = "SELECT te.`id` AS timeline_id, te.`title` AS timeline_entry_title, te.`date`, te.`description` AS timeline_description, te.`primary_image` AS timeline_primary_image FROM `timeline_entries` AS te
+    WHERE `id` = {$lastId}";
 
     $result = mysqli_query($conn, $projectQuery);
     $output = [];
