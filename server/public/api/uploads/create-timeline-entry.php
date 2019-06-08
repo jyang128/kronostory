@@ -15,7 +15,7 @@ $primary_image = null;
 $secondary_images = '';
 $project_id = json_decode($_POST['project-id'], true); 
 $date = date("m/d/y");
-$target_dir = 'image-uploads/' . $user_id . '/';
+$target_dir = '../../image-uploads/' . $user_id . '/';
 
 //image file handling
 $output = ['error'=> 'none', 'upload'=>'Success'];
