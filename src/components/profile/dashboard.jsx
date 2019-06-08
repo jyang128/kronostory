@@ -8,30 +8,37 @@ export default class Dashboard extends React.Component{
         super(props);
         this.state = {
             individualProjects: [],
-            ownPage: false
+            userSession: null
         }
     }
     componentDidMount() {
-        const id = this.props.location.state.userId * 1;
+        console.log('dashboard location.state is ', this.props.location);
+        const id = this.props.location.state.userId;
+        console.log('dashboard "id" is ', id);
         this.getIndividualProjects(id);
     }
     getIndividualProjects(id) {
         axios.get(`/api/projects.php?userId=${id}`)
             .then(response => {
-                if (this.props.location.state.loggedUser) {
-                    if (this.props.location.state.loggedUser.id == this.props.location.state.userId) {
+                console.log('response', response);
+                if (this.props.location.state.user) {
+                    console.log('this.props.location.state.userId is ', this.props.location.state.userId);
+                    console.log('this.props.location.state.userSession.sessionId ', this.props.location.state.userSession);
+                    if (this.props.location.state.userId == this.props.location.state.userSession) {
+                        console.log('userSession is', response.data[0].sessionId)
+                        console.log('response.data[1][1] ', response.data[1])
                         this.setState({
-                            individualProjects: response.data,
-                            ownPage: true
+                            individualProjects: response.data[1],
+                            userSession: response.data[0].sessionId
                         });
                     } else {
                         this.setState({
-                            individualProjects: response.data
-                        })
+                            individualProjects: response.data[1]
+                        }, ()=>console.log("individual project ", this.state.individualProjects))
                     }
                 } else {
                     this.setState({
-                        individualProjects: response.data, 
+                        individualProjects: response.data[1], 
                     }, ()=>console.log("userid: ", this.state.userId)
                     );
                 }
@@ -46,21 +53,20 @@ export default class Dashboard extends React.Component{
     }
     
     render(){
+        console.log(this.state);
         let userProjectCards = this.state.individualProjects.map( (project) => {
             return <ProjectCard 
                 key={project.id} 
                 projectData={project} 
                 delete={this.props.delete} 
-                userStatus={this.state.ownPage}
             />;
         })
-
         return(
             <div className="container-fluid">
                 <div className="row d-flex justify-content-between py-3 mx-2">
-                    <h3 className="align-self-center">Projects by {this.props.location.state.username}</h3>
+                    <h3 className="align-self-center">Projects by Me</h3>
                 </div>
-                { (this.state.ownPage)
+                { (this.state.userSession)
                     ? 
                     <div className="row d-flex justify-content-between py-3 mb-4 mx-2">
                         <Link to="/create-project">

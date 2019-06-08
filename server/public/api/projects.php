@@ -4,6 +4,7 @@ require_once './functions.php';
 
 set_exception_handler("error_handler");
 
+session_start();
 startup();
 
 if(!$conn){
@@ -38,10 +39,17 @@ if ($numRows === 0) {
 }
 
 $output = [];
+$sessionArray = [];
+$projectsArray = [];
+
+$sessionArray["sessionId"] = $_SESSION["userId"];
 
 while ($row = mysqli_fetch_assoc($result)) {
-  $output[] = $row;
+  $projectsArray[] = $row;
 }
+
+$output[] = $sessionArray;
+$output[] = $projectsArray;
 
 $json_output=json_encode($output);
 print $json_output;
