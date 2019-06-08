@@ -32,7 +32,13 @@ while ($row = mysqli_fetch_assoc($result)) {
     $output[] = $row;
 }
 
+session_start();
+$_SESSION["userId"] = $output[0]["id"];
+
+$output[]["sessionid"] = $_SESSION["userId"];
+
 $json_output = json_encode($output);
+
 print $json_output;
 
 ?>

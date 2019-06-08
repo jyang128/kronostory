@@ -16,6 +16,7 @@ class App extends React.Component{
         this.state = {
             projects: [],
             user: null,
+            userSesh: null
         }
         this.delete = this.delete.bind(this);
         this.createNewProject = this.createNewProject.bind(this);
@@ -48,11 +49,14 @@ class App extends React.Component{
         axios.get(`/api/login.php?email=${submittedEmail}`)
             .then(response => {
                 if (response.data[0].id) {
-                    this.setState({user: response.data[0]}, () => {
+                    this.setState({user: response.data[0], userSesh: response.data[1]}, () => {
+                        console.log('this.state.user' , this.state.user, this.state.userSesh);
+                        //  {id: "2", first_name: "Pug", last_name: "Man", username: "pugman100", 
+                        //  password: "pass", …} {sessionid: "2"}
                         this.props.history.push({
                             pathname: '/dashboard',
-                            search: `?user=${this.state.user.id}`,
-                            state: {userId: this.state.user.id, username: this.state.user.username, loggedUser: this.state.user}
+                            search: `?user=${this.state.userSesh.sessionid}`,
+                            state: {user: this.state.user, userId: this.state.user.id, userSession: this.state.userSesh.sessionid}
                         });
                     });
                 }
@@ -65,7 +69,7 @@ class App extends React.Component{
             .then(response => {
                 // handle success
                 this.setState({
-                    projects: response.data
+                    projects: response.data[1]
                 })
             })
             .catch(function (error) {
@@ -77,6 +81,7 @@ class App extends React.Component{
             });
     }
     createNewProject(formData){
+        console.log('this is form data', formData);
         axios.post('/api/uploads/create-project.php', formData, {
             headers: {
               'Content-Type': 'multipart/form-data'
@@ -85,7 +90,11 @@ class App extends React.Component{
           .then(response => {
               let newProjects = [...this.state.projects,response.data[0]]
               this.setState({projects: newProjects}, () => {
-                this.props.history.push('/dashboard');
+                this.props.history.push({
+                    pathname: '/dashboard',
+                    search: `?user=${this.state.userSesh.sessionid}`,
+                    state: {user: this.state.user, userId: this.state.user.id, userSession: this.state.userSesh.sessionid}
+                });
             });
             
           })
