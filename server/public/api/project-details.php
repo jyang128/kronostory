@@ -24,8 +24,7 @@ WHERE `project_id` = $projectId";
 
 $timelineQuery = "SELECT te.`id` AS timeline_id, te.`title` AS timeline_entry_title, te.`date`, te.`description` AS timeline_description, te.`primary_image` AS timeline_primary_image
 FROM `timeline_entries` AS te
-WHERE `project_id` = $projectId
-ORDER BY `date` ASC";
+WHERE `project_id` = $projectId";
 
 if ($result = mysqli_query($conn, $query)) {
     $numRows = mysqli_num_rows($result);
@@ -41,8 +40,6 @@ if ($numRows === 0) {
 
 $output = [];
 $sessionArray = [];
-
-// $sessionArray["sessionId"] = $_SESSION["userId"];
 
 while ($row = mysqli_fetch_assoc($result)) {
     $row['items_used'] = [];
