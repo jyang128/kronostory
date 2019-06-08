@@ -29,21 +29,12 @@ class App extends React.Component{
     getProjects() {
         axios.get(`/api/projects.php`)
             .then(response => {
-                // handle success
                 this.setState({
-                    // this is an object with key sessionid and a string number
-                    // in backend, this value come from $_SESSION['userId']
                     userSeshData: response.data[0],
                     projects: response.data[1]
                 })
             })
-            .catch(function (error) {
-                // handle error
-                console.log(error);
-            })
-            .finally(function (response) {
-              
-            });
+            .catch(error => console.error(error))
     }
     delete(id){
         axios.patch('/api/delete.php',{"id":id})
@@ -57,13 +48,7 @@ class App extends React.Component{
                 }
                 this.setState({projects:newProjects});
             })
-            .catch(function (error) {
-                // handle error
-                console.log(error);
-            })
-            .finally(function (response) {
-              
-            });
+            .catch(error => console.error(error))
     }
     loginUser(loginInfo) {
         const submittedEmail = loginInfo.email;
@@ -73,8 +58,6 @@ class App extends React.Component{
                     this.setState({
                         userSeshData: response.data[0]
                     }, () => {
-                        //  {id: "2", first_name: "Pug", last_name: "Man", username: "pugman100", 
-                        //  password: "pass", …} {sessionid: "2"}
                         this.props.history.push({
                             pathname: '/dashboard',
                             search: `?user=${this.state.userSeshData.id}`,
@@ -86,8 +69,7 @@ class App extends React.Component{
                     });
                 }
             })
-            .catch( error => console.error(error))
-            .finally( () => {})
+            .catch(error => console.error(error))
     }
     createNewProject(formData){
         axios.post('/api/uploads/create-project.php', formData, {
@@ -108,9 +90,7 @@ class App extends React.Component{
                 });
             });
           })
-          .catch(function (error) {
-              console.error(error);
-          });
+          .catch(error => console.error(error))
     }
     render(){
         return(
@@ -120,32 +100,41 @@ class App extends React.Component{
             </div>
             <div className="container-fluid">
                 <Switch>
-                    <Route exact path="/" render={props => <ProjectCatalog {...props} projects={this.state.projects}/> }/>
-                    <Route path="/user-login" render={props => <UserLogin {...props} loginAxios={loginInfo => this.loginUser(loginInfo)} /> } />
+                    <Route exact path="/" render={props => 
+                        <ProjectCatalog {...props} 
+                            projects={this.state.projects}
+                        /> 
+                    }/>
+                    <Route path="/user-login" render={props => 
+                        <UserLogin {...props} 
+                            loginAxios={loginInfo => this.loginUser(loginInfo)} 
+                        /> 
+                    }/>
                     <Route path="/user-signup" component={UserSignup}/>
                     <Route path="/dashboard" render={props => (
                         <Dashboard {...props} 
                             delete={this.delete} 
                             userStatus={this.state.userSeshData}
                         />
-                        )
+                    )}/>
+                    <Route path="/project-details/:id" render={props => (
+                        <ProjectDetails {...props}
+                            user = {this.state.projects.filter(project =>
+                                project.id === parseInt(props.match.params.id, 10)
+                                )[0]
+                                }  
+                        />
+                    )}/>
+                    <Route path="/create-project" render={props => 
+                        <CreateProjectForm {...props} 
+                            userId={this.state.userSeshData.id} 
+                            createNewProject={this.createNewProject}
+                        /> 
                     }/>
-                    <Route 
-                        path="/project-details/:id"
-                        render={props => (
-                            <ProjectDetails 
-                                user = {this.state.projects.filter(project =>
-                                    project.id === parseInt(props.match.params.id, 10)
-                                    )[0]
-                                }
-                                {...props}
-                            />) }
-                    />
-                    <Route path="/create-project" render={props => <CreateProjectForm {...props} userId={this.state.userSeshData.id} createNewProject={this.createNewProject}/> }/>
                 </Switch>
             </div>
             <div className="container-fluid footer">
-                <Footer setView={this.setView} />
+                <Footer/>
             </div>
             </React.Fragment>
         );

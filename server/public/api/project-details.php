@@ -8,7 +8,7 @@ startup();
 session_start();
 
 if(!$conn){
-  throw new Exception('there is an error' . mysqli_connect_error());
+    throw new Exception('there is an error' . mysqli_connect_error());
 }
 $projectId = $_GET['id'];
 
@@ -36,7 +36,7 @@ if ($result = mysqli_query($conn, $query)) {
 }
 
 if ($numRows === 0) {
-  throw new Exception("no projects!");
+    throw new Exception("no projects!");
 }
 
 $output = [];
@@ -45,14 +45,14 @@ $sessionArray = [];
 // $sessionArray["sessionId"] = $_SESSION["userId"];
 
 while ($row = mysqli_fetch_assoc($result)) {
-  $row['items_used'] = [];
-  $row['timeline_entry'] = [];
-  while ($itemRow = mysqli_fetch_assoc($itemResult)) {
-    array_push($row['items_used'], $itemRow);
-  }
-  while ($timelineRow = mysqli_fetch_assoc($timelineResult)) {
-    array_push($row['timeline_entry'], $timelineRow);
-  }
+    $row['items_used'] = [];
+    $row['timeline_entry'] = [];
+    while ($itemRow = mysqli_fetch_assoc($itemResult)) {
+        array_push($row['items_used'], $itemRow);
+    }
+    while ($timelineRow = mysqli_fetch_assoc($timelineResult)) {
+        array_push($row['timeline_entry'], $timelineRow);
+    }
 
 $output[] = $sessionArray;
 $output[] = $row;
