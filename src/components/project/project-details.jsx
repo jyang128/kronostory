@@ -8,6 +8,7 @@ export default class ProjectDetails extends React.Component {
     constructor(props){
         super(props);
         this.state = {
+            modalOpened: false,
             project: {},
             items: [],
             timelineentries: [],
@@ -16,6 +17,8 @@ export default class ProjectDetails extends React.Component {
                 username: ''
             }
         }
+        this.toggleModal = this.toggleModal.bind(this);
+        this.createNewEntry = this.createNewEntry.bind(this);
     }
     handleUsernameClick(event) {
         event.preventDefault();
@@ -47,6 +50,31 @@ export default class ProjectDetails extends React.Component {
                 console.error(error);
             })
     }
+    createNewEntry(formData){
+        axios.post('/api/uploads/create-timeline-entry.php', formData, {
+            headers: {
+                'Content-Type': 'multipart/form-data'
+            }
+        })
+        .then(response => {
+            this.setState({
+                timelineentries: [...this.state.timelineentries, response['data'][0]],
+                modalOpened: false
+            })
+        })
+        .catch( error => console.error(error))
+    }
+    toggleModal(event){
+        if(!this.state.modalOpened){
+            this.setState({
+                modalOpened: true
+            });
+        } else if (event.target.className === 'overlay' || event.target.className === 'fas fa-times') {
+            this.setState({
+                modalOpened: false
+            });
+        }
+    }
     componentDidMount() {
         this.getProjectDetails(this.props.match.params.id);
     }
@@ -72,7 +100,14 @@ export default class ProjectDetails extends React.Component {
                     <ProjectItems items={this.state.items}/>
                 </div>
                 <div className="row bg-light">
-                    <Timeline entries={this.state.timelineentries}/>
+                    <Timeline 
+                        createNewEntry={this.createNewEntry}
+                        modalOpened={this.state.modalOpened}
+                        toggleModal={this.toggleModal}
+                        entries={this.state.timelineentries}
+                        project={this.state.project}
+                        userSeshData={this.state.userSeshData}
+                    />
                 </div>
             </div>
         )
