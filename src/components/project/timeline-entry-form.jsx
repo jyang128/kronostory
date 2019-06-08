@@ -30,10 +30,8 @@ export default class TimelineEntryForm extends React.Component {
     }
     formSubmitHandler(event){
         event.preventDefault();
-        console.log('submitting a new entry', this.state);
         let formData = new FormData(event.target);
-        // remember to pass in a handler from App
-        // this.props.createNewEntry(formData);
+        this.props.createNewEntry(formData);
     }
     onChangeHandler(event){
         switch(event.target.id){
@@ -54,6 +52,7 @@ export default class TimelineEntryForm extends React.Component {
                     <input 
                         type="text" 
                         id="inputTitle"
+                        name="inputTitle"
                         value={this.state.title}
                         className="form-control" 
                         placeholder="Enter Title"
@@ -64,6 +63,7 @@ export default class TimelineEntryForm extends React.Component {
                     <label>Description</label>
                     <textarea
                         id="inputDescription"
+                        name="inputDescription"
                         value={this.state.description}
                         className="form-control" 
                         rows="5"
@@ -78,14 +78,17 @@ export default class TimelineEntryForm extends React.Component {
                             type="file" 
                             className="form-control-file" 
                             id="entry-img"
+                            name="entry-img"
                             onChange={this.fileUploadHandler}
                         />
                         <label className="custom-file-label" htmlFor="entry-img">{this.state.imageFile ? this.state.imageFile.name : "Choose File"}</label>
                         <input 
-                            id="projImgHasUpload" type="hidden" name="projImgHasUpload" value={this.state.fileAttached} 
+                            id="imgAttached" type="hidden" name="imgAttached" value={this.state.fileAttached} 
                         />
                     </div>
                 </div>
+                <input type="hidden" name="project-id" value={this.props.project.id} />
+                <input type="hidden" name="user-id" value={this.props.project.user_id} />
                 <button type="submit" className="btn btn-primary mr-2" >Submit</button>
                 </form>
             </div>
