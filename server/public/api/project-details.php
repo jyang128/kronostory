@@ -12,7 +12,7 @@ if(!$conn){
 }
 $projectId = $_GET['id'];
 
-$query = "SELECT p.`id`, p.`title` AS project_title, p.`description` AS project_description, p.`date_created`, p.`primary_image`, p.`secondary_images`, p.`category`, u.`username` 
+$query = "SELECT p.`id`, p.`title` AS project_title, p.`description` AS project_description, p.`date_created`, p.`primary_image`, p.`secondary_images`, p.`category`, u.`username`, u.`id` AS `user_id`
 FROM `project` AS p 
 JOIN `user` AS u 
 ON p.`user_id` = u.`id`
@@ -42,7 +42,7 @@ if ($numRows === 0) {
 $output = [];
 $sessionArray = [];
 
-$sessionArray["sessionId"] = $_SESSION["userId"];
+// $sessionArray["sessionId"] = $_SESSION["userId"];
 
 while ($row = mysqli_fetch_assoc($result)) {
   $row['items_used'] = [];
@@ -58,7 +58,17 @@ $output[] = $sessionArray;
 $output[] = $row;
 }
 
-
+if(!empty($_SESSION['userId'])){
+	$output[0] = [
+		"id" => $_SESSION["userId"],
+		"username" => "johndoey"
+	];
+} else {
+	$output[0] = [
+		"id" => null,
+		"username" => "johndoey"
+	];
+}
 
 $json_output = json_encode($output);
 print $json_output;
