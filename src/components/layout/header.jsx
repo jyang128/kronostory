@@ -1,4 +1,5 @@
 import React from 'react';
+import axios from 'axios';
 import './layout.css';
 import { Link } from 'react-router-dom';
 
@@ -20,9 +21,6 @@ export default class Header extends React.Component {
 			event.target.querySelector(".dropdown-low").className += " d-none";
 		}
 	}
-    logoutHandler(event){
-        event.target.parentElement.className += " d-none";
-    }
     render(){
         return(
             <div className="row d-flex justify-content-between py-3 mx-2">
@@ -37,7 +35,7 @@ export default class Header extends React.Component {
                             <span className="mr-1" onClick={this.dropdownHandler}>
                                 {this.props.userSeshData.username}
                                 <div className="dropdown-low d-none">
-                                    <Link to='/user-login' className="logout dropdown-link" onClick={this.logoutHandler}>
+                                    <Link to='/user-login' className="logout dropdown-link" onClick={this.props.logoutHandler}>
                                         logout
                                     </Link>
                                     <Link to={{

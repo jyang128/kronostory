@@ -22,6 +22,7 @@ class App extends React.Component{
         }
         this.delete = this.delete.bind(this);
         this.createNewProject = this.createNewProject.bind(this);
+        this.logoutHandler = this.logoutHandler.bind(this);
     }
     componentDidMount() {
         this.getProjects();
@@ -71,6 +72,17 @@ class App extends React.Component{
             })
             .catch(error => console.error(error))
     }
+    logoutHandler(event){
+        axios.get(`/api/logout.php`)
+            .then(response => {
+                this.setState({userSeshData: {
+                    id: null,
+                    username: ''
+                }});
+            })
+            .catch(error => console.error(error));
+        event.target.parentElement.className += " d-none";
+    }
     createNewProject(formData){
         axios.post('/api/uploads/create-project.php', formData, {
             headers: {
@@ -96,7 +108,7 @@ class App extends React.Component{
         return(
             <React.Fragment>
             <div className="container-fluid header">
-                <Header title="KronoStory" userSeshData={this.state.userSeshData}/>
+                <Header title="KronoStory" userSeshData={this.state.userSeshData} logoutHandler={this.logoutHandler}/>
             </div>
             <div className="container-fluid">
                 <Switch>
