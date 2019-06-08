@@ -22,7 +22,6 @@ export default class Header extends React.Component {
 	}
     logoutHandler(event){
         event.target.parentElement.className += " d-none";
-        this.props.currentUser = null;
     }
     render(){
         return(
@@ -33,21 +32,20 @@ export default class Header extends React.Component {
                     </Link>
                 </h1>
 
-                {this.props.currentUser 
+                {this.props.userSeshData.id 
                     ?   <div className="menu-nav align-self-center">
                             <span className="mr-1" onClick={this.dropdownHandler}>
-                                {this.props.currentUser.username}
+                                {this.props.userSeshData.username}
                                 <div className="dropdown-low d-none">
                                     <Link to='/user-login' className="logout dropdown-link" onClick={this.logoutHandler}>
                                         logout
                                     </Link>
                                     <Link to={{
                                         pathname: '/dashboard',
-                                        search: `?user=${this.props.currentUser.id}`,
+                                        search: `?user=${this.props.userSeshData.id}`,
                                         state: {
-                                            userId: this.props.currentUser.id, 
-                                            username: this.props.currentUser.username, 
-                                            loggedUser: this.props.currentUser
+                                            userId: this.props.userSeshData.id, 
+                                            username: this.props.userSeshData.username, 
                                         }
                                     }} className="dashboard dropdown-link" onClick={this.dashboardHandler}>
                 						dashboard
@@ -57,7 +55,8 @@ export default class Header extends React.Component {
                             <i className="far fa-user-circle"></i>  
                         </div>
                     :  <div className="menu-nav align-self-center">
-                            <Link to="/user-signup">Sign Up</Link> <Link to="/user-login">Log In</Link>
+                            <Link to="/user-signup">Sign Up</Link>
+                            <Link to="/user-login">Log In</Link>
                         </div>
                 }
             </div>

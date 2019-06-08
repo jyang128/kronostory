@@ -11,31 +11,37 @@ export default class ProjectDetails extends React.Component {
             project: {},
             items: [],
             timelineentries: [],
-            userSession: null
+            userSeshData: {
+                id: null,
+                username: ''
+            }
         }
     }
     handleUsernameClick(event) {
         event.preventDefault();
         this.props.history.push({
             pathname: '/dashboard',
-            search: `?user=${this.state.project.id}`,
-            state: {userId: this.state.project.id, 
-                username: this.state.project.username,
+            search: `?user=${this.state.project.user_id}`,
+            state: {userId: this.state.project.user_id,
+                username: this.state.project.username
             }
         });
     }
     getProjectDetails(id) {
         axios.get(`/api/project-details.php?id=${id}`)
             .then(response => {
-                console.log('full response', response.data[1]);
-                console.table(response.data[1]['items_used']);
-                console.table(response.data[1]['timeline_entry']);
                 this.setState({
+                    userSeshData: response.data[0],
                     project: response.data[1],
                     items: response.data[1]['items_used'],
-                    timelineentries: response.data[1]['timeline_entry'],
-                    userSession: response.data[0]
-                });
+                    timelineentries: response.data[1]['timeline_entry']
+                }); 
+                console.log('Project Details Component')
+                console.table({
+                    userLoggedIn: this.state.userSeshData.id, 
+                    userName: this.state.project.username,
+                    projectId: this.state.project.id
+                })
             })
             .catch(function (error) {
                 console.error(error);

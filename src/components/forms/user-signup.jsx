@@ -34,6 +34,8 @@ export default class UserSignup extends React.Component {
         let request = {url:'/api/signup.php',method:"POST",data:{first_name:this.state.firstName,last_name:this.state.lastName,username:this.state.username,password:this.state.password,email:this.state.email}}
         axios(request)
             .then(response => {
+				//need to setState to go to dashboard
+				console.log('new user: ', response)
             })
             .catch(function (error) {
                 // handle error
