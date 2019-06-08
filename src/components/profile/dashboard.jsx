@@ -20,6 +20,7 @@ export default class Dashboard extends React.Component{
         this.getIndividualProjects(id);
     }
     getIndividualProjects(id) {
+        // before - loading screen
         axios.get(`/api/projects.php?userId=${id}`)
             .then(response => {
                 this.setState({
@@ -30,6 +31,9 @@ export default class Dashboard extends React.Component{
             .catch(function (error) {
                 console.error(error);
             })
+            .finally(
+                //set state and remove loading screen
+            )
     }
     render(){
         let userProjectCards = this.state.individualProjects.map( (project) => {

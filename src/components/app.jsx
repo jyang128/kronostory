@@ -115,6 +115,7 @@ class App extends React.Component{
                         <Dashboard {...props} 
                             delete={this.delete} 
                             userStatus={this.state.userSeshData}
+                            key={this.props.location.state.userId}
                         />
                     )}/>
                     <Route path="/project-details/:id" render={props => (
