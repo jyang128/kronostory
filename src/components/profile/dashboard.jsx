@@ -19,6 +19,20 @@ export default class Dashboard extends React.Component{
         const id = this.props.location.state.userId;
         this.getIndividualProjects(id);
     }
+    delete(id){
+        axios.patch('/api/delete.php',{"id":id})
+            .then( () => {
+                let newProjects = this.state.individualProjects.slice(0);
+                for(let i = 0; i < newProjects.length; i++){
+                    if(newProjects[i].id === id){
+                        newProjects.splice(i,1);
+                        break;
+                    }
+                }
+                this.setState({ individualProjects: newProjects });
+            })
+            .catch(error => console.error(error))
+    }
     getIndividualProjects(id) {
         // before - loading screen
         axios.get(`/api/projects.php?userId=${id}`)
@@ -40,7 +54,8 @@ export default class Dashboard extends React.Component{
             return <ProjectCard 
                 key={project.id} 
                 projectData={project} 
-                delete={this.props.delete} 
+                delete={id => this.delete(id)} 
+                userStatus={this.state.userSeshData}
             />;
         })
         let createProjectButton;

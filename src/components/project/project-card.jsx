@@ -19,19 +19,20 @@ export default class ProjectCard extends React.Component{
 	}
     render(){
         let deleteButton;
-        if(this.props.userStatus){
+        if(this.props.userStatus) {
+          if(this.props.userStatus.id === this.props.projectData.user_id){
             deleteButton = (
-				<div>
-					<div className="dots" onClick={this.dropdown}>
-						...
-						<div className="delete d-none" onClick={()=>{this.props.delete(this.props.projectData.id);console.log("click")}}>
-							delete
-						</div>
-					</div>
-				</div>
-			);
-        }
-        else{
+              <div>
+                <div className="dots" onClick={this.dropdown}>
+                  ...
+                  <div className="delete d-none" onClick={ () => {this.props.delete(this.props.projectData.id); console.log("click")} }>
+                    delete
+                  </div>
+                </div>
+              </div>
+            );
+          }
+        } else {
             deleteButton = null;
         }
         return(
