@@ -22,13 +22,41 @@ body {
     
 }
 /* modal (timeline entry form) */
+.dropdown-low{
+    display: inline-block;
+    position: absolute;
+    top: 70px;
+    right: 0;
+    border: 2px solid grey;
+    background-color: white;
+    z-index: 1;
+}
+.dropdown{
+    display: inline-block;
+    position: absolute;
+    top: 40px;
+    right: 0;
+    border: 2px solid grey;
+    background-color: white;
+}
+.dropdown.btn-danger{
+    background-color: #FF0000;
+    color: white;
+}
+.dropdown-low a.dropdown-link{
+    display: block;
+    color: #A167A5;
+}
+.dropdown-low a.dropdown-link:hover{
+    background-color: #8b508f;
+}
 .overlay {
     position: fixed;
     top: 0;
     left: 0;
     height: 100vh;
     width: 100vw;
-    background-color: rgba(0, 0, 0, 0.6); 
+    background-color: rgba(0, 0, 0, 0.6);
 }
 .modal-body{
     box-sizing: border-box;

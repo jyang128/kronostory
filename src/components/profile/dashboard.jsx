@@ -1,7 +1,6 @@
 import React from 'react';
 import ProjectCard from '../project/project-card';
 import axios from 'axios';
-import './profile.css';
 import { Link } from 'react-router-dom';
 
 export default class Dashboard extends React.Component{
