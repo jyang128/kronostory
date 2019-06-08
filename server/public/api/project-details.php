@@ -5,6 +5,7 @@ require_once './functions.php';
 set_exception_handler("error_handler");
 
 startup();
+session_start();
 
 if(!$conn){
   throw new Exception('there is an error' . mysqli_connect_error());
@@ -39,6 +40,9 @@ if ($numRows === 0) {
 }
 
 $output = [];
+$sessionArray = [];
+
+$sessionArray["sessionId"] = $_SESSION["userId"];
 
 while ($row = mysqli_fetch_assoc($result)) {
   $row['items_used'] = [];
@@ -49,8 +53,12 @@ while ($row = mysqli_fetch_assoc($result)) {
   while ($timelineRow = mysqli_fetch_assoc($timelineResult)) {
     array_push($row['timeline_entry'], $timelineRow);
   }
-  $output[] = $row;
+
+$output[] = $sessionArray;
+$output[] = $row;
 }
+
+
 
 $json_output = json_encode($output);
 print $json_output;

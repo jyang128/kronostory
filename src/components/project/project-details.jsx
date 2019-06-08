@@ -10,7 +10,8 @@ export default class ProjectDetails extends React.Component {
         this.state = {
             project: {},
             items: [],
-            timelineentries: []
+            timelineentries: [],
+            userSession: null
         }
     }
     handleUsernameClick(event) {
@@ -20,20 +21,20 @@ export default class ProjectDetails extends React.Component {
             search: `?user=${this.state.project.id}`,
             state: {userId: this.state.project.id, 
                 username: this.state.project.username,
-                loggedUser: this.props.loggedUser
             }
         });
     }
     getProjectDetails(id) {
         axios.get(`/api/project-details.php?id=${id}`)
             .then(response => {
-                console.log('full response', response.data[0]);
-                console.table(response.data[0]['items_used']);
-                console.table(response.data[0]['timeline_entry']);
+                console.log('full response', response.data[1]);
+                console.table(response.data[1]['items_used']);
+                console.table(response.data[1]['timeline_entry']);
                 this.setState({
-                    project: response.data[0],
-                    items: response.data[0]['items_used'],
-                    timelineentries: response.data[0]['timeline_entry']
+                    project: response.data[1],
+                    items: response.data[1]['items_used'],
+                    timelineentries: response.data[1]['timeline_entry'],
+                    userSession: response.data[0]
                 });
             })
             .catch(function (error) {
