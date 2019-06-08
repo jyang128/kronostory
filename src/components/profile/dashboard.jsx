@@ -54,7 +54,11 @@ export default class Dashboard extends React.Component{
         return(
             <div className="container-fluid">
                 <div className="row d-flex justify-content-between py-3 mx-2">
-                    <h3 className="align-self-center">Projects by Me</h3>
+                    <h3 className="align-self-center">
+                        {this.state.individualProjects.length > 0 ? 
+                            `Projects by ${this.state.individualProjects[0].username}`
+                            : "This user has not posted any projects yet!"}
+                    </h3>
                 </div>
                 {createProjectButton}
                 <div className="row d-flex">

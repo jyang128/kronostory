@@ -58,15 +58,15 @@ $output[] = $sessionArray;
 $output[] = $row;
 }
 
-if(!empty($_SESSION['userId'])){
+if(!empty($_SESSION['userId']) && !empty($_SESSION['userName'])){
 	$output[0] = [
 		"id" => $_SESSION["userId"],
-		"username" => "johndoey"
+		"username" => $_SESSION["userName"]
 	];
 } else {
 	$output[0] = [
 		"id" => null,
-		"username" => "johndoey"
+		"username" => null
 	];
 }
 

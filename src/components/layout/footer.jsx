@@ -12,7 +12,6 @@ export default class Footer extends React.Component {
             <div>Copyright &copy;2019 Kronostory</div>
             <div>
                 <Link to="/" className="mr-3">About</Link>
-                <Link to="/dashboard" className="mr-3">Dashboard</Link>
                 <Link to="/user-signup" className="mr-3">Sign Up</Link>
                 <Link to="/user-login" className="mr-3">Log In</Link>
             </div>

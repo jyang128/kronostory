@@ -34,8 +34,7 @@ while ($row = mysqli_fetch_assoc($result)) {
 
 session_start();
 $_SESSION["userId"] = $output[0]["id"];
-
-$output[]["sessionid"] = $_SESSION["userId"];
+$_SESSION["userName"] = $output[0]["username"];
 
 $json_output = json_encode($output);
 

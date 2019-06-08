@@ -49,16 +49,16 @@ while ($row = mysqli_fetch_assoc($result)) {
 $output[] = $sessionArray;
 $output[] = $projectsArray;
 
-if(!empty($_SESSION['userId'])){
-    $output[0] = [
-        "id" => $_SESSION["userId"],
-        "username" => "johndoey"
-    ];
+if(!empty($_SESSION['userId']) && !empty($_SESSION['userName'])){
+	$output[0] = [
+		"id" => $_SESSION["userId"],
+		"username" => $_SESSION["userName"]
+	];
 } else {
-    $output[0] = [
-        "id" => null,
-        "username" => "johndoey"
-    ];
+	$output[0] = [
+		"id" => null,
+		"username" => null
+	];
 }
 
 $json_output=json_encode($output);
