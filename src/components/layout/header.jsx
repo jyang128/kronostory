@@ -6,19 +6,24 @@ export default class Header extends React.Component {
     constructor(props){
         super(props);
     }
-    dropdown(event){
-		if(!event.target.querySelector(".dropdown")){
+    dashboardHandler(event){
+        event.target.parentElement.className += " d-none";
+    }
+    dropdownHandler(event){
+		if(!event.target.querySelector(".dropdown-low")){
 			return;
 		}
-        console.log("click");
-		if(event.target.querySelector(".dropdown").className === "dropdown d-none"){
-            console.log("not showing yet");
-			event.target.querySelector(".dropdown").className = "dropdown";
+		if(event.target.querySelector(".dropdown-low").className === "dropdown-low d-none"){
+			event.target.querySelector(".dropdown-low").className = "dropdown-low";
 		}
 		else{
-			event.target.querySelector(".dropdown-item").className += " d-none";
+			event.target.querySelector(".dropdown-low").className += " d-none";
 		}
 	}
+    logoutHandler(event){
+        event.target.parentElement.className += " d-none";
+        this.props.currentUser = null;
+    }
     render(){
         return(
             <div className="row d-flex justify-content-between py-3 mx-2">
@@ -30,18 +35,10 @@ export default class Header extends React.Component {
 
                 {this.props.currentUser 
                     ?   <div className="menu-nav align-self-center">
-                            <span className="mr-1" onClick={this.dropdown}>
+                            <span className="mr-1" onClick={this.dropdownHandler}>
                                 {this.props.currentUser.username}
                                 <div className="dropdown-low d-none">
-                                    <Link to={{
-                                        pathname: '/login',
-                                        search: `?user=${this.props.currentUser.id}`,
-                                        state: {
-                                            userId: this.props.currentUser.id, 
-                                            username: this.props.currentUser.username, 
-                                            loggedUser: this.props.currentUser
-                                        }
-                                    }} className="logout dropdown-link">
+                                    <Link to='/user-login' className="logout dropdown-link" onClick={this.logoutHandler}>
                                         logout
                                     </Link>
                                     <Link to={{
@@ -52,7 +49,7 @@ export default class Header extends React.Component {
                                             username: this.props.currentUser.username, 
                                             loggedUser: this.props.currentUser
                                         }
-                                    }} className="dashboard dropdown-link">
+                                    }} className="dashboard dropdown-link" onClick={this.dashboardHandler}>
                 						dashboard
                 					</Link>
                                 </div>

@@ -11,6 +11,7 @@ body {
     right: 0;
     border: 2px solid grey;
     background-color: white;
+    z-index: 1;
 }
 .dropdown{
     display: inline-block;
@@ -24,12 +25,12 @@ body {
     background-color: #FF0000;
     color: white;
 }
-.dropdown a.dropdown-link{
+.dropdown-low a.dropdown-link{
     display: block;
-    color: black;
+    color: #A167A5;
 }
-.dropdown a.dropdown-link:hover{
-    color: black;
+.dropdown-low a.dropdown-link:hover{
+    background-color: #8b508f;
 }
 .overlay {
     position: fixed;
@@ -58,7 +59,7 @@ body {
 }
 /* button styling */
 .btn-primary {
-
+    background-color: #A167A5;
     border: none;
 }
 .btn-primary:hover {
