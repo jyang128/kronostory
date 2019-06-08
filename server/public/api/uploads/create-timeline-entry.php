@@ -17,8 +17,12 @@ $project_id = json_decode($_POST['project-id'], true);
 $date = date("m/d/y");
 $target_dir = '../../image-uploads/' . $user_id . '/';
 
-//image file handling
 $output = ['error'=> 'none', 'upload'=>'Success'];
+
+//image file handling
+if (!(is_dir($target_dir))) {
+    mkdir($target_dir);
+}
 if ($_POST['imgAttached'] !== 'false') {
     $imageFile = $_FILES['entry-img'];
     $imageName = $imageFile['name'];
