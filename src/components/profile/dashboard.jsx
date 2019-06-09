@@ -38,6 +38,7 @@ export default class Dashboard extends React.Component{
         this.setState({loading: true}, ()=>{
             axios.get(`/api/projects.php?userId=${id}`)
             .then(response => {
+                console.log(response)
                 this.setState({
                     userSeshData: response.data[0],
                     individualProjects: response.data[1]

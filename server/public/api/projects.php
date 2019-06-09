@@ -34,9 +34,9 @@ if ($result = mysqli_query($conn, $query)) {
         throw new Exception('there is an error' . mysqli_connect_error());
 }
 
-if ($numRows === 0) {
-    throw new Exception("no projects!");
-}
+// if ($numRows === 0) {
+//     throw new Exception("no projects!");
+// }
 
 $output = [];
 $sessionArray = [];
