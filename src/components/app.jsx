@@ -23,6 +23,7 @@ class App extends React.Component{
         this.delete = this.delete.bind(this);
         this.createNewProject = this.createNewProject.bind(this);
         this.logoutHandler = this.logoutHandler.bind(this);
+        this.loginUser = this.loginUser.bind(this);
     }
     componentDidMount() {
         this.getProjects();
@@ -122,7 +123,12 @@ class App extends React.Component{
                             loginAxios={loginInfo => this.loginUser(loginInfo)} 
                         /> 
                     }/>
-                    <Route path="/user-signup" component={UserSignup}/>
+                    <Route path="/user-signup" render={props => (
+                        <UserSignup {...props}
+                            userSeshData={this.state.userSeshData}
+                            loginUser={this.loginUser}
+                        />
+                    )}/>
                     <Route path="/dashboard" render={props => (
                         <Dashboard {...props} 
                             delete={this.delete} 
