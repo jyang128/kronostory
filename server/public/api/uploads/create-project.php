@@ -28,6 +28,16 @@
     $targetProjItemImg = NULL;
 
     $target_dir = '../../image-uploads/' . $userId . '/';
+    print($target_dir);
+    //    ../../image-uploads/1/
+
+    // USE THIS FOR THE SERVER:
+    // $uploadDir = dirname(__DIR__, 2);
+    // $target_dir = $uploadDir . '/image-uploads/' . $userId . '/';
+    // print($uploadDir);
+    // print($target_dir);
+    //    /home/dev/lfz/c319_DIYblogging_tracker/server/public
+    //    home/dev/lfz/c319_DIYblogging_tracker/server/public/image-uploads/1/
 
     //file upload
     if (!(is_dir($target_dir))) {
@@ -76,6 +86,7 @@
 
     $postQuery = "INSERT INTO `project` (`title`, `description`, `user_id`, `primary_image`, `secondary_images`, `timeline_description`, `category`, `status`) 
         VALUES ('{$projName}','{$projDesc}',{$userId},'{$targetProjMainImg}','{$projSecImages}','{$projTimelineDesc}','{$projCategory}', {$projStatus})";
+
 
     $response = mysqli_query($conn, $postQuery);
 
