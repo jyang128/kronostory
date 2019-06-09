@@ -1,4 +1,4 @@
-import React from 'react';ShadowRoot
+import React from 'react';
 import './project.css';
 import { Link } from 'react-router-dom';
 
@@ -10,8 +10,8 @@ export default class ProjectCard extends React.Component{
 		if(!event.target.querySelector(".delete")){
 			return;
 		}
-		if(event.target.querySelector(".delete").className === "dropdown delete btn-danger d-none"){
-			event.target.querySelector(".delete").className = "dropdown delete btn-danger";
+		if(event.target.querySelector(".delete").className === "delete d-none"){
+			event.target.querySelector(".delete").className = "delete";
 		}
 		else{
 			event.target.querySelector(".delete").className += " d-none";
@@ -19,19 +19,20 @@ export default class ProjectCard extends React.Component{
 	}
     render(){
         let deleteButton;
-        if(this.props.userStatus){
+        if(this.props.userStatus) {
+          if(this.props.userStatus.id === this.props.projectData.user_id){
             deleteButton = (
-				<div>
-					<div className="dots" onClick={this.dropdown}>
-						...
-						<div className="dropdown delete btn-danger d-none" onClick={()=>{this.props.delete(this.props.projectData.id);console.log("click")}}>
-							delete
-						</div>
-					</div>
-				</div>
-			);
-        }
-        else{
+              <div>
+                <div className="dots" onClick={this.dropdown}>
+                  ...
+                  <div className="delete d-none" onClick={ () => {this.props.delete(this.props.projectData.id); console.log("click")} }>
+                    delete
+                  </div>
+                </div>
+              </div>
+            );
+          }
+        } else {
             deleteButton = null;
         }
         return(

@@ -27,7 +27,7 @@
     $targetProjMainImg = NULL;
     $targetProjItemImg = NULL;
 
-    $target_dir = 'image-uploads/' . $userId . '/';
+    $target_dir = '../../image-uploads/' . $userId . '/';
 
     //file upload
     if (!(is_dir($target_dir))) {

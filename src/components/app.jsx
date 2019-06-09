@@ -20,7 +20,6 @@ class App extends React.Component{
                 username: ''
             }
         }
-        this.delete = this.delete.bind(this);
         this.createNewProject = this.createNewProject.bind(this);
         this.logoutHandler = this.logoutHandler.bind(this);
         this.loginUser = this.loginUser.bind(this);
@@ -35,20 +34,6 @@ class App extends React.Component{
                     userSeshData: response.data[0],
                     projects: response.data[1]
                 })
-            })
-            .catch(error => console.error(error))
-    }
-    delete(id){
-        axios.patch('/api/delete.php',{"id":id})
-            .then(response => {
-                let newProjects = this.state.projects.slice(0);
-                for(let i = 0; i < newProjects.length; i++){
-                    if(newProjects[i].id === id){
-                        newProjects.splice(i,1);
-                        break;
-                    }
-                }
-                this.setState({projects:newProjects});
             })
             .catch(error => console.error(error))
     }
@@ -131,7 +116,6 @@ class App extends React.Component{
                     )}/>
                     <Route path="/dashboard" render={props => (
                         <Dashboard {...props} 
-                            delete={this.delete} 
                             userStatus={this.state.userSeshData}
                             key={this.props.location.state.userId}
                         />
