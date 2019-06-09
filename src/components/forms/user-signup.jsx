@@ -1,5 +1,6 @@
 import React from 'react';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 
 export default class UserSignup extends React.Component {
 	constructor(props){
@@ -35,7 +36,8 @@ export default class UserSignup extends React.Component {
         axios(request)
             .then(response => {
 				//need to setState to go to dashboard
-				console.log('new user: ', response)
+				console.log(response.data);
+				this.props.loginUser(response.data[0]);
             })
             .catch(function (error) {
                 // handle error
@@ -103,7 +105,12 @@ export default class UserSignup extends React.Component {
 					/>
 					<div className="checkbox">
 					</div>
-					<button className="btn btn-lg btn-primary btn-block" onClick={this.signupHandler}>Sign Up</button>
+					<button 
+						className="btn btn-lg btn-primary btn-block" 
+						onClick={this.signupHandler}
+					>
+						Sign Up
+					</button>
 				</form>
 			</div>
 		)

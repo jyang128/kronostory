@@ -20,7 +20,6 @@ $email = $user['email'];
 $postQuery = "INSERT INTO `user`(`first_name`, `last_name`, `username`, `password`, `email`)
     VALUES ('{$firstName}','{$lastName}','{$username}','{$password}','{$email}')";
 
-print($postQuery);
 $response = mysqli_query($conn, $postQuery);
 
 if ($response) {
