@@ -12,7 +12,7 @@ if(!$conn){
 }
 $projectId = $_GET['id'];
 
-$query = "SELECT p.`id`, p.`title` AS project_title, p.`description` AS project_description, p.`date_created`, p.`primary_image`, p.`secondary_images`, p.`category`, u.`username`, u.`id` AS `user_id`
+$query = "SELECT p.`id`, p.`title` AS project_title, p.`description` AS project_description, p.`date_created`, p.`primary_image`, p.`secondary_images`, p.`category`, u.`username`, u.`id` AS `user_id`, p.`timeline_description`
 FROM `project` AS p 
 JOIN `user` AS u 
 ON p.`user_id` = u.`id`

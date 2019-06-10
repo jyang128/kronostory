@@ -26,7 +26,7 @@ export default class Header extends React.Component {
             <div className="row d-flex justify-content-between py-2 mx-2">
                 <div className="logo d-flex align-items-center">
                     <div className="logo-icon">
-                        <img className="img-fluid" src="images/white-logo.png" />
+                        <img className="img-fluid" src="/images/white-logo.png" />
                     </div>
                     <h2>
                         <Link to="/">
@@ -37,8 +37,9 @@ export default class Header extends React.Component {
                 
                 {this.props.userSeshData.id 
                     ?   <div className="menu-nav align-self-center">
+                            <i className="far fa-user-circle"></i> 
                             <span className="mr-1" onClick={this.dropdownHandler}>
-                                {this.props.userSeshData.username}
+                                {this.props.userSeshData.username} &#9663;
                                 <div className="dropdown-low d-none">
                                     <Link to='/user-login' className="logout dropdown-link" onClick={this.props.logoutHandler}>
                                         logout
@@ -55,7 +56,6 @@ export default class Header extends React.Component {
                 					</Link>
                                 </div>
                             </span>
-                            <i className="far fa-user-circle"></i>  
                         </div>
                     :  <div className="menu-nav align-self-center">
                             <Link to="/user-signup">Sign Up</Link>

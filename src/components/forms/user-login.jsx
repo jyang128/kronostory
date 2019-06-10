@@ -31,11 +31,11 @@ export default class UserLogin extends React.Component {
                 <form className="form-signin">
                     <h1 className="font-weight-light text-primary">KronoStory</h1>
                     <h1 className="h3 mb-3 font-weight-light">Please sign in</h1>
-                    <label htmlFor="inputEmail" className="sr-only">Email address</label>
+                    <label htmlFor="inputEmail" className="sr-only ">Email address</label>
                     <input 
                         type="email" 
                         id="inputEmail" 
-                        className="form-control" 
+                        className="form-control mb-2" 
                         placeholder="Email address" 
                         required="text" 
                         onChange={event => this.handleInputs(event)}
@@ -45,24 +45,19 @@ export default class UserLogin extends React.Component {
                     <input 
                         type="password" 
                         id="inputPassword" 
-                        className="form-control" 
+                        className="form-control mb-2" 
                         placeholder="Password" 
                         required="password" 
                         onChange={event => this.handleInputs(event)}
                     />
-                    <div className="checkbox mb-3">
-                        <label>
-                            <input type="checkbox" value="remember-me" /> Remember me
-                        </label>
-                    </div>
                     <button 
-                        className="btn btn-lg btn-primary btn-block" 
+                        className="btn btn-lg btn-primary btn-block mb-2" 
                         type="submit"
                         onClick={event => this.handleLogin(event)}
                     >
                         Sign in
                     </button>
-                    <p onClick={event => this.handleGuestLogin(event)}>Guest Login</p>
+                    <p className="guest" onClick={event => this.handleGuestLogin(event)}>Guest Login</p>
                     <p className="mt-5 mb-2 text-muted">Don't have an account?</p>
                     <button className="btn btn-lg btn-outline-primary btn-block">Sign Up</button>
                 </form>
