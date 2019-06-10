@@ -84,7 +84,7 @@ export default class Dashboard extends React.Component{
                     <h3 className="align-self-center">
                         {this.state.individualProjects.length > 0 ? 
                             `Projects by ${this.state.individualProjects[0].username}`
-                            : "This user has not posted any projects yet!"}
+                            : "No projects yet!"}
                     </h3>
                 </div>
                 {createProjectButton}

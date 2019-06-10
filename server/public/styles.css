@@ -30,7 +30,7 @@ body {
     width: 200px;
     
 }
-/* modal (timeline entry form) */
+/* header dropdown menu */
 .dropdown-low{
     display: inline-block;
     position: absolute;
@@ -59,6 +59,7 @@ body {
 .dropdown-low a.dropdown-link:hover{
     background-color: #8b508f;
 }
+/* modal (timeline entry form) */
 .overlay {
     position: fixed;
     top: 0;

@@ -6,3 +6,12 @@
     max-width: 900px;
     margin: auto;
 }
+
+.guest {
+    cursor: pointer; 
+    color: #A167A5;
+}
+
+.guest:hover {
+    color: #8b508f;
+}

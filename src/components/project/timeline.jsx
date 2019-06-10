@@ -34,6 +34,7 @@ export default class Timeline extends React.Component {
             <div className="col-12 py-3 mb-4">
                 <div className="mb-4 text-center">
                     <h3>Timeline</h3>
+                    <p>{this.props.project.timeline_description}</p>
                     {addToTimelineButton}
                 </div>
                 <div className="px-5">
