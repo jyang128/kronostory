@@ -51,11 +51,9 @@
         $pathExtension = strtolower(pathinfo($projMainImgName, PATHINFO_EXTENSION));
 
         if($projMainImgFile["size"] > 4000000) {
-            $output["error"] = 'The file is too large';
-            $output["upload"] = 'Fail';
+            throw new Exception('the file is too large');
         } elseif(($pathExtension !== 'jpg') && ($pathExtension !== 'png') && ($pathExtension !== 'gif') && ($pathExtension !== 'jpeg')) {
-            $output["error"] = 'Wrong File Name. Must be jpg, png, jpeg, or gif';
-            $output["upload"] = 'Fail';
+            throw new Exception('Wrong File Name. Must be jpg, png, jpeg, or gif');
         } else {
             if(move_uploaded_file($projMainImgFile["tmp_name"], $targetProjMainImg)) {
                 $output["filepath"] = stripslashes($targetProjMainImg);
@@ -71,16 +69,11 @@
         $pathExtension = strtolower(pathinfo($projItemImgName, PATHINFO_EXTENSION));
 
         if($projItemImgFile["size"] > 4000000) {
-            $output["error"] = 'The file is too large';
-            $output["upload"] = 'Fail';
+            throw new Exception('the file is too large');
         } elseif(($pathExtension !== 'jpg') && ($pathExtension !== 'png') && ($pathExtension !== 'gif') && ($pathExtension !== 'jpeg')) {
-            $output["error"] = 'Wrong File Name. Must be jpg, png, jpeg, or gif';
-            $output["upload"] = 'Fail';
+            throw new Exception('Wrong File Name. Must be jpg, png, jpeg, or gif');
         } else {
-            if(move_uploaded_file($projItemImgFile["tmp_name"], $targetProjItemImg)) {
-                $output["itemFilepath"] = stripslashes($targetProjItemImg);
-                $output["itemMsg"] = "The file " . $projItemImgName . " has been uploaded.";
-            }
+            move_uploaded_file($projItemImgFile["tmp_name"], $targetProjItemImg);
         }
     }
 

@@ -32,9 +32,11 @@ if ($_POST['imgAttached'] !== 'false') {
         throw new Exception('The file is too large.');
     } else if (($pathExtension !== 'jpg') && ($pathExtension !== 'png') && ($pathExtension !== 'gif') && ($pathExtension !== 'jpeg')) {
         throw new Exception('File extension must be jpg, png, jpeg, or gif');
-    } else if(move_uploaded_file($imageFile['tmp_name'], $primary_image)) {
-        $output['filepath'] = stripslashes($primary_image);
-        $output['msg'] = "The file " . $imageName . " has been uploaded.";
+    } else {
+        if(move_uploaded_file($imageFile['tmp_name'], $primary_image)) {
+            $output['filepath'] = stripslashes($primary_image);
+            $output['msg'] = "The file " . $imageName . " has been uploaded.";
+        }
     }
 }
 
