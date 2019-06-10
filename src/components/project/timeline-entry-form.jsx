@@ -6,6 +6,7 @@ export default class TimelineEntryForm extends React.Component {
         super(props);
         this.state = {
             title: '',
+            date: '',
             description: '',
             imageFile: null,
             fileAttached: false
@@ -38,6 +39,9 @@ export default class TimelineEntryForm extends React.Component {
             case "inputTitle":
                 this.setState({title: event.target.value});
                 break;
+            case "inputDate":
+                this.setState({date: event.target.value});
+                break;
             case "inputDescription":
                 this.setState({description: event.target.value});
         }
@@ -56,6 +60,18 @@ export default class TimelineEntryForm extends React.Component {
                         value={this.state.title}
                         className="form-control" 
                         placeholder="Enter Title"
+                        onChange={this.onChangeHandler}
+                    />
+                </div>
+                <div className="form-group">
+                    <label>Date</label>
+                    <input 
+                        type="text" 
+                        id="inputDate"
+                        name="inputDate"
+                        value={this.state.date}
+                        className="form-control" 
+                        placeholder="Enter Date"
                         onChange={this.onChangeHandler}
                     />
                 </div>

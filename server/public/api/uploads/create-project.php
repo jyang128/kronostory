@@ -3,7 +3,7 @@
     require_once '../functions.php';
 
     set_exception_handler("error_handler");
-
+    
     startup();
 
     if(!$conn){
@@ -113,8 +113,7 @@
 
         if (($projItemName != 'undefined') || $_POST["projImgHasUpload"] != 'false') {
             $postProdItemQuery = "INSERT INTO `project_items` (`title`, `image`, `project_id`) VALUES ('{$projItemName}', '{$targetProjItemImg}', $lastId)";
-
-
+            
             $postProdItemResult = mysqli_query($conn, $postProdItemQuery);
 
             if ($postProdItemResult) {

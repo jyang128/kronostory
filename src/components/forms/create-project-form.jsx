@@ -1,6 +1,6 @@
 import React from 'react';
-import axios from 'axios';
 import './forms.css';
+import { Link } from 'react-router-dom';
 
 export default class CreateProjectForm extends React.Component {
     constructor(props){
@@ -14,14 +14,6 @@ export default class CreateProjectForm extends React.Component {
         this.handleFormSubmit = this.handleFormSubmit.bind(this);
         this.onFileChange = this.onFileChange.bind(this);
         this.onFileChangeItem = this.onFileChangeItem.bind(this);
-    }
-    // handleSubmitPress(event) {
-    //     event.preventDefault();
-    //     this.props.setView('projectDetails', {});
-    // }
-    handleCancel(event) {
-        event.preventDefault();
-        this.props.setView('dashboard', {});
     }
     onFileChange(e) {
         console.log("the target file: ", e.target.files[0]);
@@ -40,6 +32,7 @@ export default class CreateProjectForm extends React.Component {
         }
     }
     handleFormSubmit(event) {
+        // need to check that inputs are all there & disable the button to extra submissions
         console.log("handle form submit");
         event.preventDefault();
         let formData = new FormData(event.target);
@@ -53,7 +46,7 @@ export default class CreateProjectForm extends React.Component {
                     <div className="row">
                         <div className="col-12 text-center mt-4">
                             <h2>Create Project</h2>
-                            <p>Show off your latest projects! Bacon ipsum dolor amet pork belly bacon cupim biltong fatback.</p>
+                            <p>Show off your latest project!</p>
                         </div>
                     </div>
                     <form className="create-project-form" onSubmit={this.handleFormSubmit}>
@@ -144,7 +137,11 @@ export default class CreateProjectForm extends React.Component {
                                     <input type="hidden" name="formHasUpload" value="true" />
                                     <input type="hidden" name="status" value="published" />
                                     <div className="form-group col-6"><button type="submit" className="btn btn-primary mr-2 btn-block">Create Project</button></div>
-                                    <div className="form-group col-6"><button className="btn btn-secondary btn-block" onClick={event => this.handleCancel(event)}>Cancel</button></div>
+                                    <div className="form-group col-6">
+                                        <Link to="/">
+                                            <button className="btn btn-secondary btn-block">Cancel</button>
+                                        </Link>
+                                    </div>
                                 </div>
                             </div>
                         </div>

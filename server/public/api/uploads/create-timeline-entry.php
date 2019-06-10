@@ -3,7 +3,7 @@ require_once('../db_connection.php');
 require_once('../functions.php');
 set_exception_handler("error_handler");
 startup();
-date_default_timezone_set('America/Los_Angeles');
+
 if(!$conn){
     throw new Exception('there is an error' . mysqli_connect_error());
 }
@@ -14,7 +14,7 @@ $description = $_POST['inputDescription'];
 $primary_image = null;
 $secondary_images = '';
 $project_id = json_decode($_POST['project-id'], true); 
-$date = date("m/d/y");
+$date = $_POST['inputDate'];
 $target_dir = '../../image-uploads/' . $user_id . '/';
 
 $output = ['error'=> 'none', 'upload'=>'Success'];
@@ -29,23 +29,22 @@ if ($_POST['imgAttached'] !== 'false') {
     $primary_image = $target_dir . $imageName;
     $pathExtension = strtolower(pathinfo($imageName, PATHINFO_EXTENSION));
     if($imageFile['size'] > 4000000) {
-        $output['error'] = 'The file is too large';
-        $output['upload'] = 'Fail';
-    } elseif(($pathExtension !== 'jpg') && ($pathExtension !== 'png') && ($pathExtension !== 'gif') && ($pathExtension !== 'jpeg')) {
-        $output['error'] = 'File extension must be jpg, png, jpeg, or gif';
-        $output['upload'] = 'Fail';
-    } else {
-        if(move_uploaded_file($imageFile['tmp_name'], $primary_image)) {
-            $output['filepath'] = stripslashes($primary_image);
-            $output['msg'] = "The file " . $imageName . " has been uploaded.";
-        }
+        throw new Exception('The file is too large.');
+    } else if (($pathExtension !== 'jpg') && ($pathExtension !== 'png') && ($pathExtension !== 'gif') && ($pathExtension !== 'jpeg')) {
+        throw new Exception('File extension must be jpg, png, jpeg, or gif');
+    } else if(move_uploaded_file($imageFile['tmp_name'], $primary_image)) {
+        $output['filepath'] = stripslashes($primary_image);
+        $output['msg'] = "The file " . $imageName . " has been uploaded.";
     }
 }
 
 $query = "INSERT INTO `timeline_entries` (`title`, `description`, `primary_image`, `secondary_images`, `project_id`, `date`) VALUES ('{$title}','{$description}','{$primary_image}','{$secondary_images}','{$project_id}','{$date}')";
 
 $result = mysqli_query($conn, $query);
-if($result){
+
+if(!$result){
+    throw new Exception('error with result: ' . mysqli_error($conn));
+} else {
     $lastId = mysqli_insert_id($conn);
     $projectQuery = "SELECT te.`id` AS timeline_id, te.`title` AS timeline_entry_title, te.`date`, te.`description` AS timeline_description, te.`primary_image` AS timeline_primary_image FROM `timeline_entries` AS te
     WHERE `id` = {$lastId}";
@@ -56,8 +55,6 @@ if($result){
         $row['date'] = stripslashes($row['date']);
         $output[] = $row;
     }
-} else {
-    throw new Exception('error with result');
 }
 print (json_encode($output));
 ?>
