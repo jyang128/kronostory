@@ -87,7 +87,6 @@
     $postQuery = "INSERT INTO `project` (`title`, `description`, `user_id`, `primary_image`, `secondary_images`, `timeline_description`, `category`, `status`) 
         VALUES ('{$projName}','{$projDesc}',{$userId},'{$targetProjMainImg}','{$projSecImages}','{$projTimelineDesc}','{$projCategory}', {$projStatus})";
 
-
     $response = mysqli_query($conn, $postQuery);
 
     if ($response) {
@@ -98,7 +97,7 @@
         if ($result) {
             $numRows = mysqli_num_rows($result);
         } else {
-            throw new Exception('there is an error' . mysqli_connect_error());
+            throw new Exception('there is an error' . mysqli_error($conn));
         }
         if ($numRows === 0) {
           throw new Exception("no projects!");
@@ -121,14 +120,14 @@
             if ($postProdItemResult) {
                 $prodItemNumRows = mysqli_affected_rows($conn);
             } else {
-                throw new Exception('there is an error' . mysqli_connect_error());
+                throw new Exception('there is an error' . mysqli_error($conn));
             }
             if ($prodItemNumRows === 0) {
                 throw new Exception("no project items!");
             }
         }    
     } else {
-        throw new Exception("failed to create project: " . mysqli_connect_error());
+        throw new Exception("failed to create project: " . mysqli_error($conn));
     }
     $json_output = json_encode($outputResult);
     print $json_output;
