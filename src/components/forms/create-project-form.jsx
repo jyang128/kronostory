@@ -64,7 +64,7 @@ export default class CreateProjectForm extends React.Component {
                                 </div>
                             </div>;
             var z = document.createElement('p');
-            document.querySelector(".project-item-field").appendChild(z);
+            document.querySelector(".project-item-field").appendChild(newInput);
 
             this.projectInputField++;
         }
@@ -118,29 +118,6 @@ export default class CreateProjectForm extends React.Component {
                                     </div>
                                 </div>
                                 <hr />
-                                <div className="form-row">
-                                    <div className="form-group col-12 project-item-field">
-                                        <label htmlFor="proj-item-title">Add items used in project</label>
-                                        <div className="form-row">
-                                            <div className="form-group col-md-6">
-                                                <label htmlFor="proj-item-name">Project Item</label>
-                                                <input id="proj-item-name" type="text" className="form-control mb-2" name="proj-item-name" placeholder="Item Name"/>
-                                            </div>
-                                            <div className="form-group col-md-6">
-                                                <label htmlFor="proj-item-title">Item Image</label>
-                                                <div className="custom-file">
-                                                    <label className="custom-file-label" htmlFor="proj-item-img">{this.state.itemFile ? this.state.itemFile.name : "Choose File"}</label>
-                                                    <input id="proj-item-img" name="proj-item-img" type="file" className="form-control-file" onChange={this.onFileChangeItem}/>
-                                                    <input id="projImgHasUpload" type="hidden" name="projImgHasUpload" value={this.state.projImgHasUpload} />
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div className="form-group col-12">
-                                        <div onClick={this.addAnotherProjectItem} className="btn btn-outline-primary"><i className="fas fa-plus"></i> Add another item</div>
-                                    </div>
-                                </div>
-                                <hr />
                             </div>
                             <div className="col-12 col-md-4">
                                 <h5>Categories</h5>
@@ -173,7 +150,7 @@ export default class CreateProjectForm extends React.Component {
                                     </li>
                                 </ul>
                             </div>
-                            <div className="col-9">
+                            <div className="col-12 col-md-8">
                                 <div className="row">
                                     <input type="hidden" name="user-id" value={this.props.userId} />
                                     <input type="hidden" name="formHasUpload" value="true" />

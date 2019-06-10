@@ -25,7 +25,6 @@
     }
 
     $targetProjMainImg = NULL;
-    $targetProjItemImg = NULL;
 
     $target_dir = '../../image-uploads/' . $userId . '/';
     print($target_dir);
@@ -64,26 +63,6 @@
         }
     }
 
-    if ($_POST["projImgHasUpload"] != 'false') {
-        $projItemImgFile = $_FILES["proj-item-img"];
-        $projItemImgName = $projItemImgFile["name"];
-        $targetProjItemImg = $target_dir . $projItemImgName;
-        $pathExtension = strtolower(pathinfo($projItemImgName, PATHINFO_EXTENSION));
-
-        if($projItemImgFile["size"] > 4000000) {
-            $output["error"] = 'The file is too large';
-            $output["upload"] = 'Fail';
-        } elseif(($pathExtension !== 'jpg') && ($pathExtension !== 'png') && ($pathExtension !== 'gif') && ($pathExtension !== 'jpeg')) {
-            $output["error"] = 'Wrong File Name. Must be jpg, png, jpeg, or gif';
-            $output["upload"] = 'Fail';
-        } else {
-            if(move_uploaded_file($projItemImgFile["tmp_name"], $targetProjItemImg)) {
-                $output["itemFilepath"] = stripslashes($targetProjItemImg);
-                $output["itemMsg"] = "The file " . $projItemImgName . " has been uploaded.";
-            }
-        }
-    }
-
     $postQuery = "INSERT INTO `project` (`title`, `description`, `user_id`, `primary_image`, `secondary_images`, `timeline_description`, `category`, `status`) 
         VALUES ('{$projName}','{$projDesc}',{$userId},'{$targetProjMainImg}','{$projSecImages}','{$projTimelineDesc}','{$projCategory}', {$projStatus})";
 
@@ -108,24 +87,6 @@
         while ($row = mysqli_fetch_assoc($result)) {   
           $outputResult[] = $row;
         }
-
-        $projItemName = $_POST["proj-item-name"];
-
-        if (($projItemName != 'undefined') || $_POST["projImgHasUpload"] != 'false') {
-            $postProdItemQuery = "INSERT INTO `project_items` (`title`, `image`, `project_id`) VALUES ('{$projItemName}', '{$targetProjItemImg}', $lastId)";
-
-
-            $postProdItemResult = mysqli_query($conn, $postProdItemQuery);
-
-            if ($postProdItemResult) {
-                $prodItemNumRows = mysqli_affected_rows($conn);
-            } else {
-                throw new Exception('there is an error' . mysqli_error($conn));
-            }
-            if ($prodItemNumRows === 0) {
-                throw new Exception("no project items!");
-            }
-        }    
     } else {
         throw new Exception("failed to create project: " . mysqli_error($conn));
     }
