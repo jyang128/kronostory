@@ -94,7 +94,7 @@ class App extends React.Component{
         return(
             <React.Fragment>
             <div className="container-fluid header">
-                <Header title="KronoStory" userSeshData={this.state.userSeshData} logoutHandler={this.logoutHandler}/>
+                <Header title="kronostory" userSeshData={this.state.userSeshData} logoutHandler={this.logoutHandler}/>
             </div>
             <div className="container-fluid">
                 <Switch>

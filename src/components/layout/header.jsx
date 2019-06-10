@@ -23,13 +23,18 @@ export default class Header extends React.Component {
 	}
     render(){
         return(
-            <div className="row d-flex justify-content-between py-3 mx-2">
-                <h1 className="align-self-center">
-                    <Link to="/">
-                        {this.props.title}
-                    </Link>
-                </h1>
-
+            <div className="row d-flex justify-content-between py-2 mx-2">
+                <div className="logo d-flex align-items-center">
+                    <div className="logo-icon">
+                        <img className="img-fluid" src="images/white-logo.png" />
+                    </div>
+                    <h2>
+                        <Link to="/">
+                            {this.props.title}
+                        </Link>
+                    </h2>
+                </div>
+                
                 {this.props.userSeshData.id 
                     ?   <div className="menu-nav align-self-center">
                             <span className="mr-1" onClick={this.dropdownHandler}>
