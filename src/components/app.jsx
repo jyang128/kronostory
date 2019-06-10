@@ -58,6 +58,25 @@ class App extends React.Component{
             })
             .catch(error => console.error(error))
     }
+    loginGuest() {
+        axios.get('/api/guest-login.php')
+            .then(response => {
+                console.log('login guest response.data', response.data[0])
+                this.setState({
+                    userSeshData: response.data[0],
+                }, () => {
+                    this.props.history.push({
+                        pathname: '/dashboard',
+                        search: `?user=${this.state.userSeshData.id}`,
+                        state: {
+                            user: this.state.userSeshData, 
+                            userId: this.state.userSeshData.id, 
+                            userSession: this.state.userSeshData.id}
+                    });
+                });
+            })
+            .catch(error => console.error(error))
+    }
     logoutHandler(event){
         axios.get(`/api/logout.php`)
             .then(response => {
@@ -105,7 +124,8 @@ class App extends React.Component{
                     }/>
                     <Route path="/user-login" render={props => 
                         <UserLogin {...props} 
-                            loginAxios={loginInfo => this.loginUser(loginInfo)} 
+                            loginAxios={loginInfo => this.loginUser(loginInfo)}
+                            guestLoginAxios={() => this.loginGuest()} 
                         /> 
                     }/>
                     <Route path="/user-signup" render={props => (

@@ -20,6 +20,11 @@ export default class UserLogin extends React.Component {
         this.props.loginAxios(loginInfo);
     }
 
+    handleGuestLogin(event) {
+        event.preventDefault();
+        this.props.guestLoginAxios();
+    }
+
     render() {
         return (
             <div className="col-10 offset-1 col-sm-6 offset-sm-3 col-lg-4 offset-lg-4 text-center my-5">
@@ -57,6 +62,7 @@ export default class UserLogin extends React.Component {
                     >
                         Sign in
                     </button>
+                    <p onClick={event => this.handleGuestLogin(event)}>Guest Login</p>
                     <p className="mt-5 mb-2 text-muted">Don't have an account?</p>
                     <button className="btn btn-lg btn-outline-primary btn-block">Sign Up</button>
                 </form>
