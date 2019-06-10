@@ -1,19 +1,20 @@
 import React from 'react';
-import axios from 'axios';
 import './forms.css';
 
 export default class CreateProjectForm extends React.Component {
     constructor(props){
         super(props);
         this.state={
-            mainFile: null,
-            itemFile: null,
+            mainFile: '',
+            itemFile: '',
             mainImgHasUpload: false,
-            projImgHasUpload: false
+            projImgHasUpload: false,
+            selectedCategory: false
         }
         this.handleFormSubmit = this.handleFormSubmit.bind(this);
         this.onFileChange = this.onFileChange.bind(this);
         this.onFileChangeItem = this.onFileChangeItem.bind(this);
+        this.onRadioChange = this.onRadioChange.bind(this);
     }
     // handleSubmitPress(event) {
     //     event.preventDefault();
@@ -38,6 +39,9 @@ export default class CreateProjectForm extends React.Component {
         } else {
             this.setState({ itemFile:'', projImgHasUpload: false });
         }
+    }
+    onRadioChange() {
+        this.setState({ selectedCategory: true });
     }
     handleFormSubmit(event) {
         console.log("handle form submit");
@@ -77,11 +81,8 @@ export default class CreateProjectForm extends React.Component {
                                     <div className="custom-file">
                                         <label className="custom-file-label" htmlFor="proj-main-img">{this.state.mainFile ? this.state.mainFile.name : "Choose File"}</label>
                                         <input id="proj-main-img" type="file" className="form-control-file" name="proj-main-img" onChange={this.onFileChange}/>
+                                        <input id="mainImgHasUpload" type="hidden" name="mainImgHasUpload" value={this.state.mainImgHasUpload} />
                                     </div>
-                                </div>
-                                <div className="form-group">
-                                    <button className="btn btn-outline-primary"><i className="fas fa-plus"></i> Add another image</button>
-                                    <input id="mainImgHasUpload" type="hidden" name="mainImgHasUpload" value={this.state.mainImgHasUpload} />
                                 </div>
                                 <hr />
                                 <div className="form-row">
@@ -105,7 +106,6 @@ export default class CreateProjectForm extends React.Component {
                                     </div>
                                 </div>
                                 <hr />
-                                <input type="hidden" name="user-id" value={this.props.userId} />
                             </div>
                             <div className="col-4">
                                 <h5>Categories</h5>
@@ -113,27 +113,27 @@ export default class CreateProjectForm extends React.Component {
                                 <ul className="list-group">
                                     <li className="list-group-item">
                                         <div className="radio-container">
-                                            <input type="radio" id="art" name="proj-category" value="art" /> <label htmlFor="art">Art</label>
+                                            <input className="form-check-input" type="radio" id="art" name="proj-category" value="art" onChange={this.onRadioChange} /> <label className="form-check-label" htmlFor="art">Art</label>
                                         </div>
                                     </li>
                                     <li className="list-group-item">
                                         <div className="radio-container">
-                                            <input type="radio" id="gardening" name="proj-category" value="gardening" /> <label htmlFor="gardening">Gardening</label>
+                                            <input className="form-check-input" type="radio" id="gardening" name="proj-category" value="gardening" onChange={this.onRadioChange} /> <label className="form-check-label" htmlFor="gardening">Gardening</label>
                                         </div>
                                     </li>
                                     <li className="list-group-item">
                                         <div className="radio-container">
-                                            <input type="radio" id="technology" name="proj-category" value="technology" /> <label htmlFor="technology">Technology</label>
+                                            <input className="form-check-input" type="radio" id="technology" name="proj-category" value="technology" onChange={this.onRadioChange} /> <label className="form-check-label" htmlFor="technology">Technology</label>
                                         </div>
                                     </li>
                                     <li className="list-group-item">
                                         <div className="radio-container">
-                                            <input type="radio" id="architecture" name="proj-category" value="architecture" /> <label htmlFor="architecture">Architecture</label>
+                                            <input className="form-check-input" type="radio" id="architecture" name="proj-category" value="architecture" onChange={this.onRadioChange} /> <label className="form-check-label" htmlFor="architecture">Architecture</label>
                                         </div>
                                     </li>
                                     <li className="list-group-item">
                                         <div className="radio-container">
-                                            <input type="radio" id="animal" name="proj-category" value="animal" /> <label htmlFor="animal">Animal</label>
+                                            <input className="form-check-input" type="radio" id="animal" name="proj-category" value="animal" onChange={this.onRadioChange} /> <label className="form-check-label" htmlFor="animal">Animal</label>
                                         </div>
                                     </li>
                                 </ul>
@@ -141,6 +141,7 @@ export default class CreateProjectForm extends React.Component {
 
                             <div className="col-9">
                                 <div className="row">
+                                    <input type="hidden" name="user-id" value={this.props.userId} />
                                     <input type="hidden" name="formHasUpload" value="true" />
                                     <input type="hidden" name="status" value="published" />
                                     <div className="form-group col-6"><button type="submit" className="btn btn-primary mr-2 btn-block">Create Project</button></div>
