@@ -11,10 +11,12 @@ export default class CreateProjectForm extends React.Component {
             projImgHasUpload: false,
             selectedCategory: false
         }
+        this.projectInputField = 1;
         this.handleFormSubmit = this.handleFormSubmit.bind(this);
         this.onFileChange = this.onFileChange.bind(this);
         this.onFileChangeItem = this.onFileChangeItem.bind(this);
         this.onRadioChange = this.onRadioChange.bind(this);
+        this.addAnotherProjectItem = this.addAnotherProjectItem.bind(this);
     }
     // handleSubmitPress(event) {
     //     event.preventDefault();
@@ -43,13 +45,44 @@ export default class CreateProjectForm extends React.Component {
     onRadioChange() {
         this.setState({ selectedCategory: true });
     }
+    addAnotherProjectItem() {
+        
+        if (this.projectInputField < 5) {
+
+            let newInput = <div className="form-row">
+                                <div className="form-group col-md-6">
+                                    <label htmlFor="proj-item-name">Project Item</label>
+                                    <input id="proj-item-name" type="text" className="form-control mb-2" name="proj-item-name" placeholder="Item Name"/>
+                                </div>
+                                <div className="form-group col-md-6">
+                                    <label htmlFor="proj-item-title">Item Image</label>
+                                    <div className="custom-file">
+                                        <label className="custom-file-label" htmlFor="proj-item-img">{this.state.itemFile ? this.state.itemFile.name : "Choose File"}</label>
+                                        <input id="proj-item-img" name="proj-item-img" type="file" className="form-control-file" onChange={this.onFileChangeItem}/>
+                                        <input id="projImgHasUpload" type="hidden" name="projImgHasUpload" value={this.state.projImgHasUpload} />
+                                    </div>
+                                </div>
+                            </div>;
+            var z = document.createElement('p');
+            document.querySelector(".project-item-field").appendChild(z);
+
+            this.projectInputField++;
+        }
+        
+    }
     handleFormSubmit(event) {
         console.log("handle form submit");
         event.preventDefault();
-        let formData = new FormData(event.target);
-        this.props.createNewProject(formData);
+        if (this.state.selectedCategory) {
+            let formData = new FormData(event.target);
+            this.props.createNewProject(formData);
+        }
+        
     }
     render(){
+        let formError = <div className="form-error">
+                            <p className="text-danger">Please choose a category</p>
+                        </div>;
         return(
             <React.Fragment>
             <div className="form-container">
@@ -62,15 +95,15 @@ export default class CreateProjectForm extends React.Component {
                     </div>
                     <form className="create-project-form" onSubmit={this.handleFormSubmit}>
                         <div className="row mt-4">
-                            <div className="col-8">
+                            <div className="col-12 col-md-8">
                                 <h5 className="font-weight-bold">Describe your project</h5>
                                 <div className="form-group" >
                                     <label htmlFor="proj-name">Project Name</label>
-                                    <input id="proj-name" name="proj-name" type="text" className="form-control" placeholder="Enter Project Name"/>
+                                    <input id="proj-name" name="proj-name" type="text" className="form-control" placeholder="Enter Project Name" required />
                                 </div>
                                 <div className="form-group">
                                     <label htmlFor="proj-desc">Main Description</label>
-                                    <textarea id="proj-desc" name="proj-desc" className="form-control" placeholder="A short description that says it all."></textarea>
+                                    <textarea id="proj-desc" name="proj-desc" className="form-control" placeholder="A short description that says it all." required></textarea>
                                 </div>
                                 <div className="form-group">
                                     <label htmlFor="proj-timeline-desc">Describe your timeline</label>
@@ -86,31 +119,33 @@ export default class CreateProjectForm extends React.Component {
                                 </div>
                                 <hr />
                                 <div className="form-row">
-                                    <div className="form-group col-12">
+                                    <div className="form-group col-12 project-item-field">
                                         <label htmlFor="proj-item-title">Add items used in project</label>
-                                    </div>
-                                    <div className="form-group col-md-6">
-                                        <label htmlFor="proj-item-name">Project Item</label>
-                                        <input id="proj-item-name" type="text" className="form-control mb-2" name="proj-item-name" placeholder="Item Name"/>
-                                    </div>
-                                    <div className="form-group col-md-6">
-                                        <label htmlFor="proj-item-title">Item Image</label>
-                                        <div className="custom-file">
-                                            <label className="custom-file-label" htmlFor="proj-item-img">{this.state.itemFile ? this.state.itemFile.name : "Choose File"}</label>
-                                            <input id="proj-item-img" name="proj-item-img" type="file" className="form-control-file" onChange={this.onFileChangeItem}/>
-                                            <input id="projImgHasUpload" type="hidden" name="projImgHasUpload" value={this.state.projImgHasUpload} />
+                                        <div className="form-row">
+                                            <div className="form-group col-md-6">
+                                                <label htmlFor="proj-item-name">Project Item</label>
+                                                <input id="proj-item-name" type="text" className="form-control mb-2" name="proj-item-name" placeholder="Item Name"/>
+                                            </div>
+                                            <div className="form-group col-md-6">
+                                                <label htmlFor="proj-item-title">Item Image</label>
+                                                <div className="custom-file">
+                                                    <label className="custom-file-label" htmlFor="proj-item-img">{this.state.itemFile ? this.state.itemFile.name : "Choose File"}</label>
+                                                    <input id="proj-item-img" name="proj-item-img" type="file" className="form-control-file" onChange={this.onFileChangeItem}/>
+                                                    <input id="projImgHasUpload" type="hidden" name="projImgHasUpload" value={this.state.projImgHasUpload} />
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                     <div className="form-group col-12">
-                                        <button className="btn btn-outline-primary"><i className="fas fa-plus"></i> Add another item</button>
+                                        <div onClick={this.addAnotherProjectItem} className="btn btn-outline-primary"><i className="fas fa-plus"></i> Add another item</div>
                                     </div>
                                 </div>
                                 <hr />
                             </div>
-                            <div className="col-4">
+                            <div className="col-12 col-md-4">
                                 <h5>Categories</h5>
 
-                                <ul className="list-group">
+                                <ul className={this.state.selectedCategory ? "list-group mb-4" : "list-group mb-4 border border-danger"}>
                                     <li className="list-group-item">
                                         <div className="radio-container">
                                             <input className="form-check-input" type="radio" id="art" name="proj-category" value="art" onChange={this.onRadioChange} /> <label className="form-check-label" htmlFor="art">Art</label>
@@ -138,7 +173,6 @@ export default class CreateProjectForm extends React.Component {
                                     </li>
                                 </ul>
                             </div>
-
                             <div className="col-9">
                                 <div className="row">
                                     <input type="hidden" name="user-id" value={this.props.userId} />
@@ -149,6 +183,7 @@ export default class CreateProjectForm extends React.Component {
                                 </div>
                             </div>
                         </div>
+                        {this.state.selectedCategory ? null : formError}
                     </form>
                 </div>
             </div>
