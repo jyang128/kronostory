@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 export default class UserLogin extends React.Component {
     constructor(props) {
@@ -59,7 +60,9 @@ export default class UserLogin extends React.Component {
                     </button>
                     <p className="guest" onClick={event => this.handleGuestLogin(event)}>Guest Login</p>
                     <p className="mt-5 mb-2 text-muted">Don't have an account?</p>
-                    <button className="btn btn-lg btn-outline-primary btn-block">Sign Up</button>
+                    <Link to="/user-signup">
+                        <button className="btn btn-lg btn-outline-primary btn-block">Sign Up</button>
+                    </Link>
                 </form>
             </div>
         )

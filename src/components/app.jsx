@@ -30,6 +30,7 @@ class App extends React.Component{
     getProjects() {
         axios.get(`/api/projects.php`)
             .then(response => {
+                console.log("what response:",response);
                 this.setState({
                     userSeshData: response.data[0],
                     projects: response.data[1]
@@ -46,12 +47,10 @@ class App extends React.Component{
                         userSeshData: response.data[0]
                     }, () => {
                         this.props.history.push({
-                            pathname: '/dashboard',
-                            search: `?user=${this.state.userSeshData.id}`,
+                            pathname: `/${this.state.userSeshData.username}`,
                             state: {
-                                user: this.state.userSeshData, 
-                                userId: this.state.userSeshData.id, 
-                                userSession: this.state.userSeshData.id}
+                                userId: this.state.userSeshData.username
+                            }
                         });
                     });
                 }
@@ -66,12 +65,10 @@ class App extends React.Component{
                     userSeshData: response.data[0],
                 }, () => {
                     this.props.history.push({
-                        pathname: '/dashboard',
-                        search: `?user=${this.state.userSeshData.id}`,
+                        pathname: `/${this.state.userSeshData.username}`,
                         state: {
-                            user: this.state.userSeshData, 
-                            userId: this.state.userSeshData.id, 
-                            userSession: this.state.userSeshData.id}
+                            userId: this.state.userSeshData.username
+                        }
                     });
                 });
             })
@@ -98,8 +95,7 @@ class App extends React.Component{
               let newProjects = [...this.state.projects,response.data[0]]
               this.setState({projects: newProjects}, () => {
                 this.props.history.push({
-                    pathname: '/dashboard',
-                    search: `?user=${this.state.userSeshData.id}`,
+                    pathname: `/${this.state.userSeshData.username}`,
                     state: {
                         user: this.state.userSeshData, 
                         userId: this.state.userSeshData.id, 
@@ -110,6 +106,7 @@ class App extends React.Component{
           .catch(error => console.error(error))
     }
     render(){
+        console.log(this.state.projects);
         return(
             <React.Fragment>
             <div className="container-fluid header">
@@ -134,10 +131,10 @@ class App extends React.Component{
                             loginUser={this.loginUser}
                         />
                     )}/>
-                    <Route path="/dashboard" render={props => (
+                    <Route exact path="/:username" render={props => (
                         <Dashboard {...props} 
                             userStatus={this.state.userSeshData}
-                            key={this.props.location.state.userId}
+                            // key={this.props.location.state.userId}
                         />
                     )}/>
                     <Route path="/create-project" render={props => 

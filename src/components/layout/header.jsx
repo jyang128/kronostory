@@ -1,5 +1,4 @@
 import React from 'react';
-import axios from 'axios';
 import './layout.css';
 import { Link } from 'react-router-dom';
 
@@ -45,8 +44,7 @@ export default class Header extends React.Component {
                                         logout
                                     </Link>
                                     <Link to={{
-                                        pathname: '/dashboard',
-                                        search: `?user=${this.props.userSeshData.id}`,
+                                        pathname: `/${this.props.userSeshData.username}`,
                                         state: {
                                             userId: this.props.userSeshData.id, 
                                             username: this.props.userSeshData.username, 
