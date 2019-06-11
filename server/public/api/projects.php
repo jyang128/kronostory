@@ -26,9 +26,6 @@ if (empty($_GET['username'])) {
         ON p.`user_id` = u.`id`
         WHERE u.`username` = '{$user}' AND `status` = 'published'";
     
-        if($_GET['username'] === $_SESSION["userName"]) {
-            $userMatch = true;
-        }
 }
 
 $query = "SELECT {$targetUser}";
@@ -59,6 +56,11 @@ if(!empty($_SESSION['userId']) && !empty($_SESSION['userName'])){
 		"id" => $_SESSION["userId"],
 		"username" => $_SESSION["userName"]
     ];
+    if (isset($_GET['username'])) {
+        if($_GET['username'] === $_SESSION["userName"]) {
+            $userMatch = true;
+        }
+    }
     
 } else {
 	$output[0] = [

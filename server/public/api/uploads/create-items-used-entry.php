@@ -42,10 +42,10 @@
     if ($response) {
         if (($projItemName != 'undefined') || $_POST["projImgHasUpload"] != 'false') {
             $lastId = mysqli_insert_id($conn);
-            $itemUsedQuery = "SELECT * FROM `project_items` 
+            $itemUsedQuery = "SELECT pi.`id` AS project_item_id, pi.`image` AS project_item_image, pi.`title` AS project_item_title FROM `project_items` AS pi
                 WHERE `id` = {$lastId}";
 
-            $result = mysqli_query($conn, $projectQuery);
+            $result = mysqli_query($conn, $itemUsedQuery);
             $output = [];
             while ($row = mysqli_fetch_assoc($result)) {
                 $output[] = $row;    
