@@ -41,13 +41,14 @@ class App extends React.Component{
     }
     loginUser(loginInfo) {
         const submittedEmail = loginInfo.email;
+        this.setState({emailFormat:""});
         axios.get(`/api/login.php?email=${submittedEmail}`)
             .then(response => {
                 if(typeof response.data === "string"){
+                    console.log("its a string.");
                     this.setState({emailFormat:"The email is invalid"});
                 }
                 else{
-                    this.setState({emailFormat:""});
                     if (response.data[0].id) {
                         this.setState({
                             userSeshData: response.data[0]
