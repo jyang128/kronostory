@@ -131,18 +131,18 @@ class App extends React.Component{
                             loginUser={this.loginUser}
                         />
                     )}/>
-                    <Route exact path="/:username" render={props => (
-                        <Dashboard {...props} 
-                            userStatus={this.state.userSeshData}
-                            // key={this.props.location.state.userId}
-                        />
-                    )}/>
                     <Route path="/create-project" render={props => 
                         <CreateProjectForm {...props} 
                             userId={this.state.userSeshData.id} 
                             createNewProject={this.createNewProject}
                         /> 
                     }/>
+                    <Route exact path="/:username" render={props => (
+                        <Dashboard {...props} 
+                            userStatus={this.state.userSeshData}
+                            // key={this.props.location.state.userId}
+                        />
+                    )}/>
                     <Route path="/project-details/:id" render={props => (
                         <ProjectDetails {...props}
                             user = {this.state.projects.filter(project =>
