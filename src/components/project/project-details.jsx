@@ -8,7 +8,8 @@ export default class ProjectDetails extends React.Component {
     constructor(props){
         super(props);
         this.state = {
-            modalOpened: false,
+            timelineModalOpened: false,
+            itemsUsedModalOpened: false,
             project: {},
             items: [],
             timelineentries: [],
@@ -17,7 +18,8 @@ export default class ProjectDetails extends React.Component {
                 username: ''
             }
         }
-        this.toggleModal = this.toggleModal.bind(this);
+        this.toggleItemsUsedModal = this.toggleItemsUsedModal.bind(this);
+        this.toggleTimelineModal = this.toggleTimelineModal.bind(this);
         this.createNewEntry = this.createNewEntry.bind(this);
     }
     handleUsernameClick(event) {
@@ -50,6 +52,20 @@ export default class ProjectDetails extends React.Component {
                 console.error(error);
             })
     }
+    createNewItemsUsed(formData){
+        axios.post('/api/uploads/create-items-used-entry.php', formData, {
+            headers: {
+                'Content-Type': 'multipart/form-data'
+            }
+        })
+        .then(response => {
+            this.setState({
+                items: [...this.state.items, response['data'][0]],
+                itemsUsedModalOpened: false
+            })
+        })
+        .catch(error => console.error(error))
+    }
     createNewEntry(formData){
         axios.post('/api/uploads/create-timeline-entry.php', formData, {
             headers: {
@@ -59,19 +75,30 @@ export default class ProjectDetails extends React.Component {
         .then(response => {
             this.setState({
                 timelineentries: [...this.state.timelineentries, response['data'][0]],
-                modalOpened: false
+                timelineModalOpened: false
             })
         })
         .catch( error => console.error(error))
     }
-    toggleModal(event){
-        if(!this.state.modalOpened){
+    toggleItemsUsedModal(event){
+        if(!this.state.itemsUsedModalOpened) {
             this.setState({
-                modalOpened: true
+                itemsUsedModalOpened: true
             });
         } else if (event.target.className === 'overlay' || event.target.className === 'fas fa-times') {
             this.setState({
-                modalOpened: false
+                itemsUsedModalOpened: false
+            });
+        }
+    }
+    toggleTimelineModal(event){
+        if(!this.state.timelineModalOpened){
+            this.setState({
+                timelineModalOpened: true
+            });
+        } else if (event.target.className === 'overlay' || event.target.className === 'fas fa-times') {
+            this.setState({
+                timelineModalOpened: false
             });
         }
     }
@@ -97,13 +124,20 @@ export default class ProjectDetails extends React.Component {
                     </div>
                 </div>
                 <div className="row">
-                    <ProjectItems items={this.state.items}/>
+                    <ProjectItems 
+                        createNewItemsUsed={form => this.createNewItemsUsed(formData)}
+                        itemsUsedModalOpened={this.state.itemsUsedModalOpened}
+                        toggleItemsUsedModal={this.toggleItemsUsedModal}
+                        items={this.state.items}
+                        project={this.state.project}
+                        userSeshData={this.state.userSeshData}
+                    />
                 </div>
                 <div className="row bg-light">
                     <Timeline 
                         createNewEntry={this.createNewEntry}
-                        modalOpened={this.state.modalOpened}
-                        toggleModal={this.toggleModal}
+                        timelineModalOpened={this.state.timelineModalOpened}
+                        toggleTimelineModal={this.toggleTimelineModal}
                         entries={this.state.timelineentries}
                         project={this.state.project}
                         userSeshData={this.state.userSeshData}
