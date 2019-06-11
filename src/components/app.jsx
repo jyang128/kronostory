@@ -140,20 +140,20 @@ class App extends React.Component{
                             key={this.props.location.state.userId}
                         />
                     )}/>
-                    <Route path="/project-details/:id" render={props => (
-                        <ProjectDetails {...props}
-                            user = {this.state.projects.filter(project =>
-                                project.id === parseInt(props.match.params.id, 10)
-                                )[0]
-                                }  
-                        />
-                    )}/>
                     <Route path="/create-project" render={props => 
                         <CreateProjectForm {...props} 
                             userId={this.state.userSeshData.id} 
                             createNewProject={this.createNewProject}
                         /> 
                     }/>
+                    <Route path="/project-details/:id" render={props => (
+                        <ProjectDetails {...props}
+                            user = {this.state.projects.filter(project =>
+                                project.id === parseInt(props.match.params.id, 10)
+                                )[0]
+                            }  
+                        />
+                    )}/>
                 </Switch>
             </div>
             <div className="container-fluid footer">
