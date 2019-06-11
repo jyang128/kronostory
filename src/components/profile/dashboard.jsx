@@ -17,13 +17,11 @@ export default class Dashboard extends React.Component{
         }
     }
     componentDidMount() {
-        // const id = this.props.location.state.userId;
-        // // debugger;
         const username = this.props.match.params.username;
         this.getIndividualProjects(username);
     }
-    componentDidUpdate(prevProps, prevState) {
-        if(prevProps === this.props.match.params.username){
+    componentDidUpdate(prevProps) {
+        if(prevProps.match.params.username !== this.props.match.params.username){
             this.getIndividualProjects(this.props.match.params.username);
         }
     }
@@ -46,7 +44,6 @@ export default class Dashboard extends React.Component{
         this.setState({loading: true}, ()=>{
             axios.get(`/api/projects.php?username=${username}`)
             .then(response => {
-                console.log(response)
                 this.setState({
                     userSeshData: response.data[0],
                     individualProjects: response.data[1],
@@ -62,7 +59,6 @@ export default class Dashboard extends React.Component{
         })
     }
     render(){
-        console.log(this.state.loading);
         let userProjectCards = this.state.individualProjects.map( (project) => {
             return <ProjectCard 
                 key={project.id} 
