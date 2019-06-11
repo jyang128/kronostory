@@ -26,9 +26,6 @@ if (empty($_GET['username'])) {
         ON p.`user_id` = u.`id`
         WHERE u.`username` = '{$user}' AND `status` = 'published'";
     
-        if($_GET['username'] === $_SESSION["userName"]) {
-            $userMatch = true;
-        }
 }
 
 $query = "SELECT {$targetUser}";
@@ -38,10 +35,6 @@ if ($result = mysqli_query($conn, $query)) {
 } else {
         throw new Exception('there is an error' . mysqli_connect_error());
 }
-
-// if ($numRows === 0) {
-//     throw new Exception("no projects!");
-// }
 
 $output = [];
 $sessionArray = [];
@@ -59,6 +52,11 @@ if(!empty($_SESSION['userId']) && !empty($_SESSION['userName'])){
 		"id" => $_SESSION["userId"],
 		"username" => $_SESSION["userName"]
     ];
+    if (isset($_GET['username'])) {
+        if($_GET['username'] === $_SESSION["userName"]) {
+            $userMatch = true;
+        }
+    }
     
 } else {
 	$output[0] = [

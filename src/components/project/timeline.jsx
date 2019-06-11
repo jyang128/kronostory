@@ -23,7 +23,7 @@ export default class Timeline extends React.Component {
 
         let addToTimelineButton;
         if(this.props.userSeshData.id === this.props.project.user_id){
-            addToTimelineButton = <div className="plus my-2" onClick={this.props.toggleModal}><i className="fas fa-plus-circle"></i> Add to Timeline
+            addToTimelineButton = <div className="plus my-2" onClick={this.props.toggleTimelineModal}><i className="fas fa-plus-circle"></i> Add to Timeline
             </div>
         } else {
             addToTimelineButton = null;
@@ -35,7 +35,7 @@ export default class Timeline extends React.Component {
                 <div className="mb-4 text-center">
                     <h3>Timeline</h3>
                     <p>{this.props.project.timeline_description}</p>
-                    {addToTimelineButton}
+                        {addToTimelineButton}
                 </div>
                 <div className="px-5">
                     <Slider {...settings}>
@@ -43,12 +43,15 @@ export default class Timeline extends React.Component {
                     </Slider>
                 </div>
             </div>
-            <Modal isModalOpen={this.props.modalOpened} toggleModal={this.props.toggleModal}>
-                <TimelineEntryForm 
-                    createNewEntry={this.props.createNewEntry}
-                    project={this.props.project}
-                />
-            </Modal>
+                <Modal 
+                    isModalOpen={this.props.timelineModalOpened} 
+                    toggleModal={this.props.toggleTimelineModal}
+                >
+                    <TimelineEntryForm 
+                        createNewEntry={this.props.createNewEntry}
+                        project={this.props.project}
+                    />
+                </Modal>
             </React.Fragment>
         )
     }

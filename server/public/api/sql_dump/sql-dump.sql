@@ -3,8 +3,8 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Jun 05, 2019 at 03:02 PM
--- Server version: 5.7.25-0ubuntu0.18.04.2
+-- Generation Time: Jun 11, 2019 at 07:38 PM
+-- Server version: 5.7.26-0ubuntu0.18.04.1
 -- PHP Version: 7.2.17-0ubuntu0.18.04.1
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
@@ -32,7 +32,7 @@ CREATE TABLE `project` (
   `description` text COLLATE utf8_unicode_ci NOT NULL,
   `date_created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `user_id` mediumint(8) UNSIGNED NOT NULL,
-  `primary_image` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+  `primary_image` varchar(80) COLLATE utf8_unicode_ci NOT NULL,
   `secondary_images` text COLLATE utf8_unicode_ci NOT NULL,
   `timeline_description` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
   `category` varchar(40) COLLATE utf8_unicode_ci NOT NULL,
@@ -44,9 +44,9 @@ CREATE TABLE `project` (
 --
 
 INSERT INTO `project` (`id`, `title`, `description`, `date_created`, `user_id`, `primary_image`, `secondary_images`, `timeline_description`, `category`, `status`) VALUES
-(1, 'Tomato Growing', 'I have been a tomato grower since 2008 when I grew my first tomatoes from seed. Growing tomatoes from seed takes time and care, but ultimately it is not hard and the results are well worth it. You will need either a grow light setup (cheap shop lights) or a south-facing window that gets plenty of sun (if you live in the southern hemisphere, you will need a north-facing window).', '2019-06-05 21:36:36', 1, 'https://bit.ly/2I3x8CZ', '[\'https://bit.ly/2I3x8CZ\', \'https://bit.ly/2I3x8CZ\']', 'checkout our images', 'Gardening', 'published'),
-(2, 'Potato the Pug', 'Here\'s the rise of sir Potato the Pug.', '2019-06-02 05:06:41', 2, 'https://bit.ly/30OoTTZ', '', 'Here\'s the rise of sir Potato the Pug.', 'pets', 'published'),
-(3, 'test', 'test', '2019-06-05 22:02:10', 10, 'https://bit.ly/2HxxgtW', 'https://bit.ly/2HxxgtW', 'test', 'pets', 'deleted');
+(1, 'Tomato Growing', 'I have been a tomato grower since 2008 when I grew my first tomatoes from seed. Growing tomatoes from seed takes time and care, but ultimately it is not hard and the results are well worth it. You will need either a grow light setup (cheap shop lights) or a south-facing window that gets plenty of sun (if you live in the southern hemisphere, you will need a north-facing window).', '2019-06-11 19:37:33', 1, 'https://bit.ly/2I3x8CZ', '[\'https://bit.ly/2I3x8CZ\', \'https://bit.ly/2I3x8CZ\']', 'checkout our images', 'gardening', 'published'),
+(2, 'Potato the Pug', 'Here\'s the rise of sir Potato the Pug.', '2019-06-11 19:38:13', 2, 'https://bit.ly/30OoTTZ', '', 'Here\'s the rise of sir Potato the Pug.', 'animal', 'published'),
+(3, 'test', 'test', '2019-06-11 19:38:19', 10, 'https://bit.ly/2HxxgtW', 'https://bit.ly/2HxxgtW', 'test', 'animal', 'deleted');
 
 -- --------------------------------------------------------
 
@@ -57,7 +57,7 @@ INSERT INTO `project` (`id`, `title`, `description`, `date_created`, `user_id`, 
 CREATE TABLE `project_items` (
   `id` mediumint(8) UNSIGNED NOT NULL,
   `title` varchar(40) COLLATE utf8_unicode_ci NOT NULL,
-  `image` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+  `image` varchar(80) COLLATE utf8_unicode_ci NOT NULL,
   `project_id` mediumint(8) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
@@ -82,7 +82,7 @@ CREATE TABLE `timeline_entries` (
   `id` int(10) UNSIGNED NOT NULL,
   `title` varchar(45) COLLATE utf8_unicode_ci NOT NULL,
   `description` text COLLATE utf8_unicode_ci NOT NULL,
-  `primary_image` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+  `primary_image` varchar(80) COLLATE utf8_unicode_ci NOT NULL,
   `project_id` mediumint(8) UNSIGNED NOT NULL,
   `secondary_images` text COLLATE utf8_unicode_ci NOT NULL,
   `date` varchar(40) COLLATE utf8_unicode_ci NOT NULL
@@ -122,7 +122,7 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`id`, `first_name`, `last_name`, `username`, `password`, `date_joined`, `email`) VALUES
-(1, 'John', 'Doe', 'johndoey', 'pass', '2019-06-02 05:10:44', 'johndo@gmail.com'),
+(1, 'John', 'Doe', 'guest', 'pass', '2019-06-11 19:36:21', 'guest@guest.guest'),
 (2, 'Pug', 'Man', 'pugman100', 'pass', '2019-06-02 05:10:32', 'superpugman@gmail.com');
 
 --

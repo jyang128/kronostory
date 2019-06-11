@@ -67,6 +67,7 @@ body {
     height: 100vh;
     width: 100vw;
     background-color: rgba(0, 0, 0, 0.6);
+    z-index: 14;
 }
 .modal-body{
     box-sizing: border-box;

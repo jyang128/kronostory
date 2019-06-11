@@ -67,6 +67,7 @@
     $response = mysqli_query($conn, $postQuery);
 
     if ($response) {
+    
         $lastId = mysqli_insert_id($conn);
         $getQuery = "SELECT * FROM `project` WHERE `id` = {$lastId}";
         $result = mysqli_query($conn, $getQuery);

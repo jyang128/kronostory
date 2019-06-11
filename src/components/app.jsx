@@ -53,10 +53,7 @@ class App extends React.Component{
                             userSeshData: response.data[0]
                         }, () => {
                             this.props.history.push({
-                                pathname: `/${this.state.userSeshData.username}`,
-                                state: {
-                                    userId: this.state.userSeshData.username
-                                }
+                                pathname: `/${this.state.userSeshData.username}`
                             });
                         });
                     }
@@ -72,10 +69,7 @@ class App extends React.Component{
                     userSeshData: response.data[0],
                 }, () => {
                     this.props.history.push({
-                        pathname: `/${this.state.userSeshData.username}`,
-                        state: {
-                            userId: this.state.userSeshData.username
-                        }
+                        pathname: `/${this.state.userSeshData.username}`
                     });
                 });
             })
@@ -103,10 +97,6 @@ class App extends React.Component{
               this.setState({projects: newProjects}, () => {
                 this.props.history.push({
                     pathname: `/${this.state.userSeshData.username}`,
-                    state: {
-                        user: this.state.userSeshData, 
-                        userId: this.state.userSeshData.id, 
-                        userSession: this.state.userSeshData.id}
                 });
             });
           })
@@ -121,17 +111,17 @@ class App extends React.Component{
             </div>
             <div className="container-fluid">
                 <Switch>
-                    <Route exact path="/" render={props => 
-                        <ProjectCatalog {...props} 
+                    <Route exact path="/" render={props =>
+                        <ProjectCatalog {...props}
                             projects={this.state.projects}
-                        /> 
+                        />
                     }/>
-                    <Route path="/user-login" render={props => 
-                        <UserLogin {...props} 
+                    <Route path="/user-login" render={props =>
+                        <UserLogin {...props}
                             loginAxios={loginInfo => this.loginUser(loginInfo)}
-                            guestLoginAxios={() => this.loginGuest()} 
+                            guestLoginAxios={() => this.loginGuest()}
                             emailFormat={this.state.emailFormat}
-                        /> 
+                        />
                     }/>
                     <Route path="/user-signup" render={props => (
                         <UserSignup {...props}
@@ -139,16 +129,15 @@ class App extends React.Component{
                             loginUser={this.loginUser}
                         />
                     )}/>
-                    <Route path="/create-project" render={props => 
-                        <CreateProjectForm {...props} 
-                            userId={this.state.userSeshData.id} 
+                    <Route path="/create-project" render={props =>
+                        <CreateProjectForm {...props}
+                            userId={this.state.userSeshData.id}
                             createNewProject={this.createNewProject}
-                        /> 
+                        />
                     }/>
                     <Route exact path="/:username" render={props => (
-                        <Dashboard {...props} 
+                        <Dashboard {...props}
                             userStatus={this.state.userSeshData}
-                            // key={this.props.location.state.userId}
                         />
                     )}/>
                     <Route path="/project-details/:id" render={props => (
@@ -156,7 +145,7 @@ class App extends React.Component{
                             user = {this.state.projects.filter(project =>
                                 project.id === parseInt(props.match.params.id, 10)
                                 )[0]
-                            }  
+                            }
                         />
                     )}/>
                 </Switch>
