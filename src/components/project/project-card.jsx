@@ -43,7 +43,7 @@ export default class ProjectCard extends React.Component{
                   <h5 className="card-title">{this.props.projectData.title}</h5>
                   <h6>By: {this.props.projectData.username}</h6>
                   <p className="card-text text-truncate">{this.props.projectData.description}</p>
-                  <Link to={`project-details/${this.props.projectData.id}`}>
+                  <Link to={`/project-details/${this.props.projectData.id}`}>
                     <button className="btn btn-primary">
                         Go To Project
                     </button>

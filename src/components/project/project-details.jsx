@@ -23,9 +23,9 @@ export default class ProjectDetails extends React.Component {
     handleUsernameClick(event) {
         event.preventDefault();
         this.props.history.push({
-            pathname: '/dashboard',
-            search: `?user=${this.state.project.user_id}`,
-            state: {userId: this.state.project.user_id,
+            pathname: `/${this.state.project.username}`,
+            state: {
+                userId: this.state.project.user_id,
                 username: this.state.project.username
             }
         });

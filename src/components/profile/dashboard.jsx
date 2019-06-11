@@ -12,12 +12,20 @@ export default class Dashboard extends React.Component{
                 id: null,
                 username: ''
             },
-            loading: false
+            loading: false,
+            userMatch: false
         }
     }
     componentDidMount() {
-        const id = this.props.location.state.userId;
-        this.getIndividualProjects(id);
+        // const id = this.props.location.state.userId;
+        // // debugger;
+        const username = this.props.match.params.username;
+        this.getIndividualProjects(username);
+    }
+    componentDidUpdate(prevProps, prevState) {
+        if(prevProps === this.props.match.params.username){
+            this.getIndividualProjects(this.props.match.params.username);
+        }
     }
     delete(id){
         axios.patch('/api/delete.php',{"id":id})
@@ -33,15 +41,16 @@ export default class Dashboard extends React.Component{
             })
             .catch(error => console.error(error))
     }
-    getIndividualProjects(id) {
+    getIndividualProjects(username) {
         // before - loading screen
         this.setState({loading: true}, ()=>{
-            axios.get(`/api/projects.php?userId=${id}`)
+            axios.get(`/api/projects.php?username=${username}`)
             .then(response => {
                 console.log(response)
                 this.setState({
                     userSeshData: response.data[0],
-                    individualProjects: response.data[1]
+                    individualProjects: response.data[1],
+                    userMatch: response.data[2].userMatch
                 })
             })
             .catch(function (error) {
@@ -63,7 +72,7 @@ export default class Dashboard extends React.Component{
             />;
         })
         let createProjectButton;
-        if(this.state.userSeshData.id == this.props.location.state.userId){
+        if(this.state.userMatch){
             createProjectButton = <div className="row d-flex justify-content-between py-3 mb-4 mx-2">
                 <Link to="/create-project">
                     <button className="btn btn-primary">
