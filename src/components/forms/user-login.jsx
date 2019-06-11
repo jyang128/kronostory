@@ -42,6 +42,7 @@ export default class UserLogin extends React.Component {
                         onChange={event => this.handleInputs(event)}
                         autoFocus 
                     />
+                    <p className={this.props.emailFormat ? "text-danger" : "text-danger d-none"}>{this.props.emailFormat}</p>
                     <label htmlFor="inputPassword" className="sr-only">Password</label>
                     <input 
                         type="password" 

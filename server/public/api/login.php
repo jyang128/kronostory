@@ -13,7 +13,12 @@ if (!$conn){
 
 $email = $_GET['email'];
 
-$query = "SELECT * FROM `user` 
+if(preg_match('/@.*\./',$email) === 0){
+    print("The email is invalid.");
+    exit();
+}
+
+$query = "SELECT * FROM `user`
     WHERE `email` = '{$email}'";
 
 if ($result = mysqli_query($conn, $query)) {
@@ -28,7 +33,7 @@ if ($numRows === 0) {
 
 $output = [];
 
-while ($row = mysqli_fetch_assoc($result)) {   
+while ($row = mysqli_fetch_assoc($result)) {
     $output[] = $row;
 }
 
