@@ -52,3 +52,10 @@
     color: #A167A5;
     cursor: pointer;
 }
+.user-link a {
+    color: #8b508f;
+}
+.user-link a:hover {
+    color: #A167A5;
+    cursor: pointer;
+}

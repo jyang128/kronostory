@@ -15,10 +15,10 @@ export default class ProjectCatalog extends React.Component{
         this.sortProjects = this.sortProjects.bind(this);
     }
 
-    sortProjects(e) {
+    sortProjects(event) {
         document.querySelector(".sort-link.active").classList.remove("active");
         let sortCategory = e.target.id;
-        e.target.className += " active";
+        event.target.className += " active";
         this.setState({sort: sortCategory });
     }
 

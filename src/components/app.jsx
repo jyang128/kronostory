@@ -47,10 +47,7 @@ class App extends React.Component{
                         userSeshData: response.data[0]
                     }, () => {
                         this.props.history.push({
-                            pathname: `/${this.state.userSeshData.username}`,
-                            state: {
-                                userId: this.state.userSeshData.username
-                            }
+                            pathname: `/${this.state.userSeshData.username}`
                         });
                     });
                 }
@@ -65,10 +62,7 @@ class App extends React.Component{
                     userSeshData: response.data[0],
                 }, () => {
                     this.props.history.push({
-                        pathname: `/${this.state.userSeshData.username}`,
-                        state: {
-                            userId: this.state.userSeshData.username
-                        }
+                        pathname: `/${this.state.userSeshData.username}`
                     });
                 });
             })
@@ -96,10 +90,6 @@ class App extends React.Component{
               this.setState({projects: newProjects}, () => {
                 this.props.history.push({
                     pathname: `/${this.state.userSeshData.username}`,
-                    state: {
-                        user: this.state.userSeshData, 
-                        userId: this.state.userSeshData.id, 
-                        userSession: this.state.userSeshData.id}
                 });
             });
           })
@@ -140,7 +130,6 @@ class App extends React.Component{
                     <Route exact path="/:username" render={props => (
                         <Dashboard {...props} 
                             userStatus={this.state.userSeshData}
-                            // key={this.props.location.state.userId}
                         />
                     )}/>
                     <Route path="/project-details/:id" render={props => (
