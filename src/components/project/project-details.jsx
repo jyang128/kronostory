@@ -3,6 +3,7 @@ import axios from 'axios';
 import ProjectItems from './project-items';
 import Timeline from './timeline';
 import './project.css';
+import { Link } from 'react-router-dom';
 
 export default class ProjectDetails extends React.Component {
     constructor(props){
@@ -22,16 +23,6 @@ export default class ProjectDetails extends React.Component {
         this.toggleTimelineModal = this.toggleTimelineModal.bind(this);
         this.createNewEntry = this.createNewEntry.bind(this);
     }
-    handleUsernameClick(event) {
-        event.preventDefault();
-        this.props.history.push({
-            pathname: `/${this.state.project.username}`,
-            state: {
-                userId: this.state.project.user_id,
-                username: this.state.project.username
-            }
-        });
-    }
     getProjectDetails(id) {
         axios.get(`/api/project-details.php?id=${id}`)
             .then(response => {
@@ -41,12 +32,6 @@ export default class ProjectDetails extends React.Component {
                     items: response.data[1]['items_used'],
                     timelineentries: response.data[1]['timeline_entry']
                 }); 
-                console.log('Project Details Component')
-                console.table({
-                    userLoggedIn: this.state.userSeshData.id, 
-                    userName: this.state.project.username,
-                    projectId: this.state.project.id
-                })
             })
             .catch(function (error) {
                 console.error(error);
@@ -116,12 +101,12 @@ export default class ProjectDetails extends React.Component {
                     </div>
                     <div className="col-12 col-md-7 mt-4 mt-md-0">
                         <h3>{this.state.project.project_title}</h3>
-                        <div 
-                            className="font-weight-light mt-3" 
-                            onClick={event => this.handleUsernameClick(event)}
-                        >
-                            <div>By: {this.state.project.username}</div>
-                        </div>
+                        <h6 className="font-weight-light mt-3 user-link">
+                            By:{' '}
+                            <Link to={`/${this.state.project.username}`}>
+                                {this.state.project.username}
+                            </Link>
+                        </h6>
                         <div className=" mt-4">{this.state.project.project_description}</div>
                     </div>
                 </div>
