@@ -57,7 +57,7 @@ export default class ProjectItems extends React.Component {
                     toggleModal={this.props.toggleItemsUsedModal}
                 >
                     <ItemUsedEntryForm
-                        createNewItemEntry={this.props.createNewEntry}
+                        createNewItemEntry={this.props.createNewItemsUsed}
                         project={this.props.project}
                     />
                 </Modal>

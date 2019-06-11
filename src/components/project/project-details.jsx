@@ -59,6 +59,7 @@ export default class ProjectDetails extends React.Component {
             }
         })
         .then(response => {
+            console.log('createnewitemsused: ', response['data'])
             this.setState({
                 items: [...this.state.items, response['data'][0]],
                 itemsUsedModalOpened: false
@@ -125,7 +126,7 @@ export default class ProjectDetails extends React.Component {
                 </div>
                 <div className="row">
                     <ProjectItems 
-                        createNewItemsUsed={form => this.createNewItemsUsed(formData)}
+                        createNewItemsUsed={formData => this.createNewItemsUsed(formData)}
                         itemsUsedModalOpened={this.state.itemsUsedModalOpened}
                         toggleItemsUsedModal={this.toggleItemsUsedModal}
                         items={this.state.items}

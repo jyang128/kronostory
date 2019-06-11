@@ -54,8 +54,8 @@ if(!$result){
     $result = mysqli_query($conn, $projectQuery);
     $output = [];
     while ($row = mysqli_fetch_assoc($result)) {
-        $row['date'] = stripslashes($row['date']);
-        $output[] = $row;
+       $output[] = $row;    $row['date'] = stripslashes($row['date']);
+     
     }
 }
 print (json_encode($output));

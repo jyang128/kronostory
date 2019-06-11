@@ -29,8 +29,9 @@ export default class ItemUsedEntryForm extends React.Component {
     }
     formSubmitHandler(event){
         event.preventDefault();
+        console.log('event.target is ', event.target)
         let formData = new FormData(event.target);
-        this.props.createNewEntry(formData);
+        this.props.createNewItemEntry(formData);
     }
     onChangeHandler(event){
         this.setState({title: event.target.value});
