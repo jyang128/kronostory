@@ -15,13 +15,7 @@ export default class Footer extends React.Component {
                 <Link to="/" className="mr-3">About</Link>
                 {
                     this.props.userSeshData.username ?
-                        <Link to={{
-                            pathname: `/${this.props.userSeshData.username}`,
-                            state: {
-                                userId: this.props.userSeshData.id,
-                                username: this.props.userSeshData.username,
-                            }
-                        }} className="dashboard dropdown-link" >
+                        <Link to={`/${this.props.userSeshData.username}`} className="dashboard dropdown-link" >
                             Account
                         </Link>
                         :
