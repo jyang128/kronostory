@@ -20,15 +20,27 @@ $email = $user['email'];
 
 $usernameValidationQuery = "SELECT * FROM `user` WHERE `username` = '{$username}'";
 $emailValidationQuery = "SELECT * FROM `user` WHERE `email` = '{$email}'";
-$invalidUsername = mysqli_query($conn, $usernameValidationQuery);
-$invalidEmail = mysqli_query($conn, $emailValidationQuery);
+
+$invalidUsernameResponse = mysqli_query($conn, $usernameValidationQuery);
+$invalidEmailResponse = mysqli_query($conn, $emailValidationQuery);
+$invalidUsername = "";
+$invalidEmail = "";
 $mismatchPassword = "";
 $invalidUppercase = "";
 $invalidNumber = "";
 $invalidEmailFormat = "";
+$usernameLower = strtolower($username);
+$keyword = "";
+$dashes = "";
 
+if(preg_match('/-/',$username) === 1){
+    $dashes = "The username can't contain dashes. ";
+}
+if($usernameLower === "dashboard" || $usernameLower === "about" || $usernameLower === "contact" || $usernameLower === "user" ){
+    $keyword = $username." can't be used as a username. ";
+}
 if(preg_match('/@.*\./',$email) === 0){
-    $invalidEmailFormat = "The email is invalid.";
+    $invalidEmailFormat = "The email is invalid. ";
 }
 if($password !== $repassword){
     $mismatchPassword = "The passwords do not match. ";
@@ -39,28 +51,16 @@ if(preg_match('/[A-Z]/', $password) === 0){
 if(preg_match('/[0-9]/', $password) === 0){
     $invalidNumber = "The password needs a number. ";
 }
-if(mysqli_num_rows($invalidUsername) > 0 && mysqli_num_rows($invalidEmail) > 0){
-    $row1 = mysqli_fetch_assoc($invalidUsername);
-    $row2 = mysqli_fetch_assoc($invalidEmail);
-    print($row1['username']." is taken and ".$row2['email']." is already being used by another user. ".$mismatchPassword.$invalidUppercase.$invalidNumber.$invalidEmailFormat);
-    exit();
+if(mysqli_num_rows($invalidUsernameResponse) > 0){
+    $row = mysqli_fetch_assoc($invalidUsernameResponse);
+    $invalidUsername = $row['username']." is taken. ";
 }
-else if(mysqli_num_rows($invalidUsername) > 0){
-    $row = mysqli_fetch_assoc($invalidUsername);
-    print($row['username']." is taken. ".$mismatchPassword.$invalidUppercase.$invalidNumber.$invalidEmailFormat);
-    exit();
+if(mysqli_num_rows($invalidEmailResponse) > 0){
+    $row = mysqli_fetch_assoc($invalidEmailResponse);
+    $invalidEmail = $row['email']." is already being used by another user. ";
 }
-else if(mysqli_num_rows($invalidEmail) > 0){
-    $row = mysqli_fetch_assoc($invalidEmail);
-    print($row['email']." is already being used by another user. ".$mismatchPassword.$invalidUppercase.$invalidNumber.$invalidEmailFormat);
-    exit();
-}
-if($invalidUppercase || $invalidNumber){
-    print($invalidUppercase.$invalidNumber);
-    exit();
-}
-if($invalidEmailFormat){
-    print($invalidEmailFormat);
+if($invalidUsername || $invalidEmail || $mismatchPassword || $invalidUppercase || $invalidNumber || $invalidEmailFormat || $keyword || $dashes){
+    print($invalidUsername.$invalidEmail.$mismatchPassword.$invalidUppercase.$invalidNumber.$invalidEmailFormat.$keyword.$dashes);
     exit();
 }
 $postQuery = "INSERT INTO `user`(`first_name`, `last_name`, `username`, `password`, `email`)

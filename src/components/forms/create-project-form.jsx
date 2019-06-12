@@ -10,7 +10,7 @@ export default class CreateProjectForm extends React.Component {
             itemFile: '',
             mainImgHasUpload: false,
             projImgHasUpload: false,
-            selectedCategory: false
+            selectedCategory: ''
         }
         this.handleFormSubmit = this.handleFormSubmit.bind(this);
         this.onFileChange = this.onFileChange.bind(this);
@@ -33,16 +33,21 @@ export default class CreateProjectForm extends React.Component {
             this.setState({ itemFile:'', projImgHasUpload: false });
         }
     }
-    onRadioChange() {
-        this.setState({ selectedCategory: true });
+    onRadioChange(event) {
+        console.log(event.target.id)
+        this.setState({ selectedCategory: event.target.id.toString() });
+
     }
     handleFormSubmit(event) {
-        // need to check that inputs are all there & disable the button to extra submissions
+        if(this.state.selectedCategory === '') {
+            this.setState({ selectedCategory: false })
+        }
         console.log("handle form submit");
         event.preventDefault();
         if (this.state.selectedCategory) {
             let formData = new FormData(event.target);
             this.props.createNewProject(formData);
+            document.getElementById("formSubmit").disabled = true;
         }
         
     }
@@ -88,16 +93,17 @@ export default class CreateProjectForm extends React.Component {
                             </div>
                             <div className="col-12 col-md-4">
                                 <h5>Categories</h5>
-
-                                <ul className={this.state.selectedCategory ? "list-group mb-4" : "list-group mb-4 border border-danger"}>
+                                <ul className={this.state.selectedCategory === false ? "list-group mb-4 border border-danger" : "list-group mb-4"}>
                                     <li className="list-group-item">
                                         <div className="radio-container">
-                                            <input className="form-check-input" type="radio" id="art" name="proj-category" value="art" onChange={this.onRadioChange} /> <label className="form-check-label" htmlFor="art">Art</label>
+                                            <input className="form-check-input" type="radio" id="art" name="proj-category" value="art" onChange={this.onRadioChange} /> 
+                                            <label className="form-check-label" htmlFor="art">Art</label>
                                         </div>
                                     </li>
                                     <li className="list-group-item">
                                         <div className="radio-container">
-                                            <input className="form-check-input" type="radio" id="gardening" name="proj-category" value="gardening" onChange={this.onRadioChange} /> <label className="form-check-label" htmlFor="gardening">Gardening</label>
+                                            <input className="form-check-input" type="radio" id="gardening" name="proj-category" value="gardening" onChange={this.onRadioChange} /> 
+                                            <label className="form-check-label" htmlFor="gardening">Gardening</label>
                                         </div>
                                     </li>
                                     <li className="list-group-item">
@@ -107,12 +113,20 @@ export default class CreateProjectForm extends React.Component {
                                     </li>
                                     <li className="list-group-item">
                                         <div className="radio-container">
-                                            <input className="form-check-input" type="radio" id="architecture" name="proj-category" value="architecture" onChange={this.onRadioChange} /> <label className="form-check-label" htmlFor="architecture">Architecture</label>
+                                            <input className="form-check-input" type="radio" id="crafting" name="proj-category" value="crafting" onChange={this.onRadioChange} /> 
+                                            <label className="form-check-label" htmlFor="crafting">Crafting</label>
                                         </div>
                                     </li>
                                     <li className="list-group-item">
                                         <div className="radio-container">
-                                            <input className="form-check-input" type="radio" id="animal" name="proj-category" value="animal" onChange={this.onRadioChange} /> <label className="form-check-label" htmlFor="animal">Animal</label>
+                                            <input className="form-check-input" type="radio" id="health" name="proj-category" value="health" onChange={this.onRadioChange} /> 
+                                            <label className="form-check-label" htmlFor="health">Health</label>
+                                        </div>
+                                    </li>
+                                    <li className="list-group-item">
+                                        <div className="radio-container">
+                                            <input className="form-check-input" type="radio" id="animal" name="proj-category" value="animal" onChange={this.onRadioChange} /> 
+                                            <label className="form-check-label" htmlFor="animal">Animal</label>
                                         </div>
                                     </li>
                                 </ul>
@@ -122,7 +136,7 @@ export default class CreateProjectForm extends React.Component {
                                     <input type="hidden" name="user-id" value={this.props.userId} />
                                     <input type="hidden" name="formHasUpload" value="true" />
                                     <input type="hidden" name="status" value="published" />
-                                    <div className="form-group col-6"><button type="submit" className="btn btn-primary mr-2 btn-block">Create Project</button></div>
+                                    <div className="form-group col-6"><button id="formSubmit" type="submit" className="btn btn-primary mr-2 btn-block">Create Project</button></div>
                                     <div className="form-group col-6">
                                         <Link to="/">
                                             <button className="btn btn-secondary btn-block">Cancel</button>
@@ -131,7 +145,7 @@ export default class CreateProjectForm extends React.Component {
                                 </div>
                             </div>
                         </div>
-                        {this.state.selectedCategory ? null : formError}
+                        {this.state.selectedCategory === false ? formError : null}
                     </form>
                 </div>
             </div>

@@ -15,16 +15,16 @@ export default class ProjectCatalog extends React.Component{
         this.sortProjects = this.sortProjects.bind(this);
     }
 
-    sortProjects(event) {
+    sortProjects(e) {
         document.querySelector(".sort-link.active").classList.remove("active");
         let sortCategory = e.target.id;
-        event.target.className += " active";
+        e.target.className += " active";
         this.setState({sort: sortCategory });
     }
 
     render(){
 
-        var settings = {
+        let settings = {
             dots: false,
             infinite: false,
             speed: 500,
@@ -83,9 +83,16 @@ export default class ProjectCatalog extends React.Component{
                     }
                 });
                 break;
-            case 'architecture':
+            case 'crafting':
                 projectCards = this.props.projects.map( (project) => {
-                    if (project.category==="architecture") {
+                    if (project.category==="crafting") {
+                        return <ProjectCard setView={this.props.setView} key={project.id} projectData={project}/>;
+                    }
+                });
+                break;
+            case 'health':
+                projectCards = this.props.projects.map( (project) => {
+                    if (project.category==="health") {
                         return <ProjectCard setView={this.props.setView} key={project.id} projectData={project}/>;
                     }
                 });
@@ -96,7 +103,6 @@ export default class ProjectCatalog extends React.Component{
                         return <ProjectCard setView={this.props.setView} key={project.id} projectData={project}/>;
                     }
                 });
-                break;
         }
 
         return(
@@ -110,8 +116,9 @@ export default class ProjectCatalog extends React.Component{
                         <div id="art" className="sort-link mx-2" onClick={this.sortProjects}>Art</div>
                         <div id="gardening" className="sort-link mx-2" onClick={this.sortProjects}>Gardening</div>
                         <div id="technology" className="sort-link mx-2" onClick={this.sortProjects}>Technology</div>
-                        <div id="animals" className="sort-link mx-2" onClick={this.sortProjects}>Animals</div>
-                        <div id="animals" className="sort-link mx-2" onClick={this.sortProjects}>Animals</div>
+                        <div id="crafting" className="sort-link mx-2" onClick={this.sortProjects}>Crafting</div>
+                        <div id="health" className="sort-link mx-2" onClick={this.sortProjects}>Health</div>
+                        <div id="animal" className="sort-link mx-2" onClick={this.sortProjects}>Animal</div>
                     </Slider>
                 </div>
                 <div className="row d-flex">
