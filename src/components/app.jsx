@@ -64,7 +64,7 @@ class App extends React.Component{
                         this.setState({passwordEmpty:"You must enter a password"});
                     }
                     if(response.data.includes("incorrect")){
-                        this.setState({badLogin:"The username and or password are incorrect"});
+                        this.setState({badLogin:"The username and/or password are incorrect"});
                     }
                 }
                 else{
