@@ -11,11 +11,25 @@ export default class Footer extends React.Component {
         <div className="row d-flex justify-content-between py-3 mx-2">
             <div>Copyright &copy;2019 Kronostory</div>
             <div>
+                <Link to="/" className="mr-3">Home</Link>
                 <Link to="/" className="mr-3">About</Link>
-                <Link to="/user-signup" className="mr-3">Sign Up</Link>
-                <Link to="/user-login" className="mr-3">Log In</Link>
+                {
+                    this.props.userSeshData.username ?
+                        <Link to={{
+                            pathname: `/${this.props.userSeshData.username}`,
+                            state: {
+                                userId: this.props.userSeshData.id,
+                                username: this.props.userSeshData.username,
+                            }
+                        }} className="dashboard dropdown-link" >
+                            Account
+                        </Link>
+                        :
+                        <Link to="/user-login" className="mr-3">Account</Link>
+                }
+
             </div>
-        </div>        
+        </div>
     );
     }
 }
