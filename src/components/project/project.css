@@ -33,17 +33,27 @@
 .plus:hover {
     color: #A167A5;
 }
-/* delete button styling */
-.delete{
+/* project card - delete button */
+.delete-button {
     position: absolute;
     top: 40px;
-    right: 0;
-    background-color: #FF0000;
+    right: -9px;
+    box-sizing: border-box;
+    padding: 5px;
     color: white;
-    border: 2px solid grey;
+    font-size: .75em;
+    background-color: #b04343;
+    border-radius: 5px;
 }
-
-/*project Sort*/
+.delete-dropdown-arrow{
+    transform: rotate(45deg);
+    background-color: #b04343;
+    position: absolute;
+    right: 2px;
+    width: 12px;
+    height: 12px;
+}
+/* project catalog - category sorting */
 .project-sort {
     max-width: 1000px;
     margin: auto;

@@ -30,35 +30,6 @@ body {
     width: 200px;
     
 }
-/* header dropdown menu */
-.dropdown-low{
-    display: inline-block;
-    position: absolute;
-    top: 70px;
-    right: 0;
-    border: 2px solid grey;
-    background-color: white;
-    z-index: 1;
-}
-.dropdown{
-    display: inline-block;
-    position: absolute;
-    top: 40px;
-    right: 0;
-    border: 2px solid grey;
-    background-color: white;
-}
-.dropdown.btn-danger{
-    background-color: #FF0000;
-    color: white;
-}
-.dropdown-low a.dropdown-link{
-    display: block;
-    color: #A167A5;
-}
-.dropdown-low a.dropdown-link:hover{
-    background-color: #8b508f;
-}
 /* modal (timeline entry form) */
 .overlay {
     position: fixed;

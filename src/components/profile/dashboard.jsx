@@ -40,7 +40,6 @@ export default class Dashboard extends React.Component{
             .catch(error => console.error(error))
     }
     getIndividualProjects(username) {
-        // before - loading screen
         this.setState({loading: true}, ()=>{
             axios.get(`/api/projects.php?username=${username}`)
             .then(response => {
