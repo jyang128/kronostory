@@ -12,9 +12,21 @@ if (!$conn){
 }
 
 $email = $_GET['email'];
+$password = $_GET['password'];
+$invalidEmailFormat = "";
+$empty = "";
 
+if($email === ""){
+    $empty = $empty."#email";
+}
+if($password === ""){
+    $empty = $empty."#password";
+}
 if(preg_match('/@.*\./',$email) === 0){
-    print("The email is invalid.");
+    $invalidEmailFormat = "The email is invalid. ";
+}
+if($empty || $invalidEmailFormat){
+    print($invalidEmailFormat.$empty);
     exit();
 }
 

@@ -19,7 +19,12 @@ export default class UserSignup extends React.Component {
 			passwordUppercase:"",
 			emailFormat:"",
 			keywordError:"",
-			dashesError:""
+			dashesError:"",
+			firstNameEmpty:"",
+			lastNameEmpty:"",
+			emailEmpty:"",
+			passwordEmpty:"",
+			usernameEmpty:""
 		};
 		this.signupHandler=this.signupHandler.bind(this);
 		this.onChangeHandler = this.onChangeHandler.bind(this);
@@ -66,7 +71,12 @@ export default class UserSignup extends React.Component {
 					passwordUppercase:"",
 					emailFormat:"",
 					keywordError:"",
-					dashesError:""
+					dashesError:"",
+					firstNameEmpty:"",
+					lastNameEmpty:"",
+					emailEmpty:"",
+					passwordEmpty:"",
+					usernameEmpty:""
 				});
 				if(typeof response.data === "string"){
 					let arr = [];
@@ -99,6 +109,21 @@ export default class UserSignup extends React.Component {
 					if(response.data.includes("dashes")){
 						this.setState({dashesError:"The username can't contain dashes"});
 					}
+					if(response.data.includes("#firstname")){
+						this.setState({firstNameEmpty:"You must enter a first name"});
+					}
+					if(response.data.includes("#lastname")){
+						this.setState({lastNameEmpty:"You must enter a last name"});
+					}
+					if(response.data.includes("#email")){
+						this.setState({emailEmpty:"You must enter a email"});
+					}
+					if(response.data.includes("#username")){
+						this.setState({usernameEmpty:"You must enter a username"});
+					}
+					if(response.data.includes("#password")){
+						this.setState({passwordEmpty:"You must enter a password"});
+					}
 				}
 				else{
 					console.log(response.data);
@@ -125,6 +150,7 @@ export default class UserSignup extends React.Component {
 					<p className={this.state.usernameError ? "text-danger" : "text-danger d-none"}>{this.state.usernameError}</p>
 					<p className={this.state.keywordError ? "text-danger" : "text-danger d-none"}>{this.state.keywordError}</p>
 					<p className={this.state.dashesError ? "text-danger" : "text-danger d-none"}>{this.state.dashesError}</p>
+					<p className={this.state.usernameEmpty ? "text-danger" : "text-danger d-none"}>{this.state.usernameEmpty}</p>
 					<label htmlFor="inputEmail" className="sr-only">Email address</label>
 					<input
 						type="email"
@@ -135,7 +161,8 @@ export default class UserSignup extends React.Component {
 						onChange={this.onChangeHandler}
 					/>
 					<p className={this.state.emailError ? "text-danger" : "text-danger d-none"}>{this.state.emailError}</p>
-					<p className={this.state.emailFormat ? "text-danger" : "text-danger d-none"}>{this.state.emailFormat}</p>
+					<p className={(this.state.emailFormat && !this.state.emailEmpty) ? "text-danger" : "text-danger d-none"}>{this.state.emailFormat}</p>
+					<p className={this.state.emailEmpty ? "text-danger" : "text-danger d-none"}>{this.state.emailEmpty}</p>
 					<label htmlFor="inputPassword" className="sr-only">Password</label>
 					<input
 						type="password"
@@ -144,8 +171,9 @@ export default class UserSignup extends React.Component {
 						placeholder="Password"
 						required="password"
 						onChange={this.onChangeHandler} />
-					<p className={this.state.passwordUppercase ? "text-danger" : "text-danger d-none"}>{this.state.passwordUppercase}</p>
-					<p className={this.state.passwordNumber ? "text-danger" : "text-danger d-none"}>{this.state.passwordNumber}</p>
+					<p className={(this.state.passwordUppercase && !this.state.passwordEmpty) ? "text-danger" : "text-danger d-none"}>{this.state.passwordUppercase}</p>
+					<p className={(this.state.passwordNumber && !this.state.passwordEmpty) ? "text-danger" : "text-danger d-none"}>{this.state.passwordNumber}</p>
+					<p className={this.state.passwordEmpty ? "text-danger" : "text-danger d-none"}>{this.state.passwordEmpty}</p>
 					<label htmlFor="inputPassword" className="sr-only">Re-enter Password</label>
 					<input
 						type="password"
@@ -163,6 +191,7 @@ export default class UserSignup extends React.Component {
 						placeholder="First Name"
 						onChange={this.onChangeHandler}
 					/>
+					<p className={this.state.firstNameEmpty ? "text-danger" : "text-danger d-none"}>{this.state.firstNameEmpty}</p>
 					<label htmlFor="inputPassword" className="sr-only">Last Name</label>
 					<input
 						type="text"
@@ -171,6 +200,7 @@ export default class UserSignup extends React.Component {
 						placeholder="Last Name"
 						onChange={this.onChangeHandler}
 					/>
+					<p className={this.state.lastNameEmpty ? "text-danger" : "text-danger d-none"}>{this.state.lastNameEmpty}</p>
 					<div className="checkbox">
 					</div>
 					<button
