@@ -1,7 +1,6 @@
 import React from 'react';
 import ProjectCard from './project-card';
 import HeroPanel from '../layout/hero-panel';
-import FeaturePanel from '../layout/feature-panel';
 import Slider from "react-slick";
 import './project.css';
 

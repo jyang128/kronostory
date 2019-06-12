@@ -50,9 +50,7 @@ export default class Dashboard extends React.Component{
                     userMatch: response.data[2].userMatch
                 })
             })
-            .catch(function (error) {
-                console.error(error);
-            })
+            .catch(error => console.error(error))
             .finally(()=>{
                 this.setState({loading: false});
             })

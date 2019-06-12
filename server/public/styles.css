@@ -86,6 +86,13 @@ body {
     line-height: 0;
     cursor: pointer;
 }
+/* modal (timeline entry image) */
+.modal-image {
+    width: 100%;
+    max-height: 600px;
+    margin: 0 auto;
+    object-fit: contain;
+}
 /* button styling */
 .btn-primary {
     background-color: #A167A5;
