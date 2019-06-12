@@ -47,7 +47,14 @@ export default class UserSignup extends React.Component {
 	}
 	signupHandler(event){
 		event.preventDefault();
-        let request = {url:'/api/signup.php',method:"POST",data:{first_name:this.state.firstName,last_name:this.state.lastName,username:this.state.username,password:this.state.password,repassword:this.state.repassword,email:this.state.email}}
+        let request = {url:'/api/signup.php',method:"POST",data:{
+			first_name:this.state.firstName,
+			last_name:this.state.lastName,
+			username:this.state.username,
+			password:this.state.password,
+			repassword:this.state.repassword,
+			email:this.state.email
+		}}
         axios(request)
             .then(response => {
 				//need to setState to go to dashboard
@@ -98,13 +105,7 @@ export default class UserSignup extends React.Component {
 					this.props.loginUser(response.data[0]);
 				}
             })
-            .catch(function (error) {
-                // handle error
-                console.error(error);
-            })
-            .finally(function (response) {
-
-            });
+            .catch( error => console.error(error));
 	}
 	render() {
 		return (

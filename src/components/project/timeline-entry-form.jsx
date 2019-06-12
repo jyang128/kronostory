@@ -83,7 +83,7 @@ export default class TimelineEntryForm extends React.Component {
                         value={this.state.description}
                         className="form-control" 
                         rows="5"
-                        placeholder="Summary of the project."
+                        placeholder="Summary of the entry."
                         onChange={this.onChangeHandler}>
                     </textarea>
                 </div>
