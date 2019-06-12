@@ -54,6 +54,7 @@ export default class UserLogin extends React.Component {
                         onChange={event => this.handleInputs(event)}
                     />
                     <p className={this.props.passwordEmpty ? "text-danger" : "text-danger d-none"}>{this.props.passwordEmpty}</p>
+                    <p className={this.props.badLogin ? "text-danger" : "text-danger d-none"}>{this.props.badLogin}</p>
                     <button
                         className="btn btn-lg btn-primary btn-block mb-2"
                         type="submit"
