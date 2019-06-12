@@ -12,12 +12,10 @@ export default class CreateProjectForm extends React.Component {
             projImgHasUpload: false,
             selectedCategory: false
         }
-        this.projectInputField = 1;
         this.handleFormSubmit = this.handleFormSubmit.bind(this);
         this.onFileChange = this.onFileChange.bind(this);
         this.onFileChangeItem = this.onFileChangeItem.bind(this);
         this.onRadioChange = this.onRadioChange.bind(this);
-        this.addAnotherProjectItem = this.addAnotherProjectItem.bind(this);
     }
     onFileChange(e) {
         console.log("the target file: ", e.target.files[0]);
@@ -37,31 +35,6 @@ export default class CreateProjectForm extends React.Component {
     }
     onRadioChange() {
         this.setState({ selectedCategory: true });
-    }
-    addAnotherProjectItem() {
-        
-        if (this.projectInputField < 5) {
-
-            let newInput = <div className="form-row">
-                                <div className="form-group col-md-6">
-                                    <label htmlFor="proj-item-name">Project Item</label>
-                                    <input id="proj-item-name" type="text" className="form-control mb-2" name="proj-item-name" placeholder="Item Name"/>
-                                </div>
-                                <div className="form-group col-md-6">
-                                    <label htmlFor="proj-item-title">Item Image</label>
-                                    <div className="custom-file">
-                                        <label className="custom-file-label" htmlFor="proj-item-img">{this.state.itemFile ? this.state.itemFile.name : "Choose File"}</label>
-                                        <input id="proj-item-img" name="proj-item-img" type="file" className="form-control-file" onChange={this.onFileChangeItem}/>
-                                        <input id="projImgHasUpload" type="hidden" name="projImgHasUpload" value={this.state.projImgHasUpload} />
-                                    </div>
-                                </div>
-                            </div>;
-            var z = document.createElement('p');
-            document.querySelector(".project-item-field").appendChild(newInput);
-
-            this.projectInputField++;
-        }
-        
     }
     handleFormSubmit(event) {
         // need to check that inputs are all there & disable the button to extra submissions
