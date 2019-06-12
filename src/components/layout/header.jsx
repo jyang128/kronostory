@@ -49,11 +49,8 @@ export default class Header extends React.Component {
                 <div className="menu-nav align-self-center" >
                     <i className="far fa-user-circle"></i> 
                     <span className="username" onClick={this.toggleMenuNav}>
-                        {this.props.userSeshData.username} &#9663;
+                        {this.props.userSeshData.username} &#9663; 
                         <div className={menuNavClass} onMouseLeave={this.mouseLeaveMenuNav}>
-                            <Link to='/user-login' className="dropdown-link" onClick={this.props.logoutHandler}>
-                                logout
-                            </Link>
                             <Link to={{
                                 pathname: `/${this.props.userSeshData.username}`,
                                 state: {
@@ -62,6 +59,9 @@ export default class Header extends React.Component {
                                 }
                             }} className="dropdown-link" onClick={this.dashboardHandler}>
                                 dashboard
+                            </Link>
+                            <Link to='/user-login' className="dropdown-link" onClick={this.props.logoutHandler}>
+                                logout
                             </Link>
                         </div>
                     </span>
