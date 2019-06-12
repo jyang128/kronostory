@@ -5,7 +5,22 @@ import { Link } from 'react-router-dom';
 export default class UserSignup extends React.Component {
 	constructor(props){
 		super(props);
-		this.state={email:"",password:"",repassword:"",firstName:"",lastName:"",username:"",usernameError:"",emailError:"",passwordMismatch:"",passwordNumber:"",passwordUppercase:"",emailFormat:""};
+		this.state={
+			email:"",
+			password:"",
+			repassword:"",
+			firstName:"",
+			lastName:"",
+			username:"",
+			usernameError:"",
+			emailError:"",
+			passwordMismatch:"",
+			passwordNumber:"",
+			passwordUppercase:"",
+			emailFormat:"",
+			keywordError:"",
+			dashesError:""
+		};
 		this.signupHandler=this.signupHandler.bind(this);
 		this.onChangeHandler = this.onChangeHandler.bind(this);
 	}
@@ -36,16 +51,26 @@ export default class UserSignup extends React.Component {
         axios(request)
             .then(response => {
 				//need to setState to go to dashboard
-				this.setState({emailError:"", passwordMismatch:"", usernameError:"", passwordUppercase:"", passwordNumber:""});
+				this.setState({
+					usernameError:"",
+					emailError:"",
+					passwordMismatch:"",
+					passwordNumber:"",
+					passwordUppercase:"",
+					emailFormat:"",
+					keywordError:"",
+					dashesError:""
+				});
 				if(typeof response.data === "string"){
+					let arr = [];
 					if(response.data.includes("is taken")){
 						console.log("setting state");
-						let arr = response.data.split(" ");
+						arr = response.data.split(" ");
 						this.setState({usernameError:arr[0]+" is already taken",});
 					}
 					if(response.data.includes("is already being")){
 						console.log("setting state");
-						let arr = response.data.split(" ");
+						arr = response.data.split(" ");
 						this.setState({emailError:arr[0]+" is already taken"});
 					}
 					if(response.data.includes("match")){
@@ -60,7 +85,13 @@ export default class UserSignup extends React.Component {
 					if(response.data.includes("email")){
 						this.setState({emailFormat:"The email entered is invalid"});
 					}
-					
+					if(response.data.includes("as a username")){
+						arr = response.data.split(" ");
+						this.setState({keywordError:arr[16]+" can't be used as a username"});
+					}
+					if(response.data.includes("dashes")){
+						this.setState({dashesError:"The username can't contain dashes"});
+					}
 				}
 				else{
 					console.log(response.data);
@@ -72,7 +103,7 @@ export default class UserSignup extends React.Component {
                 console.error(error);
             })
             .finally(function (response) {
-              
+
             });
 	}
 	render() {
@@ -82,65 +113,67 @@ export default class UserSignup extends React.Component {
 					<h1 className="font-weight-light text-primary">KronoStory</h1>
 					<h1 className="h3 mb-3 font-weight-light">Sign Up</h1>
                     <label htmlFor="inputEmail" className="sr-only">Username</label>
-					<input 
-						type="email" 
-						id="username" 
-						className="form-control mb-2" 
-						placeholder="Username" 
-						required="text" 
+					<input
+						type="email"
+						id="username"
+						className="form-control mb-2"
+						placeholder="Username"
+						required="text"
 						onChange={this.onChangeHandler}
 					/>
 					<p className={this.state.usernameError ? "text-danger" : "text-danger d-none"}>{this.state.usernameError}</p>
+					<p className={this.state.keywordError ? "text-danger" : "text-danger d-none"}>{this.state.keywordError}</p>
+					<p className={this.state.dashesError ? "text-danger" : "text-danger d-none"}>{this.state.dashesError}</p>
 					<label htmlFor="inputEmail" className="sr-only">Email address</label>
-					<input 
-						type="email" 
-						id="inputEmail" 
-						className="form-control mb-2" 
-						placeholder="Email address" 
-						required="text" 
+					<input
+						type="email"
+						id="inputEmail"
+						className="form-control mb-2"
+						placeholder="Email address"
+						required="text"
 						onChange={this.onChangeHandler}
 					/>
 					<p className={this.state.emailError ? "text-danger" : "text-danger d-none"}>{this.state.emailError}</p>
 					<p className={this.state.emailFormat ? "text-danger" : "text-danger d-none"}>{this.state.emailFormat}</p>
 					<label htmlFor="inputPassword" className="sr-only">Password</label>
-					<input 
-						type="password" 
-						id="inputPassword" 
-						className="form-control mb-2" 
-						placeholder="Password" 
-						required="password" 
+					<input
+						type="password"
+						id="inputPassword"
+						className="form-control mb-2"
+						placeholder="Password"
+						required="password"
 						onChange={this.onChangeHandler} />
 					<p className={this.state.passwordUppercase ? "text-danger" : "text-danger d-none"}>{this.state.passwordUppercase}</p>
 					<p className={this.state.passwordNumber ? "text-danger" : "text-danger d-none"}>{this.state.passwordNumber}</p>
 					<label htmlFor="inputPassword" className="sr-only">Re-enter Password</label>
-					<input 
-						type="password" 
-						id="reEnter" 
-						className="form-control mb-2" 
-						placeholder="Re-enter Password" 
-						required="password" 
+					<input
+						type="password"
+						id="reEnter"
+						className="form-control mb-2"
+						placeholder="Re-enter Password"
+						required="password"
 						onChange={this.onChangeHandler} />
 					<p className={this.state.passwordMismatch ? "text-danger" : "text-danger d-none"}>{this.state.passwordMismatch}</p>
 					<label htmlFor="inputPassword" className="sr-only">First Name</label>
-					<input 
-						type="text" 
-						id="firstName" 
-						className="form-control mb-2" 
-						placeholder="First Name" 
-						onChange={this.onChangeHandler} 
+					<input
+						type="text"
+						id="firstName"
+						className="form-control mb-2"
+						placeholder="First Name"
+						onChange={this.onChangeHandler}
 					/>
 					<label htmlFor="inputPassword" className="sr-only">Last Name</label>
-					<input 
-						type="text" 
-						id="lastName" 
-						className="form-control mb-2" 
-						placeholder="Last Name" 
-						onChange={this.onChangeHandler} 
+					<input
+						type="text"
+						id="lastName"
+						className="form-control mb-2"
+						placeholder="Last Name"
+						onChange={this.onChangeHandler}
 					/>
 					<div className="checkbox">
 					</div>
-					<button 
-						className="btn btn-lg btn-primary btn-block" 
+					<button
+						className="btn btn-lg btn-primary btn-block"
 						onClick={this.signupHandler}
 					>
 						Sign Up
