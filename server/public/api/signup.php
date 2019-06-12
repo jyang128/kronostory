@@ -59,7 +59,7 @@ if(mysqli_num_rows($invalidEmailResponse) > 0){
     $row = mysqli_fetch_assoc($invalidEmailResponse);
     $invalidEmail = $row['email']." is already being used by another user. ";
 }
-if(is_string($invalidUsername) || is_string($invalidEmail) || $mismatchPassword || $invalidUppercase || $invalidNumber || $invalidEmailFormat || $keyword || $dashes){
+if($invalidUsername || $invalidEmail || $mismatchPassword || $invalidUppercase || $invalidNumber || $invalidEmailFormat || $keyword || $dashes){
     print($invalidUsername.$invalidEmail.$mismatchPassword.$invalidUppercase.$invalidNumber.$invalidEmailFormat.$keyword.$dashes);
     exit();
 }
