@@ -6,6 +6,9 @@ export default class CreateProjectForm extends React.Component {
     constructor(props){
         super(props);
         this.state={
+            projName: '',
+            projDesc: '',
+            projTimlineDesc: '',
             mainFile: '',
             itemFile: '',
             mainImgHasUpload: false,
@@ -16,6 +19,13 @@ export default class CreateProjectForm extends React.Component {
         this.onFileChange = this.onFileChange.bind(this);
         this.onFileChangeItem = this.onFileChangeItem.bind(this);
         this.onRadioChange = this.onRadioChange.bind(this);
+        this.onTextChange = this.onTextChange.bind(this);
+    }
+    onTextChange(event) {
+        event.preventDefault();
+        const value = event.currentTarget.value;
+        const fieldName = event.currentTarget.attributes[3].nodeValue;
+        this.setState({ [fieldName]: value});
     }
     onFileChange(e) {
         console.log("the target file: ", e.target.files[0]);
@@ -42,6 +52,8 @@ export default class CreateProjectForm extends React.Component {
         if(this.state.selectedCategory === '') {
             this.setState({ selectedCategory: false })
         }
+        console.log('event.target is ', event.target);
+        debugger
         console.log("handle form submit");
         event.preventDefault();
         if (this.state.selectedCategory) {
@@ -71,15 +83,39 @@ export default class CreateProjectForm extends React.Component {
                                 <h5 className="font-weight-bold">Describe your project</h5>
                                 <div className="form-group" >
                                     <label htmlFor="proj-name">Project Name</label>
-                                    <input id="proj-name" name="proj-name" type="text" className="form-control" placeholder="Enter Project Name" required />
+                                    <input 
+                                        id="proj-name" 
+                                        name="proj-name" 
+                                        type="text" 
+                                        field="projName" 
+                                        className="form-control" 
+                                        placeholder="Enter Project Name" 
+                                        onChange={this.onTextChange}
+                                        required 
+                                    />
                                 </div>
                                 <div className="form-group">
                                     <label htmlFor="proj-desc">Main Description</label>
-                                    <textarea id="proj-desc" name="proj-desc" className="form-control" placeholder="Summary of your project." required></textarea>
+                                    <textarea 
+                                        id="proj-desc" 
+                                        name="proj-desc" 
+                                        className="form-control" 
+                                        field="projDesc" 
+                                        placeholder="Summary of your project." 
+                                        onChange={this.onTextChange}
+                                        required
+                                    ></textarea>
                                 </div>
                                 <div className="form-group">
                                     <label htmlFor="proj-timeline-desc">Describe your timeline</label>
-                                    <textarea id="proj-timeline-desc" name="proj-timeline-desc" className="form-control" placeholder="A short description about your timeline."></textarea>
+                                    <textarea
+                                        id="proj-timeline-desc" 
+                                        name="proj-timeline-desc"
+                                        className="form-control"  
+                                        field="projTimelineDesc" 
+                                        placeholder="A short description about your timeline."
+                                        onChange={this.onTextChange}
+                                    ></textarea>
                                 </div>
                                 <div className="form-group">
                                     <label htmlFor="proj-main-img">Main Project Image</label>
