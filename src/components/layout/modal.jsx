@@ -9,7 +9,7 @@ export default class Modal extends React.Component {
             let modalBody = this.props.children;
             return(
                 <div className="overlay" onClick={this.props.toggleModal}>
-                    <div className="modal-body align-self-center col-10 col-md-6">
+                    <div className="modal-body align-self-center col-10 px-0 col-md-6">
                         {modalBody}
                         <div className="close-modal" onClick={this.props.toggleModal}><i className="fas fa-times"></i></div>
                     </div>

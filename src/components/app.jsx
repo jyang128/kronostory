@@ -93,10 +93,12 @@ class App extends React.Component{
     logoutHandler(event){
         axios.get(`/api/logout.php`)
             .then(response => {
-                this.setState({userSeshData: {
-                    id: null,
-                    username: ''
-                }});
+                this.setState({
+                    userSeshData: {
+                        id: null,
+                        username: ''
+                    }
+                });
             })
             .catch(error => console.error(error));
         event.target.parentElement.className += " d-none";

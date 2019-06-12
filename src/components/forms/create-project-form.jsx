@@ -12,7 +12,6 @@ export default class CreateProjectForm extends React.Component {
             projImgHasUpload: false,
             selectedCategory: ''
         }
-        this.projectInputField = 1;
         this.handleFormSubmit = this.handleFormSubmit.bind(this);
         this.onFileChange = this.onFileChange.bind(this);
         this.onFileChangeItem = this.onFileChangeItem.bind(this);
@@ -37,6 +36,7 @@ export default class CreateProjectForm extends React.Component {
     onRadioChange(event) {
         console.log(event.target.id)
         this.setState({ selectedCategory: event.target.id.toString() });
+
     }
     handleFormSubmit(event) {
         if(this.state.selectedCategory === '') {
@@ -75,7 +75,7 @@ export default class CreateProjectForm extends React.Component {
                                 </div>
                                 <div className="form-group">
                                     <label htmlFor="proj-desc">Main Description</label>
-                                    <textarea id="proj-desc" name="proj-desc" className="form-control" placeholder="A short description that says it all." required></textarea>
+                                    <textarea id="proj-desc" name="proj-desc" className="form-control" placeholder="Summary of your project." required></textarea>
                                 </div>
                                 <div className="form-group">
                                     <label htmlFor="proj-timeline-desc">Describe your timeline</label>
@@ -84,7 +84,7 @@ export default class CreateProjectForm extends React.Component {
                                 <div className="form-group">
                                     <label htmlFor="proj-main-img">Main Project Image</label>
                                     <div className="custom-file">
-                                        <label className="custom-file-label" htmlFor="proj-main-img">{this.state.mainFile ? this.state.mainFile.name : "Choose File"}</label>
+                                        <label className="custom-file-label" htmlFor="proj-main-img">{this.state.mainFile ? this.state.mainFile.name : "Choose file up to 4MB"}</label>
                                         <input id="proj-main-img" type="file" className="form-control-file" name="proj-main-img" onChange={this.onFileChange}/>
                                         <input id="mainImgHasUpload" type="hidden" name="mainImgHasUpload" value={this.state.mainImgHasUpload} />
                                     </div>
@@ -93,6 +93,7 @@ export default class CreateProjectForm extends React.Component {
                             </div>
                             <div className="col-12 col-md-4">
                                 <h5>Categories</h5>
+                                <h6 className="font-weight-light">Select one category.</h6>
                                 <ul className={this.state.selectedCategory === false ? "list-group mb-4 border border-danger" : "list-group mb-4"}>
                                     <li className="list-group-item">
                                         <div className="radio-container">

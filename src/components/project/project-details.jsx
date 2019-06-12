@@ -17,14 +17,16 @@ export default class ProjectDetails extends React.Component {
             userSeshData: {
                 id: null,
                 username: ''
-            }
+            },
+            loading: false
         }
         this.toggleItemsUsedModal = this.toggleItemsUsedModal.bind(this);
         this.toggleTimelineModal = this.toggleTimelineModal.bind(this);
         this.createNewEntry = this.createNewEntry.bind(this);
     }
     getProjectDetails(id) {
-        axios.get(`/api/project-details.php?id=${id}`)
+        this.setState({loading: true}, ()=> {
+            axios.get(`/api/project-details.php?id=${id}`)
             .then(response => {
                 this.setState({
                     userSeshData: response.data[0],
@@ -33,9 +35,11 @@ export default class ProjectDetails extends React.Component {
                     timelineentries: response.data[1]['timeline_entry']
                 }); 
             })
-            .catch(function (error) {
-                console.error(error);
+            .catch(error => console.error(error))
+            .finally(()=>{
+                this.setState({loading: false});
             })
+        })
     }
     createNewItemsUsed(formData){
         axios.post('/api/uploads/create-items-used-entry.php', formData, {
@@ -92,12 +96,16 @@ export default class ProjectDetails extends React.Component {
         this.getProjectDetails(this.props.match.params.id);
     }
     render() {
-        console.log("the state items", this.state.items);
+        let primaryImg = this.state.project.primary_image;
+        let loader = null;
+        if (this.state.loading) {
+            loader = <div className="loader"><img className="loading-icon" src="/images/loader.svg" /></div>
+        }
         return (
             <div className="container-fluid">
                 <div className="row bg-light p-4">
                     <div className="col-12 col-md-5">
-                        <img src={this.state.project.primary_image} className="img-fluid" alt="Project Image" />
+                        <img src={primaryImg ? primaryImg : "/images/placeholder-img.jpg"} className="img-fluid" alt="Project Image" />
                     </div>
                     <div className="col-12 col-md-7 mt-4 mt-md-0">
                         <h3>{this.state.project.project_title}</h3>
@@ -130,6 +138,7 @@ export default class ProjectDetails extends React.Component {
                         userSeshData={this.state.userSeshData}
                     />
                 </div>
+                {loader}
             </div>
         )
     }

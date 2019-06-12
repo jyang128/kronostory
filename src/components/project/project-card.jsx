@@ -20,25 +20,33 @@ export default class ProjectCard extends React.Component{
 	render(){
 		let deleteButton;
 		if(this.props.userStatus) {
-		if(this.props.userStatus.id === this.props.projectData.user_id){
-			deleteButton = (
-			<div>
-				<div className="dots" onClick={this.dropdown}>
-					...
-				<div className="delete d-none" onClick={ () => {this.props.delete(this.props.projectData.id)} }>
-					delete
+			if(this.props.userStatus.id === this.props.projectData.user_id){
+				deleteButton = (
+				<div>
+					<div className="dots" onClick={this.dropdown}>
+						...
+					<div className="delete d-none" onClick={ () => {this.props.delete(this.props.projectData.id)} }>
+						delete
+					</div>
+					</div>
 				</div>
-				</div>
-			</div>
-			);
-		}
+				);
+			}
 		} else {
-		deleteButton = null;
+			deleteButton = null;
 		}
+
+		let primaryImg = this.props.projectData.primary_image;
+
+		//
+
+		const imgStyle = {
+			backgroundImage: 'url(' + (primaryImg ? primaryImg : "/images/placeholder-img.jpg") + ')'
+		};
 		return(
-		<div className="col-12 col-sm-3 mb-3">
+		<div className="col-12 col-sm-6 col-md-4 col-lg-3 mb-3">
 			<div className="card">
-				<img className="card-img-top" src={this.props.projectData.primary_image} alt="project card"/>
+				<div className="card-main-img" style={imgStyle}></div>
 				<div className="card-body">
 					<h5 className="card-title">{this.props.projectData.title}</h5>
 					<h6 className="user-link">

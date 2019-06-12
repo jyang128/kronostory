@@ -1,7 +1,6 @@
 import React from 'react';
 import ProjectCard from './project-card';
 import HeroPanel from '../layout/hero-panel';
-import FeaturePanel from '../layout/feature-panel';
 import Slider from "react-slick";
 import './project.css';
 
@@ -28,7 +27,7 @@ export default class ProjectCatalog extends React.Component{
             dots: false,
             infinite: false,
             speed: 500,
-            slidesToShow: 6,
+            slidesToShow: 7,
             slidesToScroll: 2,
             initialSlide: 0,
             responsive: [
@@ -123,9 +122,6 @@ export default class ProjectCatalog extends React.Component{
                 </div>
                 <div className="row d-flex">
                     {projectCards}
-                </div>
-                <div className="row">
-                    <FeaturePanel />
                 </div>
             </React.Fragment>
         );
