@@ -49,7 +49,7 @@ export default class ItemUsedEntryForm extends React.Component {
                         name="inputTitle"
                         value={this.state.title}
                         className="form-control" 
-                        placeholder="What Item Name"
+                        placeholder="Enter Item Name"
                         onChange={this.onChangeHandler}
                     />
                 </div>
@@ -64,7 +64,7 @@ export default class ItemUsedEntryForm extends React.Component {
                             name="entry-img"
                             onChange={this.fileUploadHandler}
                         />
-                        <label className="custom-file-label" htmlFor="entry-img">{this.state.imageFile ? this.state.imageFile.name : "Choose File"}</label>
+                        <label className="custom-file-label" htmlFor="entry-img">{this.state.imageFile ? this.state.imageFile.name : "Choose file up to 4MB"}</label>
                         <input 
                             id="imgAttached" type="hidden" name="imgAttached" value={this.state.fileAttached} 
                         />

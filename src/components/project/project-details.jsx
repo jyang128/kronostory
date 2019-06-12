@@ -17,14 +17,16 @@ export default class ProjectDetails extends React.Component {
             userSeshData: {
                 id: null,
                 username: ''
-            }
+            },
+            loading: false
         }
         this.toggleItemsUsedModal = this.toggleItemsUsedModal.bind(this);
         this.toggleTimelineModal = this.toggleTimelineModal.bind(this);
         this.createNewEntry = this.createNewEntry.bind(this);
     }
     getProjectDetails(id) {
-        axios.get(`/api/project-details.php?id=${id}`)
+        this.setState({loading: true}, ()=> {
+            axios.get(`/api/project-details.php?id=${id}`)
             .then(response => {
                 this.setState({
                     userSeshData: response.data[0],
@@ -33,9 +35,11 @@ export default class ProjectDetails extends React.Component {
                     timelineentries: response.data[1]['timeline_entry']
                 }); 
             })
-            .catch(function (error) {
-                console.error(error);
+            .catch(error => console.error(error))
+            .finally(()=>{
+                this.setState({loading: false});
             })
+        })
     }
     createNewItemsUsed(formData){
         axios.post('/api/uploads/create-items-used-entry.php', formData, {
@@ -93,6 +97,10 @@ export default class ProjectDetails extends React.Component {
     }
     render() {
         let primaryImg = this.state.project.primary_image;
+        let loader = null;
+        if (this.state.loading) {
+            loader = <div className="loader"><img className="loading-icon" src="/images/loader.svg" /></div>
+        }
         return (
             <div className="container-fluid">
                 <div className="row bg-light p-4">
@@ -130,6 +138,7 @@ export default class ProjectDetails extends React.Component {
                         userSeshData={this.state.userSeshData}
                     />
                 </div>
+                {loader}
             </div>
         )
     }

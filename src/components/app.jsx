@@ -44,7 +44,6 @@ class App extends React.Component{
         axios.get(`/api/login.php?email=${submittedEmail}`)
             .then(response => {
                 if(typeof response.data === "string"){
-                    console.log("its a string.");
                     this.setState({emailFormat:"The email is invalid"});
                 }
                 else{
@@ -78,10 +77,12 @@ class App extends React.Component{
     logoutHandler(event){
         axios.get(`/api/logout.php`)
             .then(response => {
-                this.setState({userSeshData: {
-                    id: null,
-                    username: ''
-                }});
+                this.setState({
+                    userSeshData: {
+                        id: null,
+                        username: ''
+                    }
+                });
             })
             .catch(error => console.error(error));
         event.target.parentElement.className += " d-none";
