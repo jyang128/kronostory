@@ -175,7 +175,7 @@ class App extends React.Component{
                 </Switch>
             </div>
             <div className="container-fluid footer">
-                <Footer/>
+                <Footer userSeshData={this.state.userSeshData}/>
             </div>
             </React.Fragment>
         );
