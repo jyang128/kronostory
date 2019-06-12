@@ -8,12 +8,13 @@ export default class CreateProjectForm extends React.Component {
         this.state={
             projName: '',
             projDesc: '',
-            projTimlineDesc: '',
+            projTimelineDesc: '',
             mainFile: '',
             itemFile: '',
             mainImgHasUpload: false,
             projImgHasUpload: false,
-            selectedCategory: ''
+            selectedCategory: '',
+            timelineDescLimit: false
         }
         this.handleFormSubmit = this.handleFormSubmit.bind(this);
         this.onFileChange = this.onFileChange.bind(this);
@@ -25,10 +26,15 @@ export default class CreateProjectForm extends React.Component {
         event.preventDefault();
         const value = event.currentTarget.value;
         const fieldName = event.currentTarget.attributes[3].nodeValue;
-        this.setState({ [fieldName]: value});
+        if(fieldName === 'projTimelineDesc' && value.length > 140) {
+            this.setState({ [fieldName]: value, timelineDescLimit: true});
+        } else if (fieldName === 'projTimelineDesc' && value.length <= 140) {
+            this.setState({ [fieldName]: value, timelineDescLimit: false});
+        } else {
+            this.setState({[fieldName]: value});
+        }
     }
     onFileChange(e) {
-        console.log("the target file: ", e.target.files[0]);
         if (e.target.files[0] !== undefined) {
             this.setState({ mainFile:e.target.files[0], mainImgHasUpload: true });
         } else {
@@ -36,7 +42,6 @@ export default class CreateProjectForm extends React.Component {
         }
     }
     onFileChangeItem(e) {
-        console.log("the target file: ", e.target.files[0]);
         if (e.target.files[0] !== undefined) {
             this.setState({ itemFile:e.target.files[0], projImgHasUpload: true });
         } else {
@@ -44,7 +49,6 @@ export default class CreateProjectForm extends React.Component {
         }
     }
     onRadioChange(event) {
-        console.log(event.target.id)
         this.setState({ selectedCategory: event.target.id.toString() });
 
     }
@@ -52,11 +56,8 @@ export default class CreateProjectForm extends React.Component {
         if(this.state.selectedCategory === '') {
             this.setState({ selectedCategory: false })
         }
-        console.log('event.target is ', event.target);
-        debugger
-        console.log("handle form submit");
         event.preventDefault();
-        if (this.state.selectedCategory) {
+        if (this.state.selectedCategory && !this.state.timelineDescLimit) {
             let formData = new FormData(event.target);
             this.props.createNewProject(formData);
             document.getElementById("formSubmit").disabled = true;
@@ -65,8 +66,11 @@ export default class CreateProjectForm extends React.Component {
     }
     render(){
         let formError = <div className="form-error">
-                            <p className="text-danger">Please choose a category</p>
-                        </div>;
+                <p className="text-danger">Please choose a category</p>
+            </div>;
+        const timelineDescError = <div className="form-error">
+                <p className="text-danger">Timeline description has a 140 character limit. Currently, it has {this.state.projTimelineDesc.length}</p>
+            </div>;
         return(
             <React.Fragment>
             <div className="form-container">
@@ -108,6 +112,7 @@ export default class CreateProjectForm extends React.Component {
                                 </div>
                                 <div className="form-group">
                                     <label htmlFor="proj-timeline-desc">Describe your timeline</label>
+                                    {this.state.timelineDescLimit ? timelineDescError : null}
                                     <textarea
                                         id="proj-timeline-desc" 
                                         name="proj-timeline-desc"
@@ -167,6 +172,7 @@ export default class CreateProjectForm extends React.Component {
                                         </div>
                                     </li>
                                 </ul>
+                                {this.state.selectedCategory === false ? formError : null}
                             </div>
                             <div className="col-12 col-md-8">
                                 <div className="row">
@@ -182,7 +188,6 @@ export default class CreateProjectForm extends React.Component {
                                 </div>
                             </div>
                         </div>
-                        {this.state.selectedCategory === false ? formError : null}
                     </form>
                 </div>
             </div>
