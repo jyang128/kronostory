@@ -39,15 +39,14 @@
     background-size: cover;
     margin: auto;
 }
+.timeline-entry p {
+    font-size: .9rem;
+}
 .timeline-entry:hover {
     cursor: pointer;
 }
 .timeline-entry h6 {
-    transition: all .25s;
-}
-.timeline-entry:hover h6 {
-    color: #A167A5;
-    font-weight: bold;
+    color: #4A306D;
 }
 .timeline-modal-info {
     margin-top: 1rem;

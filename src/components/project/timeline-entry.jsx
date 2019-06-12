@@ -15,7 +15,7 @@ export default class TimelineEntry extends React.Component {
                 <div style={imgStyle} className="timeline-entry-img"></div>
                 <h5>{entryData.date}</h5>
                 <h6>{entryData.timeline_entry_title}</h6>
-                <p>{entryData.timeline_description}</p>
+                <p>{entryData.timeline_description ? entryData.timeline_description.substring(0,100) + '...' : entryData.timeline_description}</p>
             </div>
         )
     }
