@@ -21,7 +21,8 @@ class App extends React.Component{
             },
             emailFormat:"",
             emailEmpty:"",
-            passwordEmpty:""
+            passwordEmpty:"",
+            badLogin: ""
         }
         this.createNewProject = this.createNewProject.bind(this);
         this.logoutHandler = this.logoutHandler.bind(this);
@@ -46,7 +47,8 @@ class App extends React.Component{
         this.setState({
             emailFormat:"",
             emailEmpty:"",
-            passwordEmpty:""
+            passwordEmpty:"",
+            badLogin:""
         });
         axios.get(`/api/login.php?email=${submittedEmail}&password=${submittedPassword}`)
             .then(response => {
@@ -60,6 +62,9 @@ class App extends React.Component{
                     }
                     if(response.data.includes("#password")){
                         this.setState({passwordEmpty:"You must enter a password"});
+                    }
+                    if(response.data.includes("incorrect")){
+                        this.setState({badLogin:"The username and/or password are incorrect"});
                     }
                 }
                 else{
@@ -139,6 +144,7 @@ class App extends React.Component{
                             emailFormat={this.state.emailFormat}
                             emailEmpty={this.state.emailEmpty}
                             passwordEmpty={this.state.passwordEmpty}
+                            badLogin={this.state.badLogin}
                         />
                     }/>
                     <Route path="/user-signup" render={props => (
