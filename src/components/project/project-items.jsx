@@ -15,10 +15,31 @@ export default class ProjectItems extends React.Component {
             dots: true,
             infinite: false,
             speed: 500,
-            slidesToShow: 4,
+            slidesToShow: 5,
             slidesToScroll: 1,
             swipeToSlide: true,
-            variableWidth: false
+            variableWidth: false,
+            responsive: [
+                {
+                  breakpoint: 992,
+                  settings: {
+                    slidesToShow: 4,
+                  }
+                },
+                {
+                  breakpoint: 600,
+                  settings: {
+                    slidesToShow: 3
+                  }
+                },
+                {
+                  breakpoint: 480,
+                  settings: {
+                    slidesToShow: 2,
+                    slidesToScroll: 1
+                  }
+                }
+              ]
         };
 
         const itemsUsed = this.props.items.map(item => 

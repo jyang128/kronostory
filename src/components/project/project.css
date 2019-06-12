@@ -13,10 +13,6 @@
     background-position: center;
     transition: all .5s;
 }
-.card-main-img:hover {
-    background-size: 100%; 
-    background-repeat: no-repeat;
-}
 .dots {
     position: absolute;
     color: slategray;
@@ -27,7 +23,8 @@
 }
 /* project-items component */
 .used-item-height {
-    height: 220px;
+    height: 150px;
+    margin: auto;
 }
 /* timeline component */
 .plus{
