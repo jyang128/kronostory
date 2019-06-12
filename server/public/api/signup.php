@@ -32,7 +32,23 @@ $invalidEmailFormat = "";
 $usernameLower = strtolower($username);
 $keyword = "";
 $dashes = "";
+$empty = "";
 
+if($firstName === ""){
+    $empty = $empty."#firstname ";
+}
+if($lastName === ""){
+    $empty = $empty."#lastname ";
+}
+if($username === ""){
+    $empty = $empty."#username ";
+}
+if($password === ""){
+    $empty = $empty."#password ";
+}
+if($email === ""){
+    $empty = $empty."#email ";
+}
 if(preg_match('/-/',$username) === 1){
     $dashes = "The username can't contain dashes. ";
 }
@@ -59,8 +75,8 @@ if(mysqli_num_rows($invalidEmailResponse) > 0){
     $row = mysqli_fetch_assoc($invalidEmailResponse);
     $invalidEmail = $row['email']." is already being used by another user. ";
 }
-if($invalidUsername || $invalidEmail || $mismatchPassword || $invalidUppercase || $invalidNumber || $invalidEmailFormat || $keyword || $dashes){
-    print($invalidUsername.$invalidEmail.$mismatchPassword.$invalidUppercase.$invalidNumber.$invalidEmailFormat.$keyword.$dashes);
+if($invalidUsername || $invalidEmail || $mismatchPassword || $invalidUppercase || $invalidNumber || $invalidEmailFormat || $keyword || $dashes || $empty){
+    print($invalidUsername.$invalidEmail.$mismatchPassword.$invalidUppercase.$invalidNumber.$invalidEmailFormat.$keyword.$dashes.$empty);
     exit();
 }
 $postQuery = "INSERT INTO `user`(`first_name`, `last_name`, `username`, `password`, `email`)
