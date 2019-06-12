@@ -18,6 +18,31 @@
     color: #A167A5;
     text-decoration: none;
 }
+/* header - dropdown menu */
+.menu-nav-dropdown{
+    position: absolute;
+    top: 75px;
+    right: 10px;
+    box-sizing: border-box;
+    padding: 5px;
+    border-radius: 5px;
+    background-color: #A167A5;
+    z-index: 1;
+}
+.menu-nav-dropdown-arrow{
+    transform: rotate(45deg);
+    background-color: #A167A5;
+    position: absolute;
+    right: 22px;
+    top: 70px;
+    width: 12px;
+    height: 12px;
+}
+a.dropdown-link{
+    display: block;
+    color: white;
+}
+/* header - menu nav styling */
 .menu-nav > * {
     margin-left: 10px;
     cursor: pointer;
