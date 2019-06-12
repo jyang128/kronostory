@@ -17,7 +17,28 @@ export default class Timeline extends React.Component {
             speed: 500,
             slidesToShow: 4,
             slidesToScroll: 1,
-            swipeToSlide: true
+            swipeToSlide: true,
+            responsive: [
+                {
+                  breakpoint: 992,
+                  settings: {
+                    slidesToShow: 3,
+                  }
+                },
+                {
+                  breakpoint: 600,
+                  settings: {
+                    slidesToShow: 2
+                  }
+                },
+                {
+                  breakpoint: 480,
+                  settings: {
+                    slidesToShow: 1,
+                    slidesToScroll: 1
+                  }
+                }
+              ]
         };
         const timelineEntries = this.props.entries.map((entry, index) => <TimelineEntry key={entry.timeline_id} entryData={this.props.entries[index]} />)
 

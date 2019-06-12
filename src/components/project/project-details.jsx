@@ -92,12 +92,12 @@ export default class ProjectDetails extends React.Component {
         this.getProjectDetails(this.props.match.params.id);
     }
     render() {
-        console.log("the state items", this.state.items);
+        let primaryImg = this.state.project.primary_image;
         return (
             <div className="container-fluid">
                 <div className="row bg-light p-4">
                     <div className="col-12 col-md-5">
-                        <img src={this.state.project.primary_image} className="img-fluid" alt="Project Image" />
+                        <img src={primaryImg ? primaryImg : "/images/placeholder-img.jpg"} className="img-fluid" alt="Project Image" />
                     </div>
                     <div className="col-12 col-md-7 mt-4 mt-md-0">
                         <h3>{this.state.project.project_title}</h3>

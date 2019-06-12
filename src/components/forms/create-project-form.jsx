@@ -12,7 +12,6 @@ export default class CreateProjectForm extends React.Component {
             projImgHasUpload: false,
             selectedCategory: ''
         }
-        this.projectInputField = 1;
         this.handleFormSubmit = this.handleFormSubmit.bind(this);
         this.onFileChange = this.onFileChange.bind(this);
         this.onFileChangeItem = this.onFileChangeItem.bind(this);
@@ -37,6 +36,7 @@ export default class CreateProjectForm extends React.Component {
     onRadioChange(event) {
         console.log(event.target.id)
         this.setState({ selectedCategory: event.target.id.toString() });
+
     }
     handleFormSubmit(event) {
         if(this.state.selectedCategory === '') {
