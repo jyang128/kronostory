@@ -5,7 +5,19 @@ import { Link } from 'react-router-dom';
 export default class UserSignup extends React.Component {
 	constructor(props){
 		super(props);
-		this.state={email:"",password:"",repassword:"",firstName:"",lastName:"",username:"",usernameError:"",emailError:"",passwordMismatch:"",passwordNumber:"",passwordUppercase:"",emailFormat:""};
+		this.state={
+			email:"",
+			password:"",
+			repassword:"",
+			firstName:"",
+			lastName:"",username:"",
+			usernameError:"",
+			emailError:"",
+			passwordMismatch:"",
+			passwordNumber:"",
+			passwordUppercase:"",
+			emailFormat:""
+		};
 		this.signupHandler=this.signupHandler.bind(this);
 		this.onChangeHandler = this.onChangeHandler.bind(this);
 	}
@@ -32,11 +44,24 @@ export default class UserSignup extends React.Component {
 	}
 	signupHandler(event){
 		event.preventDefault();
-        let request = {url:'/api/signup.php',method:"POST",data:{first_name:this.state.firstName,last_name:this.state.lastName,username:this.state.username,password:this.state.password,repassword:this.state.repassword,email:this.state.email}}
+        let request = {url:'/api/signup.php',method:"POST",data:{
+			first_name:this.state.firstName,
+			last_name:this.state.lastName,
+			username:this.state.username,
+			password:this.state.password,
+			repassword:this.state.repassword,
+			email:this.state.email
+		}}
         axios(request)
             .then(response => {
 				//need to setState to go to dashboard
-				this.setState({emailError:"", passwordMismatch:"", usernameError:"", passwordUppercase:"", passwordNumber:""});
+				this.setState({
+					emailError:"", 
+					passwordMismatch:"", 
+					usernameError:"", 
+					passwordUppercase:"", 
+					passwordNumber:""
+				});
 				if(typeof response.data === "string"){
 					if(response.data.includes("is taken")){
 						console.log("setting state");
@@ -67,13 +92,7 @@ export default class UserSignup extends React.Component {
 					this.props.loginUser(response.data[0]);
 				}
             })
-            .catch(function (error) {
-                // handle error
-                console.error(error);
-            })
-            .finally(function (response) {
-              
-            });
+            .catch( error => console.error(error))
 	}
 	render() {
 		return (

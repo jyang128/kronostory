@@ -31,7 +31,6 @@ class App extends React.Component{
     getProjects() {
         axios.get(`/api/projects.php`)
             .then(response => {
-                console.log("what response:",response);
                 this.setState({
                     userSeshData: response.data[0],
                     projects: response.data[1]
@@ -104,7 +103,6 @@ class App extends React.Component{
           .catch(error => console.error(error))
     }
     render(){
-        console.log(this.state.projects);
         return(
             <React.Fragment>
             <div className="container-fluid header">
