@@ -19,7 +19,10 @@ class App extends React.Component{
                 id: null,
                 username: ''
             },
-            emailFormat:""
+            emailFormat:"",
+            emailEmpty:"",
+            passwordEmpty:"",
+            badLogin: ""
         }
         this.createNewProject = this.createNewProject.bind(this);
         this.logoutHandler = this.logoutHandler.bind(this);
@@ -40,11 +43,29 @@ class App extends React.Component{
     }
     loginUser(loginInfo) {
         const submittedEmail = loginInfo.email;
-        this.setState({emailFormat:""});
-        axios.get(`/api/login.php?email=${submittedEmail}`)
+        const submittedPassword = loginInfo.password;
+        this.setState({
+            emailFormat:"",
+            emailEmpty:"",
+            passwordEmpty:"",
+            badLogin:""
+        });
+        axios.get(`/api/login.php?email=${submittedEmail}&password=${submittedPassword}`)
             .then(response => {
                 if(typeof response.data === "string"){
-                    this.setState({emailFormat:"The email is invalid"});
+                    if(response.data.includes("invalid")){
+                        console.log("its a string.");
+                        this.setState({emailFormat:"The email is invalid"});
+                    }
+                    if(response.data.includes("#email")){
+                        this.setState({emailEmpty:"You must enter an email"});
+                    }
+                    if(response.data.includes("#password")){
+                        this.setState({passwordEmpty:"You must enter a password"});
+                    }
+                    if(response.data.includes("incorrect")){
+                        this.setState({badLogin:"The username and/or password are incorrect"});
+                    }
                 }
                 else{
                     if (response.data[0].id) {
@@ -121,6 +142,9 @@ class App extends React.Component{
                             loginAxios={loginInfo => this.loginUser(loginInfo)}
                             guestLoginAxios={() => this.loginGuest()}
                             emailFormat={this.state.emailFormat}
+                            emailEmpty={this.state.emailEmpty}
+                            passwordEmpty={this.state.passwordEmpty}
+                            badLogin={this.state.badLogin}
                         />
                     }/>
                     <Route path="/user-signup" render={props => (

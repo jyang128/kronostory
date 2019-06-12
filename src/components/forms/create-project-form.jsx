@@ -6,19 +6,35 @@ export default class CreateProjectForm extends React.Component {
     constructor(props){
         super(props);
         this.state={
+            projName: '',
+            projDesc: '',
+            projTimelineDesc: '',
             mainFile: '',
             itemFile: '',
             mainImgHasUpload: false,
             projImgHasUpload: false,
-            selectedCategory: ''
+            selectedCategory: '',
+            timelineDescLimit: false
         }
         this.handleFormSubmit = this.handleFormSubmit.bind(this);
         this.onFileChange = this.onFileChange.bind(this);
         this.onFileChangeItem = this.onFileChangeItem.bind(this);
         this.onRadioChange = this.onRadioChange.bind(this);
+        this.onTextChange = this.onTextChange.bind(this);
+    }
+    onTextChange(event) {
+        event.preventDefault();
+        const value = event.currentTarget.value;
+        const fieldName = event.currentTarget.attributes[3].nodeValue;
+        if(fieldName === 'projTimelineDesc' && value.length > 140) {
+            this.setState({ [fieldName]: value, timelineDescLimit: true});
+        } else if (fieldName === 'projTimelineDesc' && value.length <= 140) {
+            this.setState({ [fieldName]: value, timelineDescLimit: false});
+        } else {
+            this.setState({[fieldName]: value});
+        }
     }
     onFileChange(e) {
-        console.log("the target file: ", e.target.files[0]);
         if (e.target.files[0] !== undefined) {
             this.setState({ mainFile:e.target.files[0], mainImgHasUpload: true });
         } else {
@@ -26,7 +42,6 @@ export default class CreateProjectForm extends React.Component {
         }
     }
     onFileChangeItem(e) {
-        console.log("the target file: ", e.target.files[0]);
         if (e.target.files[0] !== undefined) {
             this.setState({ itemFile:e.target.files[0], projImgHasUpload: true });
         } else {
@@ -34,7 +49,6 @@ export default class CreateProjectForm extends React.Component {
         }
     }
     onRadioChange(event) {
-        console.log(event.target.id)
         this.setState({ selectedCategory: event.target.id.toString() });
 
     }
@@ -42,9 +56,8 @@ export default class CreateProjectForm extends React.Component {
         if(this.state.selectedCategory === '') {
             this.setState({ selectedCategory: false })
         }
-        console.log("handle form submit");
         event.preventDefault();
-        if (this.state.selectedCategory) {
+        if (this.state.selectedCategory && !this.state.timelineDescLimit) {
             let formData = new FormData(event.target);
             this.props.createNewProject(formData);
             document.getElementById("formSubmit").disabled = true;
@@ -53,8 +66,11 @@ export default class CreateProjectForm extends React.Component {
     }
     render(){
         let formError = <div className="form-error">
-                            <p className="text-danger">Please choose a category</p>
-                        </div>;
+                <p className="text-danger">Please choose a category</p>
+            </div>;
+        const timelineDescError = <div className="form-error">
+                <p className="text-danger">Timeline description has a 140 character limit. Currently, it has {this.state.projTimelineDesc.length}</p>
+            </div>;
         return(
             <React.Fragment>
             <div className="form-container">
@@ -71,15 +87,40 @@ export default class CreateProjectForm extends React.Component {
                                 <h5 className="font-weight-bold">Describe your project</h5>
                                 <div className="form-group" >
                                     <label htmlFor="proj-name">Project Name</label>
-                                    <input id="proj-name" name="proj-name" type="text" className="form-control" placeholder="Enter Project Name" required />
+                                    <input 
+                                        id="proj-name" 
+                                        name="proj-name" 
+                                        type="text" 
+                                        field="projName" 
+                                        className="form-control" 
+                                        placeholder="Enter Project Name" 
+                                        onChange={this.onTextChange}
+                                        required 
+                                    />
                                 </div>
                                 <div className="form-group">
                                     <label htmlFor="proj-desc">Main Description</label>
-                                    <textarea id="proj-desc" name="proj-desc" className="form-control" placeholder="Summary of your project." required></textarea>
+                                    <textarea 
+                                        id="proj-desc" 
+                                        name="proj-desc" 
+                                        className="form-control" 
+                                        field="projDesc" 
+                                        placeholder="Summary of your project." 
+                                        onChange={this.onTextChange}
+                                        required
+                                    ></textarea>
                                 </div>
                                 <div className="form-group">
                                     <label htmlFor="proj-timeline-desc">Describe your timeline</label>
-                                    <textarea id="proj-timeline-desc" name="proj-timeline-desc" className="form-control" placeholder="A short description about your timeline."></textarea>
+                                    {this.state.timelineDescLimit ? timelineDescError : null}
+                                    <textarea
+                                        id="proj-timeline-desc" 
+                                        name="proj-timeline-desc"
+                                        className="form-control"  
+                                        field="projTimelineDesc" 
+                                        placeholder="A short description about your timeline."
+                                        onChange={this.onTextChange}
+                                    ></textarea>
                                 </div>
                                 <div className="form-group">
                                     <label htmlFor="proj-main-img">Main Project Image</label>
@@ -131,6 +172,7 @@ export default class CreateProjectForm extends React.Component {
                                         </div>
                                     </li>
                                 </ul>
+                                {this.state.selectedCategory === false ? formError : null}
                             </div>
                             <div className="col-12 col-md-8">
                                 <div className="row">
@@ -146,7 +188,6 @@ export default class CreateProjectForm extends React.Component {
                                 </div>
                             </div>
                         </div>
-                        {this.state.selectedCategory === false ? formError : null}
                     </form>
                 </div>
             </div>
