@@ -38,8 +38,6 @@ export default class ProjectCard extends React.Component{
 
 		let primaryImg = this.props.projectData.primary_image;
 
-		//
-
 		const imgStyle = {
 			backgroundImage: 'url(' + (primaryImg ? primaryImg : "/images/placeholder-img.jpg") + ')'
 		};
