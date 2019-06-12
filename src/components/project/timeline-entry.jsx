@@ -11,7 +11,7 @@ export default class TimelineEntry extends React.Component {
         };
         
         return (
-            <div className="p-2" onClick={()=>this.props.toggleImageModal(entryData)}>
+            <div className="timeline-entry p-2" onClick={()=>this.props.toggleImageModal(entryData)}>
                 <div style={imgStyle} className="timeline-entry-img"></div>
                 <h5>{entryData.date}</h5>
                 <h6>{entryData.timeline_entry_title}</h6>

@@ -29,6 +29,7 @@
 /* timeline component */
 .timeline-entry-img {
     height: 240px;
+    margin-bottom: 5px;
     background-size: cover;
     background-position: center;
 }
@@ -37,6 +38,16 @@
     height: 125px;
     background-size: cover;
     margin: auto;
+}
+.timeline-entry:hover {
+    cursor: pointer;
+}
+.timeline-entry h6 {
+    transition: all .25s;
+}
+.timeline-entry:hover h6 {
+    color: #A167A5;
+    font-weight: bold;
 }
 .timeline-modal-info {
     margin-top: 1rem;
