@@ -11,6 +11,12 @@
     text-decoration: none;
 }
 /* footer styling */
+.footer {
+    position: relative;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
 .footer a {
     color: #A167A5;
 }
@@ -71,12 +77,16 @@
 }
 /* hero-panel component styling */
 .hero-bg {
-    background: url('https://bit.ly/2Kj2doT') no-repeat;
+    background: url('/images/flower-bg.jpg') no-repeat;
     background-size: cover;
-    height: 550px;
+    background-position: center 40%;
+    min-height: 375px;
 }
 .hero-content {
     background-color: rgba(255, 255, 255, 0.7);
+    max-width: 455px;
+    margin: auto;
+    text-align: center;
 }
 /* feature-panel component styling */
 .feature-bg {

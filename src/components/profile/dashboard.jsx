@@ -81,7 +81,7 @@ export default class Dashboard extends React.Component{
             loader = <div className="loader"><img className="loading-icon" src="/images/loader.svg" /></div>
         }
         return(
-            <div className="container-fluid">
+            <React.Fragment>
                 <div className="row d-flex justify-content-between py-3 mx-2">
                     <h3 className="align-self-center">
                         {this.state.individualProjects.length > 0 ? 
@@ -94,7 +94,7 @@ export default class Dashboard extends React.Component{
                     {userProjectCards}
                 </div>
                 {loader}
-            </div>
+            </React.Fragment>
         );
     }
 }

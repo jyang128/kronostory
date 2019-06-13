@@ -72,7 +72,10 @@ export default class ProjectCard extends React.Component{
 					<div className="card-main-img" style={imgStyle}></div>
 				</Link>
 				<div className="card-body">
-					<h6 className="card-title">{this.props.projectData.title}</h6>
+					<Link to={`/project-details/${this.props.projectData.id}`}>
+						<h6 className="card-title">
+						{this.props.projectData.title.length > 25 ? this.props.projectData.title.substring(0,25) + '...' : this.props.projectData.title}</h6>
+					</Link>
 					<p className="user-link">
 						By: {' '}
 						<Link to={`/${this.props.projectData.username}`}>
@@ -80,14 +83,10 @@ export default class ProjectCard extends React.Component{
 						</Link>
 					</p>
 					<p>
-						
 						<small className="card-text">{
-							this.props.projectData.description.length > 40 ? this.props.projectData.description.substring(0,40) + '...' : this.props.projectData.description
+							this.props.projectData.description.length > 35 ? this.props.projectData.description.substring(0,35) + '...' : this.props.projectData.description
 							}</small>
 					</p>
-					<Link to={`/project-details/${this.props.projectData.id}`} className="btn btn-primary">
-					Go To Project
-					</Link>
 					{deleteButton}
 				</div>
 			</div>

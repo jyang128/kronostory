@@ -49,6 +49,9 @@ export default class Header extends React.Component {
                     <span className="username d-flex align-items-center">
                         <span className="d-none d-sm-block">{this.props.userSeshData.username}</span> 
                         <div className={menuNavClass}>
+                            <Link to='/' className="dropdown-link">
+                                Home
+                            </Link>
                             <Link to={{
                                 pathname: `/${this.props.userSeshData.username}`,
                                 state: {

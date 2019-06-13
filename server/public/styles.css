@@ -2,7 +2,10 @@
 body {
     font-family: 'Muli', sans-serif;
     position: relative;
-    height: 100vh;
+}
+
+.wrapper {
+    min-height: 90vh;
 }
 
 .logo {
@@ -14,6 +17,11 @@ body {
 }
 .logo h4 {
     margin: 0;
+}
+
+.img-w-border {
+    border: 5px solid #FFF;
+    box-shadow: 0 5px 5px rgba(0,0,0,.5);
 }
 
 /*loading icon*/
