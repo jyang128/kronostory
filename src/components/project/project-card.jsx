@@ -10,7 +10,6 @@ export default class ProjectCard extends React.Component{
 		}
 		this.handleDelete = this.handleDelete.bind(this);
 		this.toggleDeleteButton = this.toggleDeleteButton.bind(this);
-		this.mouseLeaveDeleteButton = this.mouseLeaveDeleteButton.bind(this);
 		this.closeDropdown = this.closeDropdown.bind(this);
 	}
 	componentDidMount(){
@@ -28,9 +27,6 @@ export default class ProjectCard extends React.Component{
 	}
 	toggleDeleteButton(){
 		this.setState({showDelete: !this.state.showDelete})
-	}
-	mouseLeaveDeleteButton(){
-		this.setState({showDelete: false})
 	}
 	handleDelete(){
 		this.toggleDeleteButton();
@@ -74,7 +70,7 @@ export default class ProjectCard extends React.Component{
 		};
 		return(
 		<div className="col-12 col-sm-6 col-md-4 col-lg-3 mb-3">
-			<div className="card" onMouseLeave={this.mouseLeaveDeleteButton}>
+			<div className="card">
 				<div className="card-main-img" style={imgStyle}></div>
 				<div className="card-body">
 					<h5 className="card-title">{this.props.projectData.title}</h5>

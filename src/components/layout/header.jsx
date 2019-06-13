@@ -9,7 +9,6 @@ export default class Header extends React.Component {
             showDropdownMenu: false
         }
         this.toggleMenuNav = this.toggleMenuNav.bind(this);
-        this.mouseLeaveMenuNav = this.mouseLeaveMenuNav.bind(this);
         this.closeDropdown = this.closeDropdown.bind(this);
     }
     addEventListeners(){
@@ -27,9 +26,6 @@ export default class Header extends React.Component {
     }
     toggleMenuNav(){
         this.setState({showDropdownMenu: !this.state.showDropdownMenu});
-    }
-    mouseLeaveMenuNav(){
-        this.setState({showDropdownMenu: false});
     }
     render(){
         console.log(this.state)
@@ -54,7 +50,7 @@ export default class Header extends React.Component {
                     <i className="far fa-user-circle" />
                     <span className="username"  >
                         {this.props.userSeshData.username} &#9663; 
-                        <div className={menuNavClass} onMouseLeave={this.mouseLeaveMenuNav}>
+                        <div className={menuNavClass}>
                             <Link to={{
                                 pathname: `/${this.props.userSeshData.username}`,
                                 state: {
