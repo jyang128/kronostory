@@ -14,7 +14,9 @@ export default class CreateProjectForm extends React.Component {
             mainImgHasUpload: false,
             projImgHasUpload: false,
             selectedCategory: '',
-            timelineDescLimit: false
+            timelineDescLimit: false,
+            mainProjectImageLimit: false,
+            mainProjectImageType: false
         }
         this.handleFormSubmit = this.handleFormSubmit.bind(this);
         this.onFileChange = this.onFileChange.bind(this);
@@ -35,8 +37,23 @@ export default class CreateProjectForm extends React.Component {
         }
     }
     onFileChange(e) {
+        this.setState({mainProjectImageLimit: false, mainProjectImageType: false});
         if (e.target.files[0] !== undefined) {
-            this.setState({ mainFile:e.target.files[0], mainImgHasUpload: true });
+            console.log("file chosen.");
+            this.setState({ mainFile:e.target.files[0], mainImgHasUpload: true },()=>{
+                if(this.state.mainFile.name.length >= 100){
+                    this.setState({mainProjectImageLimit: true});
+                }
+                let fileExtension = this.state.mainFile.name.substr(this.state.mainFile.name.length - 4);
+                switch(fileExtension){
+                    case ".jpg":
+                    case ".png":
+                    case ".gif":
+                        break;
+                    default:
+                        this.setState({mainProjectImageType: true});
+                }
+            });
         } else {
             this.setState({mainFile:'', mainImgHasUpload: false });
         }
@@ -57,12 +74,12 @@ export default class CreateProjectForm extends React.Component {
             this.setState({ selectedCategory: false })
         }
         event.preventDefault();
-        if (this.state.selectedCategory && !this.state.timelineDescLimit) {
+        if (this.state.selectedCategory && !this.state.timelineDescLimit && !this.state.mainProjectImageLimit && !this.state.mainProjectImageType) {
             let formData = new FormData(event.target);
             this.props.createNewProject(formData);
             document.getElementById("formSubmit").disabled = true;
         }
-        
+
     }
     render(){
         let formError = <div className="form-error">
@@ -70,6 +87,12 @@ export default class CreateProjectForm extends React.Component {
             </div>;
         const timelineDescError = <div className="form-error">
                 <p className="text-danger">Timeline description has a 140 character limit. Currently, it has {this.state.projTimelineDesc.length}</p>
+            </div>;
+        const mainProjectImageError = <div className="form-error">
+                <p className="text-danger">Main project image has a 100 character limit. Currently, it has {this.state.mainFile.name ? this.state.mainFile.name.length : "" }</p>
+            </div>;
+        const mainProjectImageTypeError = <div className="form-error">
+                <p className="text-danger">Main project image needs to be of type JPG/PNG/GIF</p>
             </div>;
         return(
             <React.Fragment>
@@ -87,25 +110,25 @@ export default class CreateProjectForm extends React.Component {
                                 <h5 className="font-weight-bold">Describe your project</h5>
                                 <div className="form-group" >
                                     <label htmlFor="proj-name">Project Name</label>
-                                    <input 
-                                        id="proj-name" 
-                                        name="proj-name" 
-                                        type="text" 
-                                        field="projName" 
-                                        className="form-control" 
-                                        placeholder="Enter Project Name" 
+                                    <input
+                                        id="proj-name"
+                                        name="proj-name"
+                                        type="text"
+                                        field="projName"
+                                        className="form-control"
+                                        placeholder="Enter Project Name"
                                         onChange={this.onTextChange}
-                                        required 
+                                        required
                                     />
                                 </div>
                                 <div className="form-group">
                                     <label htmlFor="proj-desc">Main Description</label>
-                                    <textarea 
-                                        id="proj-desc" 
-                                        name="proj-desc" 
-                                        className="form-control" 
-                                        field="projDesc" 
-                                        placeholder="Summary of your project." 
+                                    <textarea
+                                        id="proj-desc"
+                                        name="proj-desc"
+                                        className="form-control"
+                                        field="projDesc"
+                                        placeholder="Summary of your project."
                                         onChange={this.onTextChange}
                                         required
                                     ></textarea>
@@ -114,21 +137,24 @@ export default class CreateProjectForm extends React.Component {
                                     <label htmlFor="proj-timeline-desc">Describe your timeline</label>
                                     {this.state.timelineDescLimit ? timelineDescError : null}
                                     <textarea
-                                        id="proj-timeline-desc" 
+                                        id="proj-timeline-desc"
                                         name="proj-timeline-desc"
-                                        className="form-control"  
-                                        field="projTimelineDesc" 
+                                        className="form-control"
+                                        field="projTimelineDesc"
                                         placeholder="A short description about your timeline."
                                         onChange={this.onTextChange}
                                     ></textarea>
                                 </div>
                                 <div className="form-group">
                                     <label htmlFor="proj-main-img">Main Project Image</label>
+                                    {this.state.mainProjectImageLimit ? mainProjectImageError : null}
+                                    {this.state.mainProjectImageType ? mainProjectImageTypeError : null}
                                     <div className="custom-file">
-                                        <label className="custom-file-label" htmlFor="proj-main-img">{this.state.mainFile ? this.state.mainFile.name : "Choose file up to 4MB"}</label>
+                                        <label className="custom-file-label" htmlFor="proj-main-img">{this.state.mainFile ? this.state.mainFile.name : "Choose JPG/PNG/GIF file up to 4MB"}</label>
                                         <input id="proj-main-img" type="file" className="form-control-file" name="proj-main-img" onChange={this.onFileChange}/>
                                         <input id="mainImgHasUpload" type="hidden" name="mainImgHasUpload" value={this.state.mainImgHasUpload} />
                                     </div>
+                                    <p className={this.state.emailEmpty ? "text-danger" : "text-danger d-none"}>{this.state.emailEmpty}</p>
                                 </div>
                                 <hr />
                             </div>
@@ -138,13 +164,13 @@ export default class CreateProjectForm extends React.Component {
                                 <ul className={this.state.selectedCategory === false ? "list-group mb-4 border border-danger" : "list-group mb-4"}>
                                     <li className="list-group-item">
                                         <div className="radio-container">
-                                            <input className="form-check-input" type="radio" id="art" name="proj-category" value="art" onChange={this.onRadioChange} /> 
+                                            <input className="form-check-input" type="radio" id="art" name="proj-category" value="art" onChange={this.onRadioChange} />
                                             <label className="form-check-label" htmlFor="art">Art</label>
                                         </div>
                                     </li>
                                     <li className="list-group-item">
                                         <div className="radio-container">
-                                            <input className="form-check-input" type="radio" id="gardening" name="proj-category" value="gardening" onChange={this.onRadioChange} /> 
+                                            <input className="form-check-input" type="radio" id="gardening" name="proj-category" value="gardening" onChange={this.onRadioChange} />
                                             <label className="form-check-label" htmlFor="gardening">Gardening</label>
                                         </div>
                                     </li>
@@ -155,19 +181,19 @@ export default class CreateProjectForm extends React.Component {
                                     </li>
                                     <li className="list-group-item">
                                         <div className="radio-container">
-                                            <input className="form-check-input" type="radio" id="crafting" name="proj-category" value="crafting" onChange={this.onRadioChange} /> 
+                                            <input className="form-check-input" type="radio" id="crafting" name="proj-category" value="crafting" onChange={this.onRadioChange} />
                                             <label className="form-check-label" htmlFor="crafting">Crafting</label>
                                         </div>
                                     </li>
                                     <li className="list-group-item">
                                         <div className="radio-container">
-                                            <input className="form-check-input" type="radio" id="health" name="proj-category" value="health" onChange={this.onRadioChange} /> 
+                                            <input className="form-check-input" type="radio" id="health" name="proj-category" value="health" onChange={this.onRadioChange} />
                                             <label className="form-check-label" htmlFor="health">Health</label>
                                         </div>
                                     </li>
                                     <li className="list-group-item">
                                         <div className="radio-container">
-                                            <input className="form-check-input" type="radio" id="animal" name="proj-category" value="animal" onChange={this.onRadioChange} /> 
+                                            <input className="form-check-input" type="radio" id="animal" name="proj-category" value="animal" onChange={this.onRadioChange} />
                                             <label className="form-check-label" htmlFor="animal">Animal</label>
                                         </div>
                                     </li>
