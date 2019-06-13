@@ -45,8 +45,11 @@
 .timeline-entry:hover {
     cursor: pointer;
 }
+.timeline-entry h5 {
+    color: #A167A5;
+}
 .timeline-entry h6 {
-    color: #4A306D;
+    font-weight: bold;
 }
 .timeline-modal-info {
     margin-top: 1rem;
