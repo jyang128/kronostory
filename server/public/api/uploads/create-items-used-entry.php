@@ -9,7 +9,7 @@
     }
 
     $user_id = json_decode($_POST['user-id'], true);
-    $projItemName = $_POST["inputTitle"];
+    $projItemName = addslashes($_POST["inputTitle"]);
     $project_id = json_decode($_POST['project-id'], true); 
     $target_dir = '../../image-uploads/' . $user_id . '/';
 

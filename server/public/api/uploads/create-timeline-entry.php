@@ -9,12 +9,12 @@ if(!$conn){
 }
 
 $user_id = json_decode($_POST['user-id'], true);
-$title = $_POST['inputTitle'];
-$description = $_POST['inputDescription'];
+$title = addslashes($_POST['inputTitle']);
+$description = addslashes($_POST['inputDescription']);
 $primary_image = null;
 $secondary_images = '';
 $project_id = json_decode($_POST['project-id'], true); 
-$date = $_POST['inputDate'];
+$date = addslashes($_POST['inputDate']);
 $target_dir = '../../image-uploads/' . $user_id . '/';
 
 $output = ['error'=> 'none', 'upload'=>'Success'];

@@ -14,10 +14,10 @@
 
     $userId = $_POST["user-id"];
     $userId = json_decode($userId, true);
-    $projName= $_POST["proj-name"];
-    $projDesc= $_POST["proj-desc"];
+    $projName= addslashes($_POST["proj-name"]);
+    $projDesc= addslashes($_POST["proj-desc"]);
     $projSecImages = '';
-    $projTimelineDesc= $_POST["proj-timeline-desc"];
+    $projTimelineDesc= addslashes($_POST["proj-timeline-desc"]);
     $projCategory = $_POST["proj-category"];
 
     if ($_POST["status"] === "published") {

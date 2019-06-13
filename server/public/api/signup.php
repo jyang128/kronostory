@@ -11,8 +11,8 @@ if(!$conn){
 }
 $body = file_get_contents('php://input');
 $user = json_decode($body, true);
-$firstName = $user['first_name'];
-$lastName = $user['last_name'];
+$firstName = addslashes($user['first_name']);
+$lastName = addslashes($user['last_name']);
 $username = $user['username'];
 $password = $user['password'];
 $repassword = $user['repassword'];
