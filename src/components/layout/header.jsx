@@ -12,11 +12,11 @@ export default class Header extends React.Component {
         this.mouseLeaveMenuNav = this.mouseLeaveMenuNav.bind(this);
         this.closeDropdown = this.closeDropdown.bind(this);
     }
-    componentDidMount(){
+    addEventListeners(){
 		document.addEventListener('click', this.closeDropdown)
 		window.addEventListener('scroll', this.closeDropdown)
 	}
-	componentWillUnmount(){
+	removeEventListeners(){
 		document.removeEventListener('click', this.closeDropdown)
 		window.removeEventListener('scroll', this.closeDropdown)
 	}
@@ -32,6 +32,8 @@ export default class Header extends React.Component {
         this.setState({showDropdownMenu: false});
     }
     render(){
+        console.log(this.state)
+
         let menuNav;
         let menuNavClass;
         let menuNavDropdownClass;
@@ -39,16 +41,18 @@ export default class Header extends React.Component {
         if(this.state.showDropdownMenu){
             menuNavClass = "menu-nav-dropdown";
             menuNavDropdownClass = "menu-nav-dropdown-arrow"
+            this.addEventListeners();
         } else {
             menuNavClass = "menu-nav-dropdown d-none"
             menuNavDropdownClass = "menu-nav-dropdown-arrow d-none"
+            this.removeEventListeners();
         }
         
         if(this.props.userSeshData.id) {
             menuNav = (
-                <div className="menu-nav align-self-center" >
-                    <i className="far fa-user-circle"></i> 
-                    <span className="username" onClick={this.toggleMenuNav}>
+                <div className="menu-nav align-self-center" onClick={this.toggleMenuNav}>
+                    <i className="far fa-user-circle" />
+                    <span className="username"  >
                         {this.props.userSeshData.username} &#9663; 
                         <div className={menuNavClass} onMouseLeave={this.mouseLeaveMenuNav}>
                             <Link to={{
