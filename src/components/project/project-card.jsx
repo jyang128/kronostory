@@ -39,10 +39,8 @@ export default class ProjectCard extends React.Component{
 
 		if(this.state.showDelete){
 			deleteButtonClass = 'delete-button';
-			dropdownClass = 'delete-dropdown-arrow';
 		} else {
 			deleteButtonClass = 'delete-button d-none';
-			dropdownClass = 'delete-dropdown-arrow d-none';
 		}
 
 		if(this.props.userStatus) {
@@ -54,7 +52,6 @@ export default class ProjectCard extends React.Component{
 							<div className={deleteButtonClass} onClick={this.handleDelete} >
 								delete
 							</div>
-							<div className={dropdownClass}></div>
 						</div>
 					</div>
 					);
@@ -71,20 +68,22 @@ export default class ProjectCard extends React.Component{
 		return(
 		<div className="col-12 col-sm-6 col-md-4 col-lg-3 mb-3">
 			<div className="card">
-				<div className="card-main-img" style={imgStyle}></div>
+				<Link to={`/project-details/${this.props.projectData.id}`}>
+					<div className="card-main-img" style={imgStyle}></div>
+				</Link>
 				<div className="card-body">
-					<h5 className="card-title">{this.props.projectData.title}</h5>
-					<h6 className="user-link">
+					<h6 className="card-title">{this.props.projectData.title}</h6>
+					<p className="user-link">
 						By: {' '}
 						<Link to={`/${this.props.projectData.username}`}>
 							{this.props.projectData.username}
 						</Link>
-					</h6>
-					<p className="card-text text-truncate">{this.props.projectData.description}</p>
-					<Link to={`/project-details/${this.props.projectData.id}`}>
-					<button className="btn btn-primary">
+					</p>
+					<p>
+						<small className="card-text text-truncate">{this.props.projectData.description}</small>
+					</p>
+					<Link to={`/project-details/${this.props.projectData.id}`} className="btn btn-primary">
 					Go To Project
-					</button>
 					</Link>
 					{deleteButton}
 				</div>

@@ -109,7 +109,7 @@ export default class ProjectDetails extends React.Component {
                     </div>
                     <div className="col-12 col-md-7 mt-4 mt-md-0">
                         <h3>{this.state.project.project_title}</h3>
-                        <h6 className="font-weight-light mt-3 user-link">
+                        <h6 className="mt-3 user-link">
                             By:{' '}
                             <Link to={`/${this.state.project.username}`}>
                                 {this.state.project.username}

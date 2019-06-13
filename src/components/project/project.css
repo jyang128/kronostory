@@ -3,8 +3,15 @@
     max-height: 180px;
     overflow: hidden;
 }
+.card-title {
+    margin-bottom:.25rem;
+    font-weight: bold;
+}
 .card-body {
     position: relative;
+}
+.card-body > p {
+    margin-bottom: .25rem;
 }
 .card-main-img {
     width: 100%;
@@ -66,7 +73,7 @@
 /* project card - delete button */
 .delete-button {
     position: absolute;
-    top: 40px;
+    top: 50px;
     right: -9px;
     box-sizing: border-box;
     padding: 5px;
@@ -75,13 +82,16 @@
     background-color: #b04343;
     border-radius: 5px;
 }
-.delete-dropdown-arrow{
-    transform: rotate(45deg);
-    background-color: #b04343;
+.delete-button:after {
+    content: "";
+    width: 0;
+    height: 0;
     position: absolute;
-    right: 2px;
-    width: 12px;
-    height: 12px;
+    top: -7px;
+    right: 8px;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-bottom: 8px solid #b04343;
 }
 /* project catalog - category sorting */
 .project-sort {
@@ -103,6 +113,9 @@
 .sort-link:hover {
     color: #A167A5;
     cursor: pointer;
+}
+.user-link {
+    font-size: .9rem;
 }
 .user-link a {
     color: #8b508f;

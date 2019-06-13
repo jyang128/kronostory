@@ -28,7 +28,7 @@ export default class UserLogin extends React.Component {
 
     render() {
         return (
-            <div className="col-10 offset-1 col-sm-6 offset-sm-3 col-lg-4 offset-lg-4 text-center my-5">
+            <div className="col-10 offset-1 col-sm-6 offset-sm-3 col-lg-4 offset-lg-4 text-center py-5 my-5">
                 <form className="form-signin">
                     <h1 className="font-weight-light text-primary">KronoStory</h1>
                     <h1 className="h3 mb-3 font-weight-light">Please sign in</h1>
