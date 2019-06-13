@@ -82,7 +82,7 @@ export default class ProjectCard extends React.Component{
 					<p>
 						
 						<small className="card-text">{
-							this.props.projectData.description.length > 100 ? this.props.projectData.description.substring(0,100) + '...' : this.props.projectData.description
+							this.props.projectData.description.length > 40 ? this.props.projectData.description.substring(0,40) + '...' : this.props.projectData.description
 							}</small>
 					</p>
 					<Link to={`/project-details/${this.props.projectData.id}`} className="btn btn-primary">
