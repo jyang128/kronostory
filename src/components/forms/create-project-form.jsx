@@ -14,6 +14,7 @@ export default class CreateProjectForm extends React.Component {
             mainImgHasUpload: false,
             projImgHasUpload: false,
             selectedCategory: '',
+            projNameLimit: false, 
             timelineDescLimit: false
         }
         this.handleFormSubmit = this.handleFormSubmit.bind(this);
@@ -28,6 +29,10 @@ export default class CreateProjectForm extends React.Component {
         const fieldName = event.currentTarget.attributes[3].nodeValue;
         if(fieldName === 'projTimelineDesc' && value.length > 140) {
             this.setState({ [fieldName]: value, timelineDescLimit: true});
+        } else if (fieldName === 'projName' && value.length > 45) {
+            this.setState({ [fieldName]: value, projNameLimit: true});
+        } else if (fieldName === 'projName' && value.length <= 45) {
+            this.setState({ [fieldName]: value, projNameLimit: false});
         } else if (fieldName === 'projTimelineDesc' && value.length <= 140) {
             this.setState({ [fieldName]: value, timelineDescLimit: false});
         } else {
@@ -57,7 +62,7 @@ export default class CreateProjectForm extends React.Component {
             this.setState({ selectedCategory: false })
         }
         event.preventDefault();
-        if (this.state.selectedCategory && !this.state.timelineDescLimit) {
+        if (this.state.selectedCategory && !this.state.timelineDescLimit && !this.state.projNameLimit) {
             let formData = new FormData(event.target);
             this.props.createNewProject(formData);
             document.getElementById("formSubmit").disabled = true;
@@ -69,7 +74,10 @@ export default class CreateProjectForm extends React.Component {
                 <p className="text-danger">Please choose a category</p>
             </div>;
         const timelineDescError = <div className="form-error">
-                <p className="text-danger">Timeline description has a 140 character limit. Currently, it has {this.state.projTimelineDesc.length}</p>
+                <p className="text-danger">Timeline description has a 140 character limit. Currently, it is {this.state.projTimelineDesc.length}</p>
+            </div>;
+        const projNameError = <div className="form-error">
+                <p className="text-danger">Project name has a 45 character limit. Currently, it is {this.state.projName.length}</p>
             </div>;
         return(
             <React.Fragment>
@@ -87,6 +95,7 @@ export default class CreateProjectForm extends React.Component {
                                 <h5 className="font-weight-bold">Describe your project</h5>
                                 <div className="form-group" >
                                     <label htmlFor="proj-name">Project Name</label>
+                                    {this.state.projNameLimit ? projNameError : null}
                                     <input 
                                         id="proj-name" 
                                         name="proj-name" 
