@@ -13,11 +13,9 @@ export default class Header extends React.Component {
     }
     addEventListeners(){
 		document.addEventListener('click', this.closeDropdown)
-		window.addEventListener('scroll', this.closeDropdown)
 	}
 	removeEventListeners(){
 		document.removeEventListener('click', this.closeDropdown)
-		window.removeEventListener('scroll', this.closeDropdown)
 	}
     closeDropdown(event){
         if(event.target.className !== 'username'){
@@ -28,8 +26,6 @@ export default class Header extends React.Component {
         this.setState({showDropdownMenu: !this.state.showDropdownMenu});
     }
     render(){
-        console.log(this.state)
-
         let menuNav;
         let menuNavClass;
         let menuNavDropdownClass;
@@ -59,10 +55,10 @@ export default class Header extends React.Component {
                                     username: this.props.userSeshData.username, 
                                 }
                             }} className="dropdown-link" onClick={this.dashboardHandler}>
-                                dashboard
+                                Dashboard
                             </Link>
                             <Link to='/user-login' className="dropdown-link" onClick={this.props.logoutHandler}>
-                                logout
+                                Logout
                             </Link>
                         </div>
                     </span>
@@ -86,7 +82,7 @@ export default class Header extends React.Component {
                         <img className="img-fluid" src="/images/white-logo.png" />
                     </div>
                     <h4>
-                        <Link to="/">
+                        <Link to="/" onClick={this.props.getProjects} >
                             {this.props.title}
                         </Link>
                     </h4>

@@ -14,11 +14,9 @@ export default class ProjectCard extends React.Component{
 	}
 	componentDidMount(){
 		document.addEventListener('click', this.closeDropdown)
-		window.addEventListener('scroll', this.closeDropdown)
 	}
 	componentWillUnmount(){
 		document.removeEventListener('click', this.closeDropdown)
-		window.removeEventListener('scroll', this.closeDropdown)
 	}
 	closeDropdown(event){
 		if(event.target.className !== 'dots'){

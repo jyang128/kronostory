@@ -27,6 +27,7 @@ class App extends React.Component{
         this.createNewProject = this.createNewProject.bind(this);
         this.logoutHandler = this.logoutHandler.bind(this);
         this.loginUser = this.loginUser.bind(this);
+        this.getProjects = this.getProjects.bind(this);
     }
     componentDidMount() {
         this.getProjects();
@@ -54,7 +55,6 @@ class App extends React.Component{
             .then(response => {
                 if(typeof response.data === "string"){
                     if(response.data.includes("invalid")){
-                        console.log("its a string.");
                         this.setState({emailFormat:"The email is invalid"});
                     }
                     if(response.data.includes("#email")){
@@ -84,7 +84,6 @@ class App extends React.Component{
     loginGuest() {
         axios.get('/api/guest-login.php')
             .then(response => {
-                console.log('login guest response.data', response.data[0])
                 this.setState({
                     userSeshData: response.data[0],
                 }, () => {
@@ -129,7 +128,7 @@ class App extends React.Component{
             <React.Fragment>
             <div className="wrapper">
                 <div className="container-fluid header">
-                    <Header title="kronostory" userSeshData={this.state.userSeshData} logoutHandler={this.logoutHandler}/>
+                    <Header title="kronostory" userSeshData={this.state.userSeshData} logoutHandler={this.logoutHandler} getProjects={this.getProjects}/>
                 </div>
                 <div className="container-fluid">
                     <Switch>

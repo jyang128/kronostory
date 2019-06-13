@@ -69,7 +69,11 @@
     if ($response) {
     
         $lastId = mysqli_insert_id($conn);
-        $getQuery = "SELECT * FROM `project` WHERE `id` = {$lastId}";
+        $getQuery = "SELECT p.`*`, u.`username`
+            FROM `project` AS p 
+            JOIN `user` AS u
+            ON u.`id` = p.`user_id`
+            WHERE p.`id` = {$lastId}";
         $result = mysqli_query($conn, $getQuery);
 
         if ($result) {
