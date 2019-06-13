@@ -14,12 +14,13 @@ export default class Timeline extends React.Component {
         }
         this.toggleImageModal = this.toggleImageModal.bind(this);
     }
-    toggleImageModal(event){
+    toggleImageModal(entryData){
+        console.log("modal thing", entryData);
         if(!this.state.modalOpened) {
             this.setState({
                 modalOpened: true,
-                imageClicked: `${event.target.getAttribute('src')}`
-            });
+                imageClicked: entryData
+            }, ()=> console.log(this.state.imageClicked));
         } else if (event.target.className === 'overlay' || event.target.className === 'fas fa-times') {
             this.setState({
                 modalOpened: false,
@@ -72,6 +73,9 @@ export default class Timeline extends React.Component {
             addToTimelineButton = null;
         }
 
+        var element = document.getElementById("body");
+        this.state.modalOpened ? element.classList.add("overflow-hidden") : element.classList.remove("overflow-hidden");
+
         return (
             <React.Fragment>
             <div className="col-12 py-3 mb-4">
@@ -80,7 +84,7 @@ export default class Timeline extends React.Component {
                     <p>{this.props.project.timeline_description}</p>
                         {addToTimelineButton}
                 </div>
-                <div className="px-5">
+                <div className="px-3">
                     <Slider {...settings}>
                         {timelineEntries}
                     </Slider>
@@ -100,7 +104,12 @@ export default class Timeline extends React.Component {
                     toggleModal={this.toggleImageModal}
                     children={
                         <div className="col-12 col-lg-10 offset-lg-1">
-                            <img src={`${this.state.imageClicked}`} className="modal-image"/>
+                            <h5 className="text-center">{this.state.imageClicked.date}</h5>
+                            <img src={`${this.state.imageClicked.timeline_primary_image}`} className="modal-image"/>
+                            <div className="timeline-modal-info">
+                                <h4>{this.state.imageClicked.timeline_entry_title}</h4>
+                                <p>{this.state.imageClicked.timeline_description}</p>
+                            </div>
                         </div>
                     }
                 />

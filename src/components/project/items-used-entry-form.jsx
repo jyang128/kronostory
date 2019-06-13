@@ -68,6 +68,7 @@ export default class ItemUsedEntryForm extends React.Component {
                         <input 
                             id="imgAttached" type="hidden" name="imgAttached" value={this.state.fileAttached} 
                         />
+                        <small className="text-muted">Recommended: Square size images</small>
                     </div>
                 </div>
                 <input type="hidden" name="project-id" value={this.props.project.id} />

@@ -22,11 +22,41 @@
     cursor: pointer;
 }
 /* project-items component */
-.used-item-height {
-    height: 150px;
+/* .used-item {
+    max-height: 150px;
+    margin: auto;
+} */
+/* timeline component */
+.timeline-entry-img {
+    height: 240px;
+    margin-bottom: 5px;
+    background-size: cover;
+    background-position: center;
+}
+.project-item-img {
+    width: 125px;
+    height: 125px;
+    background-size: cover;
     margin: auto;
 }
-/* timeline component */
+.timeline-entry p {
+    font-size: .9rem;
+}
+.timeline-entry:hover {
+    cursor: pointer;
+}
+.timeline-entry h5 {
+    color: #A167A5;
+}
+.timeline-entry h6 {
+    font-weight: bold;
+}
+.timeline-modal-info {
+    margin-top: 1rem;
+}
+.timeline-modal-info p{
+    margin-bottom: .5rem;
+}
 .plus{
     cursor: pointer;
 }
