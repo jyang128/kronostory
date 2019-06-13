@@ -30,6 +30,7 @@ export default class ItemUsedEntryForm extends React.Component {
                     case ".jpg":
                     case ".png":
                     case ".gif":
+                    case "jpeg":
                         break;
                     default:
                         this.setState({mainProjectImageType: true});
