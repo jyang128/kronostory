@@ -109,7 +109,7 @@ export default class ProjectCatalog extends React.Component{
                 <div className="row hero-bg">
                     <HeroPanel setView={this.props.setView}/>
                 </div>
-                <div className="project-sort p-4">
+                <div id="project-sort" className="project-sort p-4">
                     <Slider {...settings}>
                         <div id="all" className="sort-link mx-2 active" onClick={this.sortProjects}>All</div>
                         <div id="art" className="sort-link mx-2" onClick={this.sortProjects}>Art</div>

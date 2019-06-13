@@ -27,6 +27,7 @@ class App extends React.Component{
         this.createNewProject = this.createNewProject.bind(this);
         this.logoutHandler = this.logoutHandler.bind(this);
         this.loginUser = this.loginUser.bind(this);
+        this.getProjects = this.getProjects.bind(this);
     }
     componentDidMount() {
         this.getProjects();
@@ -54,7 +55,6 @@ class App extends React.Component{
             .then(response => {
                 if(typeof response.data === "string"){
                     if(response.data.includes("invalid")){
-                        console.log("its a string.");
                         this.setState({emailFormat:"The email is invalid"});
                     }
                     if(response.data.includes("#email")){
@@ -84,7 +84,6 @@ class App extends React.Component{
     loginGuest() {
         axios.get('/api/guest-login.php')
             .then(response => {
-                console.log('login guest response.data', response.data[0])
                 this.setState({
                     userSeshData: response.data[0],
                 }, () => {
@@ -127,52 +126,54 @@ class App extends React.Component{
     render(){
         return(
             <React.Fragment>
-            <div className="container-fluid header">
-                <Header title="kronostory" userSeshData={this.state.userSeshData} logoutHandler={this.logoutHandler}/>
-            </div>
-            <div className="container-fluid">
-                <Switch>
-                    <Route exact path="/" render={props =>
-                        <ProjectCatalog {...props}
-                            projects={this.state.projects}
-                        />
-                    }/>
-                    <Route path="/user-login" render={props =>
-                        <UserLogin {...props}
-                            loginAxios={loginInfo => this.loginUser(loginInfo)}
-                            guestLoginAxios={() => this.loginGuest()}
-                            emailFormat={this.state.emailFormat}
-                            emailEmpty={this.state.emailEmpty}
-                            passwordEmpty={this.state.passwordEmpty}
-                            badLogin={this.state.badLogin}
-                        />
-                    }/>
-                    <Route path="/user-signup" render={props => (
-                        <UserSignup {...props}
-                            userSeshData={this.state.userSeshData}
-                            loginUser={this.loginUser}
-                        />
-                    )}/>
-                    <Route path="/create-project" render={props =>
-                        <CreateProjectForm {...props}
-                            userId={this.state.userSeshData.id}
-                            createNewProject={this.createNewProject}
-                        />
-                    }/>
-                    <Route exact path="/:username" render={props => (
-                        <Dashboard {...props}
-                            userStatus={this.state.userSeshData}
-                        />
-                    )}/>
-                    <Route path="/project-details/:id" render={props => (
-                        <ProjectDetails {...props}
-                            user = {this.state.projects.filter(project =>
-                                project.id === parseInt(props.match.params.id, 10)
-                                )[0]
-                            }
-                        />
-                    )}/>
-                </Switch>
+            <div className="wrapper">
+                <div className="container-fluid header">
+                    <Header title="kronostory" userSeshData={this.state.userSeshData} logoutHandler={this.logoutHandler} getProjects={this.getProjects}/>
+                </div>
+                <div className="container-fluid">
+                    <Switch>
+                        <Route exact path="/" render={props =>
+                            <ProjectCatalog {...props}
+                                projects={this.state.projects}
+                            />
+                        }/>
+                        <Route path="/user-login" render={props =>
+                            <UserLogin {...props}
+                                loginAxios={loginInfo => this.loginUser(loginInfo)}
+                                guestLoginAxios={() => this.loginGuest()}
+                                emailFormat={this.state.emailFormat}
+                                emailEmpty={this.state.emailEmpty}
+                                passwordEmpty={this.state.passwordEmpty}
+                                badLogin={this.state.badLogin}
+                            />
+                        }/>
+                        <Route path="/user-signup" render={props => (
+                            <UserSignup {...props}
+                                userSeshData={this.state.userSeshData}
+                                loginUser={this.loginUser}
+                            />
+                        )}/>
+                        <Route path="/create-project" render={props =>
+                            <CreateProjectForm {...props}
+                                userId={this.state.userSeshData.id}
+                                createNewProject={this.createNewProject}
+                            />
+                        }/>
+                        <Route exact path="/:username" render={props => (
+                            <Dashboard {...props}
+                                userStatus={this.state.userSeshData}
+                            />
+                        )}/>
+                        <Route path="/project-details/:id" render={props => (
+                            <ProjectDetails {...props}
+                                user = {this.state.projects.filter(project =>
+                                    project.id === parseInt(props.match.params.id, 10)
+                                    )[0]
+                                }
+                            />
+                        )}/>
+                    </Switch>
+                </div>
             </div>
             <div className="container-fluid footer">
                 <Footer userSeshData={this.state.userSeshData}/>

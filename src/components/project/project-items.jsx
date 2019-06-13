@@ -61,7 +61,7 @@ export default class ProjectItems extends React.Component {
         }
 
         return (
-            <div className="col-12 py-3 mb-4">
+            <div className="col-12 py-3 px-5 mb-4">
                 <div className="mb-4 text-center">
                     <h3>
                         Items Used

@@ -102,14 +102,14 @@ export default class ProjectDetails extends React.Component {
             loader = <div className="loader"><img className="loading-icon" src="/images/loader.svg" /></div>
         }
         return (
-            <div className="container-fluid">
+            <React.Fragment>
                 <div className="row bg-light p-4">
                     <div className="col-12 col-md-5">
-                        <img src={primaryImg ? primaryImg : "/images/placeholder-img.jpg"} className="img-fluid" alt="Project Image" />
+                        <img src={primaryImg ? primaryImg : "/images/placeholder-img.jpg"} className="img-fluid img-w-border proj-detail-main-img" alt="Project Image" />
                     </div>
                     <div className="col-12 col-md-7 mt-4 mt-md-0">
                         <h3>{this.state.project.project_title}</h3>
-                        <h6 className="font-weight-light mt-3 user-link">
+                        <h6 className="mt-3 user-link">
                             By:{' '}
                             <Link to={`/${this.state.project.username}`}>
                                 {this.state.project.username}
@@ -139,7 +139,7 @@ export default class ProjectDetails extends React.Component {
                     />
                 </div>
                 {loader}
-            </div>
+            </React.Fragment>
         )
     }
 }

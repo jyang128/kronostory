@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Jun 11, 2019 at 07:38 PM
+-- Generation Time: Jun 13, 2019 at 04:35 AM
 -- Server version: 5.7.26-0ubuntu0.18.04.1
 -- PHP Version: 7.2.17-0ubuntu0.18.04.1
 
@@ -32,9 +32,9 @@ CREATE TABLE `project` (
   `description` text COLLATE utf8_unicode_ci NOT NULL,
   `date_created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `user_id` mediumint(8) UNSIGNED NOT NULL,
-  `primary_image` varchar(80) COLLATE utf8_unicode_ci NOT NULL,
+  `primary_image` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
   `secondary_images` text COLLATE utf8_unicode_ci NOT NULL,
-  `timeline_description` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+  `timeline_description` varchar(140) COLLATE utf8_unicode_ci NOT NULL,
   `category` varchar(40) COLLATE utf8_unicode_ci NOT NULL,
   `status` enum('published','deleted') COLLATE utf8_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
@@ -57,7 +57,7 @@ INSERT INTO `project` (`id`, `title`, `description`, `date_created`, `user_id`, 
 CREATE TABLE `project_items` (
   `id` mediumint(8) UNSIGNED NOT NULL,
   `title` varchar(40) COLLATE utf8_unicode_ci NOT NULL,
-  `image` varchar(80) COLLATE utf8_unicode_ci NOT NULL,
+  `image` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
   `project_id` mediumint(8) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
@@ -70,7 +70,9 @@ INSERT INTO `project_items` (`id`, `title`, `image`, `project_id`) VALUES
 (2, 'Miracle Gro', 'https://bit.ly/2HLcp8a', 1),
 (3, 'Trimmer', 'https://bit.ly/2XflJGN', 1),
 (4, 'Tomato Seeds', 'https://bit.ly/2XkCT5K', 1),
-(5, 'A Potato', 'https://bit.ly/2I2VOvB', 2);
+(5, 'A Potato', 'https://bit.ly/2I2VOvB', 2),
+(6, 'GIT', '../../image-uploads/1/GIT QUESTION.png', 1),
+(7, 's', '../../image-uploads/1/calculator.png', 1);
 
 -- --------------------------------------------------------
 
@@ -82,7 +84,7 @@ CREATE TABLE `timeline_entries` (
   `id` int(10) UNSIGNED NOT NULL,
   `title` varchar(45) COLLATE utf8_unicode_ci NOT NULL,
   `description` text COLLATE utf8_unicode_ci NOT NULL,
-  `primary_image` varchar(80) COLLATE utf8_unicode_ci NOT NULL,
+  `primary_image` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
   `project_id` mediumint(8) UNSIGNED NOT NULL,
   `secondary_images` text COLLATE utf8_unicode_ci NOT NULL,
   `date` varchar(40) COLLATE utf8_unicode_ci NOT NULL
@@ -99,7 +101,8 @@ INSERT INTO `timeline_entries` (`id`, `title`, `description`, `primary_image`, `
 (4, 'Potato the slightly older pug', 'He\'s yawning', 'https://bit.ly/2K7vrY1', 2, '', '08/02/82'),
 (5, 'The Chronicles of Potato', 'He runs forward, fighting for a better tomorrow', 'https://bit.ly/2VTyPI1', 2, '', '12/16/97'),
 (6, 'Week 3 - Start the Seeds', '\"Use seed starting mix, such as Miracle Gro or Jiffy Mix, to start your seeds. Fill a bowl with some mix and knead in some water till the mix is saturated but not soggy. I use egg cartons to start my seeds in. You can use either the clear plastic or Styrofoam cartons; do NOT use the paper ones. Fill the trays with seed mix and firm the mix down into the cells.', 'https://bit.ly/2HLCjsB', 1, '', '06/11/19'),
-(7, 'Week 4 - Germination', 'Keep your trays moist and warm to speed germination. Loosely fit plastic wrap over the tops of the trays, to keep water in but still allow for air circulation. Light is not required to germinate seeds. In anywhere from 3 to 15 days, you should start to see tiny seedlings emerge.', 'https://bit.ly/2YYetj1', 1, '', '06/18/19');
+(7, 'Week 4 - Germination', 'Keep your trays moist and warm to speed germination. Loosely fit plastic wrap over the tops of the trays, to keep water in but still allow for air circulation. Light is not required to germinate seeds. In anywhere from 3 to 15 days, you should start to see tiny seedlings emerge.', 'https://bit.ly/2YYetj1', 1, '', '06/18/19'),
+(8, 'asd', 'asdf', '../../image-uploads/1/guessing-game.png', 1, '', 'asdf');
 
 -- --------------------------------------------------------
 
@@ -166,12 +169,12 @@ ALTER TABLE `project`
 -- AUTO_INCREMENT for table `project_items`
 --
 ALTER TABLE `project_items`
-  MODIFY `id` mediumint(8) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` mediumint(8) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 --
 -- AUTO_INCREMENT for table `timeline_entries`
 --
 ALTER TABLE `timeline_entries`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 --
 -- AUTO_INCREMENT for table `user`
 --

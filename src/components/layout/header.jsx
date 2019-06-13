@@ -9,16 +9,13 @@ export default class Header extends React.Component {
             showDropdownMenu: false
         }
         this.toggleMenuNav = this.toggleMenuNav.bind(this);
-        this.mouseLeaveMenuNav = this.mouseLeaveMenuNav.bind(this);
         this.closeDropdown = this.closeDropdown.bind(this);
     }
-    componentDidMount(){
+    addEventListeners(){
 		document.addEventListener('click', this.closeDropdown)
-		window.addEventListener('scroll', this.closeDropdown)
 	}
-	componentWillUnmount(){
+	removeEventListeners(){
 		document.removeEventListener('click', this.closeDropdown)
-		window.removeEventListener('scroll', this.closeDropdown)
 	}
     closeDropdown(event){
         if(event.target.className !== 'username'){
@@ -28,9 +25,6 @@ export default class Header extends React.Component {
     toggleMenuNav(){
         this.setState({showDropdownMenu: !this.state.showDropdownMenu});
     }
-    mouseLeaveMenuNav(){
-        this.setState({showDropdownMenu: false});
-    }
     render(){
         let menuNav;
         let menuNavClass;
@@ -38,19 +32,22 @@ export default class Header extends React.Component {
 
         if(this.state.showDropdownMenu){
             menuNavClass = "menu-nav-dropdown";
-            menuNavDropdownClass = "menu-nav-dropdown-arrow"
+            this.addEventListeners();
         } else {
             menuNavClass = "menu-nav-dropdown d-none"
-            menuNavDropdownClass = "menu-nav-dropdown-arrow d-none"
+            this.removeEventListeners();
         }
         
         if(this.props.userSeshData.id) {
             menuNav = (
-                <div className="menu-nav align-self-center" >
-                    <i className="far fa-user-circle"></i> 
-                    <span className="username" onClick={this.toggleMenuNav}>
-                        {this.props.userSeshData.username} &#9663; 
-                        <div className={menuNavClass} onMouseLeave={this.mouseLeaveMenuNav}>
+                <div className="menu-nav d-flex align-items-center" onClick={this.toggleMenuNav}>
+                    <i className="far fa-user-circle" />
+                    <span className="username d-flex align-items-center">
+                        <span className="d-none d-sm-block">{this.props.userSeshData.username}</span> 
+                        <div className={menuNavClass}>
+                            <Link to='/' className="dropdown-link">
+                                Home
+                            </Link>
                             <Link to={{
                                 pathname: `/${this.props.userSeshData.username}`,
                                 state: {
@@ -58,20 +55,20 @@ export default class Header extends React.Component {
                                     username: this.props.userSeshData.username, 
                                 }
                             }} className="dropdown-link" onClick={this.dashboardHandler}>
-                                dashboard
+                                Dashboard
                             </Link>
                             <Link to='/user-login' className="dropdown-link" onClick={this.props.logoutHandler}>
-                                logout
+                                Logout
                             </Link>
                         </div>
                     </span>
-                    <div className={menuNavDropdownClass}></div>
+                    <i className="fas fa-caret-down" />
                 </div>
                 );
         } else {
             menuNav = (
                 <div className="menu-nav align-self-center">
-                    <Link to="/user-signup">Sign Up</Link>
+                    <Link className="mr-2" to="/user-signup">Sign Up</Link>
                     <Link to="/user-login">Log In</Link>
                 </div>
                 );
@@ -79,16 +76,16 @@ export default class Header extends React.Component {
 
         return(
             <React.Fragment>
-            <div className="row d-flex justify-content-between py-2 mx-2">
+            <div className="row d-flex justify-content-between py-3 mx-2">
                 <div className="logo d-flex align-items-center">
                     <div className="logo-icon">
                         <img className="img-fluid" src="/images/white-logo.png" />
                     </div>
-                    <h2>
-                        <Link to="/">
+                    <h4>
+                        <Link to="/" onClick={this.props.getProjects} >
                             {this.props.title}
                         </Link>
-                    </h2>
+                    </h4>
                 </div>
                 {menuNav}
             </div>

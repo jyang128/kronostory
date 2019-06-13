@@ -14,7 +14,6 @@ export default class ItemUsedEntryForm extends React.Component {
         this.formSubmitHandler = this.formSubmitHandler.bind(this);
     }
     fileUploadHandler(event){
-        console.log('new item used image file: ', event.target.files[0]);
         if(event.target.files[0]){
             this.setState({
                 imageFile: event.target.files[0],
@@ -29,7 +28,6 @@ export default class ItemUsedEntryForm extends React.Component {
     }
     formSubmitHandler(event){
         event.preventDefault();
-        console.log('event.target is ', event.target)
         let formData = new FormData(event.target);
         this.props.createNewItemEntry(formData);
     }
