@@ -44,6 +44,7 @@
     width: 125px;
     height: 125px;
     background-size: cover;
+    background-position: top center;
     margin: auto;
 }
 .timeline-entry p {
