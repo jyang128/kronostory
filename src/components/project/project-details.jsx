@@ -48,7 +48,6 @@ export default class ProjectDetails extends React.Component {
             }
         })
         .then(response => {
-            console.log('createnewitemsused: ', response['data'])
             this.setState({
                 items: [...this.state.items, response['data'][0]],
                 itemsUsedModalOpened: false

@@ -44,7 +44,6 @@ export default class CreateProjectForm extends React.Component {
     onFileChange(e) {
         this.setState({mainProjectImageLimit: false, mainProjectImageType: false});
         if (e.target.files[0] !== undefined) {
-            console.log("file chosen.");
             this.setState({ mainFile:e.target.files[0], mainImgHasUpload: true },()=>{
                 if(this.state.mainFile.name.length >= 100){
                     this.setState({mainProjectImageLimit: true});

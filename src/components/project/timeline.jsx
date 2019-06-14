@@ -15,12 +15,11 @@ export default class Timeline extends React.Component {
         this.toggleImageModal = this.toggleImageModal.bind(this);
     }
     toggleImageModal(entryData){
-        console.log("modal thing", entryData);
         if(!this.state.modalOpened) {
             this.setState({
                 modalOpened: true,
                 imageClicked: entryData
-            }, ()=> console.log(this.state.imageClicked));
+            });
         } else if (event.target.className === 'overlay' || event.target.className === 'fas fa-times') {
             this.setState({
                 modalOpened: false,

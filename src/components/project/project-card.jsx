@@ -33,7 +33,6 @@ export default class ProjectCard extends React.Component{
 	render(){
 		let deleteButton;
 		let deleteButtonClass;
-		let dropdownClass;
 
 		if(this.state.showDelete){
 			deleteButtonClass = 'delete-button';

@@ -5,6 +5,9 @@
 .card:hover, .card:hover .card-title {
     color: #A167A5;
 }
+.card:hover .card-main-img {
+    opacity: 1;
+}
 .card-img-section {
     max-height: 180px;
     overflow: hidden;
@@ -31,6 +34,7 @@
     background-size: cover;
     background-position: center;
     transition: all .5s;
+    opacity: .8;
 }
 .dots {
     position: absolute;

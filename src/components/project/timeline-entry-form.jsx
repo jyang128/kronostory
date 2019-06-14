@@ -18,7 +18,6 @@ export default class TimelineEntryForm extends React.Component {
         this.formSubmitHandler = this.formSubmitHandler.bind(this);
     }
     fileUploadHandler(event){
-        console.log('timeline entry image file: ', event.target.files[0]);
         this.setState({mainProjectImageLimit: false, mainProjectImageType: false});
         if(event.target.files[0]){
             this.setState({

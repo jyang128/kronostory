@@ -81,12 +81,10 @@ export default class UserSignup extends React.Component {
 				if(typeof response.data === "string"){
 					let arr = [];
 					if(response.data.includes("is taken")){
-						console.log("setting state");
 						arr = response.data.split(" ");
 						this.setState({usernameError:arr[0]+" is already taken",});
 					}
 					if(response.data.includes("is already being")){
-						console.log("setting state");
 						arr = response.data.split(" ");
 						this.setState({emailError:arr[0]+" is already taken"});
 					}
@@ -126,7 +124,6 @@ export default class UserSignup extends React.Component {
 					}
 				}
 				else{
-					console.log(response.data);
 					this.props.loginUser(response.data[0]);
 				}
             })

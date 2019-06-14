@@ -28,7 +28,6 @@ export default class Header extends React.Component {
     render(){
         let menuNav;
         let menuNavClass;
-        let menuNavDropdownClass;
 
         if(this.state.showDropdownMenu){
             menuNavClass = "menu-nav-dropdown";
