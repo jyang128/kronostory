@@ -13,7 +13,7 @@ export default class HeroPanel extends React.Component {
                     <div className="align-self-center mx-5">
                         <div className="hero-content p-4">
                             <h3>What is KronoStory?</h3>
-                            <p>Kronostory is a community for finding and showcasing creative work and projects, featuring timelines that make it easy to see the whole process.</p>
+                            <p>KronoStory is a community for finding and showcasing creative work and personal endeavors, featuring timelines that make it easy to see the whole process.</p>
                             <Link to="project-details/1">
                                 <button className="btn btn-primary">
                                     View Sample Project
