@@ -7,22 +7,29 @@ import './project.css';
 export default class ProjectCatalog extends React.Component{
     constructor(props){
         super(props);
-
-        this.state = {
-            sort: 'all'
-        }
         this.sortProjects = this.sortProjects.bind(this);
     }
-
-    sortProjects(e) {
-        document.querySelector(".sort-link.active").classList.remove("active");
-        let sortCategory = e.target.id;
-        e.target.className += " active";
-        this.setState({sort: sortCategory });
+    componentDidMount(){
+        let filterView;
+        let categories = ['art', 'gardening', 'technology', 'crafting', 'health', 'animal'];
+        if(location.search && categories.includes(location.search.match(/\=(.*)/)[1])){
+            filterView = location.search.match(/\=(.*)/)[1];
+        } else {
+            filterView = 'all';
+        }
+        this.props.changeFilterView(filterView);
     }
-
+    sortProjects(event) {
+        document.querySelector(".sort-link.active").classList.remove("active");
+        let filterView = event.target.id;
+        event.target.className += " active";
+        this.props.changeFilterView(filterView);
+        this.props.history.push({
+            pathname: '/',
+            search: `?filter=${filterView}`
+        });
+    }
     render(){
-
         let settings = {
             dots: false,
             infinite: false,
@@ -54,60 +61,22 @@ export default class ProjectCatalog extends React.Component{
         };
 
         let projectCards;
-
-        switch(this.state.sort) {
-            case 'all':
-                projectCards = this.props.projects.map( (project) => {
-                    return <ProjectCard setView={this.props.setView} key={project.id} projectData={project}/>;
-                });
-                break;
-            case 'art':
-                projectCards = this.props.projects.map( (project) => {
-                    if (project.category==="art") {
-                        return <ProjectCard setView={this.props.setView} key={project.id} projectData={project}/>;
-                    }
-                });
-                break;
-            case 'gardening':
-                projectCards = this.props.projects.map( (project) => {
-                    if (project.category==="gardening") {
-                        return <ProjectCard setView={this.props.setView} key={project.id} projectData={project}/>;
-                    }
-                });
-                break;
-            case 'technology':
-                projectCards = this.props.projects.map( (project) => {
-                    if (project.category==="technology") {
-                        return <ProjectCard setView={this.props.setView} key={project.id} projectData={project}/>;
-                    }
-                });
-                break;
-            case 'crafting':
-                projectCards = this.props.projects.map( (project) => {
-                    if (project.category==="crafting") {
-                        return <ProjectCard setView={this.props.setView} key={project.id} projectData={project}/>;
-                    }
-                });
-                break;
-            case 'health':
-                projectCards = this.props.projects.map( (project) => {
-                    if (project.category==="health") {
-                        return <ProjectCard setView={this.props.setView} key={project.id} projectData={project}/>;
-                    }
-                });
-                break;
-            case 'animal':
-                projectCards = this.props.projects.map( (project) => {
-                    if (project.category==="animal") {
-                        return <ProjectCard setView={this.props.setView} key={project.id} projectData={project}/>;
-                    }
-                });
+        if(this.props.filterView === 'all') {
+            projectCards = this.props.projects.map( project => {
+                return <ProjectCard key={project.id} projectData={project}/>;
+            })
+        } else {
+            projectCards = this.props.projects.map( project => {
+                if (project.category === this.props.filterView) {
+                    return <ProjectCard key={project.id} projectData={project}/>;
+                }
+            })
         }
-
+        
         return(
             <React.Fragment>
                 <div className="row hero-bg">
-                    <HeroPanel setView={this.props.setView}/>
+                    <HeroPanel/>
                 </div>
                 <div id="project-sort" className="project-sort p-4">
                     <Slider {...settings}>
