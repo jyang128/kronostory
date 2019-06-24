@@ -15,6 +15,7 @@ class App extends React.Component{
         super(props);
         this.state = {
             projects: [],
+            filterView: 'all',
             userSeshData: {
                 id: null,
                 username: ''
@@ -28,6 +29,7 @@ class App extends React.Component{
         this.logoutHandler = this.logoutHandler.bind(this);
         this.loginUser = this.loginUser.bind(this);
         this.getProjects = this.getProjects.bind(this);
+        this.changeFilterView = this.changeFilterView.bind(this);
     }
     componentDidMount() {
         this.getProjects();
@@ -123,6 +125,9 @@ class App extends React.Component{
           })
           .catch(error => console.error(error))
     }
+    changeFilterView(newView){
+        this.setState({filterView: newView})
+    }
     render(){
         return(
             <React.Fragment>
@@ -135,6 +140,8 @@ class App extends React.Component{
                         <Route exact path="/" render={props =>
                             <ProjectCatalog {...props}
                                 projects={this.state.projects}
+                                filterView={this.state.filterView}
+                                changeFilterView={this.changeFilterView}
                             />
                         }/>
                         <Route path="/user-login" render={props =>
