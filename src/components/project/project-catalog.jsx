@@ -17,6 +17,8 @@ export default class ProjectCatalog extends React.Component{
         } else {
             filterView = 'all';
         }
+        document.querySelector(".sort-link.active").classList.remove("active");
+        document.getElementById(filterView).className += " active";
         this.props.changeFilterView(filterView);
     }
     sortProjects(event) {
