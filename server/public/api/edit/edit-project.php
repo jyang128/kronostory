@@ -9,20 +9,23 @@ if (!$conn){
   throw new Exception('there is an error' . mysqli_connect_error());
 }
 
-$id = $_POST["id"];
+$userId = $_POST["user-id"];
+$projId = $_POST["proj-id"];
 $projName= addslashes($_POST["proj-name"]);
 $projDesc= addslashes($_POST["proj-desc"]);
 $projSecImages = '';
 $projTimelineDesc= addslashes($_POST["proj-timeline-desc"]);
-$projCategory = $_POST["proj-category"];
 $targetProjMainImg = NULL;
 
 if ($_POST["status"] === "published") {
     $projStatus = 1;
 }
-else{
-    $projStatus = 2;
-}
+
+$targetProjMainImg = NULL;
+
+$target_dir = '../../image-uploads/' . $userId . '/';
+
+$projectImg = '';
 
 if ($_POST["mainImgHasUpload"] != 'false') {
     $projMainImgFile = $_FILES["proj-main-img"];
@@ -40,12 +43,24 @@ if ($_POST["mainImgHasUpload"] != 'false') {
             $output["msg"] = "The file " . $projMainImgName . " has been uploaded.";
         }
     }
+    $projectImg = "`primary_image` = '{$targetProjMainImg}',";
 }
 
-$query = "UPDATE `project` SET `title` = '{$projName}', `description` = '{$projDesc}', `primary_image` = '{$targetProjMainImg}', `secondary_images` = '{$projSecImages}', `timeline_description` = '{$projTimelineDesc}', `category` = '{$projCategory}', `status` = {$projStatus} WHERE `id` = {$id}";
+$query = "UPDATE `project` SET `title` = '{$projName}', `description` = '{$projDesc}', {$projectImg} `secondary_images` = '{$projSecImages}', `timeline_description` = '{$projTimelineDesc}', `status` = {$projStatus} WHERE `id` = {$projId}";
 $response = mysqli_query($conn, $query);
 if($response){
-    print("successfully edited the project");
+    $query = "SELECT p.`id`, p.`title` AS project_title, p.`description` AS project_description, p.`date_created`, p.`primary_image`, p.`secondary_images`, p.`category`, u.`username`, u.`id` AS `user_id`, p.`timeline_description`
+        FROM `project` AS p 
+        JOIN `user` AS u 
+        ON p.`user_id` = u.`id`
+        WHERE p.`id` = {$projId}";
+    
+    $result = mysqli_query($conn, $query);
+    $output2 = [];
+    while ($row = mysqli_fetch_assoc($result)) {
+        $output2[] = $row;    
+    }
+    print (json_encode($output2));
 }
 else {
     throw new Exception("failed to edit project");

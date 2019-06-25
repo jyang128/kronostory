@@ -28,6 +28,7 @@ export default class ProjectDetails extends React.Component {
         this.createNewEntry = this.createNewEntry.bind(this);
         this.toggleEditMode = this.toggleEditMode.bind(this);
         this.toggleEditModal = this.toggleEditModal.bind(this);
+        this.editProject = this.editProject.bind(this);
     }
     componentDidMount() {
         this.getProjectDetails(this.props.match.params.id);
@@ -41,7 +42,7 @@ export default class ProjectDetails extends React.Component {
                     project: response.data[1],
                     items: response.data[1]['items_used'],
                     timelineentries: response.data[1]['timeline_entry']
-                },()=>console.log("project info:", this.state.project)); 
+                }); 
             })
             .catch(error => console.error(error))
             .finally(()=>{
@@ -78,14 +79,25 @@ export default class ProjectDetails extends React.Component {
         .catch( error => console.error(error))
     }
     editProject(data) {
-        console.log("formm dataa ",data);
+        axios.post('/api/edit/edit-project.php', data, {
+            headers: {
+                'Content-Type': 'multipart/form-data'
+            }
+        })
+        .then(response => {
+            this.setState({
+                projEditModalOpened: false,
+                project: response.data[0]
+            });
+        })
+        .catch(error => console.error(error))
     }
     toggleEditModal(event){
         if(!this.state.projEditModalOpened) {
             this.setState({
                 projEditModalOpened: true
             });
-        } else if (event.target.className === 'overlay' || event.target.className === 'fas fa-times') {
+        } else if (event.target.id === 'cancel-btn' || event.target.className === 'fas fa-times') {
             this.setState({
                 projEditModalOpened: false
             });
@@ -113,8 +125,7 @@ export default class ProjectDetails extends React.Component {
             });
         }
     }
-    toggleEditMode(event) {
-        //console.log("event from edit icon", event.target.nextSibling, event.target.parentNode.dataset.type);
+    toggleEditMode() {
         this.setState({projEditModalOpened: true});
     }
     render() {

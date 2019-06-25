@@ -12,6 +12,7 @@ export default class EditProjectForm extends React.Component {
             mainImgHasUpload: false,
             projImgHasUpload: false,
             projNameLimit: false,
+            projDescLimit: false,
             timelineDescLimit: false,
             mainProjectImageLimit: false,
             mainProjectImageType: false
@@ -25,12 +26,16 @@ export default class EditProjectForm extends React.Component {
         event.preventDefault();
         const value = event.currentTarget.value;
         const fieldName = event.currentTarget.attributes[3].nodeValue;
-        if(fieldName === 'projTimelineDesc' && value.length > 140) {
-            this.setState({ [fieldName]: value, timelineDescLimit: true});
+        if(fieldName === 'projDesc' && value.length > 140) {
+            this.setState({ [fieldName]: value, projDescLimit: true});
+        } else if (fieldName === 'projDesc' && value.length <= 140) {
+            this.setState({ [fieldName]: value, projDescLimit: false});
         } else if (fieldName === 'projName' && value.length > 45) {
             this.setState({ [fieldName]: value, projNameLimit: true});
         } else if (fieldName === 'projName' && value.length <= 45) {
             this.setState({ [fieldName]: value, projNameLimit: false});
+        } else if (fieldName === 'projTimelineDesc' && value.length > 140) {
+            this.setState({ [fieldName]: value, timelineDescLimit: true});
         } else if (fieldName === 'projTimelineDesc' && value.length <= 140) {
             this.setState({ [fieldName]: value, timelineDescLimit: false});
         } else {
@@ -50,6 +55,10 @@ export default class EditProjectForm extends React.Component {
                     case ".png":
                     case ".gif":
                     case "jpeg":
+                    case ".JPG":
+                    case ".PNG":
+                    case ".GIF":
+                    case "JPEG":
                         break;
                     default:
                         this.setState({mainProjectImageType: true});
@@ -64,16 +73,33 @@ export default class EditProjectForm extends React.Component {
             this.setState({ selectedCategory: false })
         }
         event.preventDefault();
-        //if (this.state.selectedCategory && !this.state.timelineDescLimit && !this.state.mainProjectImageLimit && !this.state.mainProjectImageType && !this.state.projNameLimit) {
+        let checkingFormData = " ProjectId: " + this.props.projectInfo.id + " userid: "+ this.props.projectInfo.userId;
+        if (!this.state.timelineDescLimit && !this.state.mainProjectImageLimit && !this.state.mainProjectImageType && !this.state.projNameLimit && !this.state.projDescLimit) {
             let formData = new FormData(event.target);
-            this.props.editProject(formData);
+            this.props.editProject(formData, this.state);
             document.getElementById("formSubmit").disabled = true;
-        //}
+        }
+
     }
     render() {
+        const timelineDescError = <div className="form-error">
+                <p className="text-danger">Timeline description has a 140 character limit. Currently, it is {this.state.projTimelineDesc.length}</p>
+            </div>;
+        const projNameError = <div className="form-error">
+                <p className="text-danger">Project name has a 45 character limit. Currently, it is {this.state.projName.length}</p>
+            </div>;
+        const projDescError = <div className="form-error">
+                <p className="text-danger">Project Description has a 140 character limit. Currently, it is {this.state.projDesc.length}</p>
+            </div>;
+        const mainProjectImageError = <div className="form-error">
+                <p className="text-danger">Main project image has a 100 character limit. Currently, it has {this.state.mainFile.name ? this.state.mainFile.name.length : "" }</p>
+            </div>;
+        const mainProjectImageTypeError = <div className="form-error">
+                <p className="text-danger">Main project image needs to be of type JPG/PNG/GIF</p>
+            </div>;
         return(
             <form className="create-project-form container" onSubmit={this.handleFormSubmit}>
-                <h2>Edit Project</h2>
+                <h4>Edit Project</h4>
                 <div className="mt-4">
                     <div className="form-group" >
                         <label htmlFor="proj-name">Project Name</label>
@@ -86,7 +112,9 @@ export default class EditProjectForm extends React.Component {
                             placeholder="Enter Project Name"
                             onChange={this.onTextChange}
                             value={this.state.projName}
+                            required
                         />
+                        {this.state.projNameLimit ? projNameError : null}
                     </div>
                     <div className="form-group">
                         <label htmlFor="proj-desc">Main Description</label>
@@ -99,7 +127,9 @@ export default class EditProjectForm extends React.Component {
                             onChange={this.onTextChange}
                             rows="4"
                             value={this.state.projDesc}
+                            required
                         ></textarea>
+                        {this.state.projDescLimit ? projDescError : null}
                     </div>
                     <div className="form-group">
                         <label htmlFor="proj-timeline-desc">Timeline Description</label>
@@ -112,15 +142,16 @@ export default class EditProjectForm extends React.Component {
                             onChange={this.onTextChange}
                             value={this.state.projTimelineDesc}
                         ></textarea>
+                        {this.state.timelineDescLimit ? timelineDescError : null}
                     </div>
                     <div className="form-group">
                         <label htmlFor="proj-main-img">Main Project Image</label>
                         {this.state.mainProjectImageLimit ? mainProjectImageError : null}
                         {this.state.mainProjectImageType ? mainProjectImageTypeError : null}
                         <div className="d-flex align-items-center">
-                            <img className="img-sm-thumbnail mr-2" src={this.state.imgThumbnail}/>
+                            <img className="img-sm-thumbnail mr-2" src={this.state.imgThumbnail ? this.state.imgThumbnail : "/images/placeholder-img.jpg"}/>
                             <div className="custom-file">
-                                <label className="custom-file-label" htmlFor="proj-main-img">{this.state.mainFile ? this.state.mainFile.name : "Choose JPG/PNG/GIF file up to 4MB"}</label>
+                                <label className="custom-file-label" htmlFor="proj-main-img"> {this.state.mainFile ? this.state.mainFile.name : "Choose JPG/PNG/GIF file up to 4MB"}</label>
                                 <input id="proj-main-img" type="file" className="form-control-file" name="proj-main-img" onChange={this.onFileChange}/>
                                 <input id="mainImgHasUpload" type="hidden" name="mainImgHasUpload" value={this.state.mainImgHasUpload} />
                             </div>
@@ -128,12 +159,13 @@ export default class EditProjectForm extends React.Component {
                     </div>
                     <hr />
                     <div className="row">
-                        <input type="hidden" name="user-id" value={this.props.userId} />
+                        <input type="hidden" name="proj-id" value={this.props.projectInfo.id} />
+                        <input type="hidden" name="user-id" value={this.props.projectInfo.userId} />
                         <input type="hidden" name="formHasUpload" value="true" />
                         <input type="hidden" name="status" value="published" />
-                        <div className="form-group col-6"><button id="formSubmit" type="submit" className="btn btn-primary mr-2 btn-block">Edit Project</button></div>
+                        <div className="form-group col-6"><button id="formSubmit" type="submit" className="btn btn-primary mr-2 btn-block">Edit</button></div>
                         <div className="form-group col-6">
-                            <button className="btn btn-secondary btn-block">Cancel</button>
+                            <button id="cancel-btn" className="btn btn-secondary btn-block">Cancel</button>
                         </div>
                     </div>
                 </div>
