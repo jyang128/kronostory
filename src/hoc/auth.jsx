@@ -12,26 +12,26 @@ export default function(WrappedComponent){
             }
         }
         componentDidMount(){
-            console.log('Auth HOC Mounted');
             this.checkLoginStatus();
         }
         checkLoginStatus(){
             this.setState({loading: true}, () => {
                 axios.get('/api/check-login.php')
                     .then( response => {
-                        this.setState({userId: response.data[0].id}, () => {
-                            if(this.state.userId === null) {
-                                this.props.history.push({
-                                    pathname: '/user-login'
-                                })
-                            }
-                        });
+                        this.setState({userId: response.data.id})
+                        this.checkForRedirect();
                     })
                     .catch( error => console.error(error))
-                    .finally(()=>{
-                        this.setState({loading: false})
-                    })
             })
+        }
+        checkForRedirect(){
+            if(this.state.userId === null) {
+                this.props.history.push({
+                    pathname: '/user-login'
+                })
+            } else {
+                this.setState({loading: false});
+            }
         }
         render(){
             let loader = null;
