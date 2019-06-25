@@ -1,6 +1,7 @@
 import React from 'react';
 import './forms.css';
 import { Link } from 'react-router-dom';
+import Axios from 'axios';
 
 export default class CreateProjectForm extends React.Component {
     constructor(props){
@@ -26,7 +27,8 @@ export default class CreateProjectForm extends React.Component {
         this.onTextChange = this.onTextChange.bind(this);
     }
     componentDidMount(){
-        if(!this.props.userId) {
+        //need to check login status in order for this check to work
+        if(this.props.userId === null) {
             this.props.history.push({
                 pathname: '/user-login'
             })
@@ -221,7 +223,9 @@ export default class CreateProjectForm extends React.Component {
                                     <input type="hidden" name="user-id" value={this.props.userId} />
                                     <input type="hidden" name="formHasUpload" value="true" />
                                     <input type="hidden" name="status" value="published" />
-                                    <div className="form-group col-6"><button id="formSubmit" type="submit" className="btn btn-primary mr-2 btn-block">Create Project</button></div>
+                                    <div className="form-group col-6">
+                                        <button id="formSubmit" type="submit" className="btn btn-primary mr-2 btn-block">Create Project</button>
+                                    </div>
                                     <div className="form-group col-6">
                                         <Link to="/">
                                             <button className="btn btn-secondary btn-block">Cancel</button>

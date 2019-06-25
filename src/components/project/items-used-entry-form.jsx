@@ -48,6 +48,7 @@ export default class ItemUsedEntryForm extends React.Component {
         if(!this.state.mainProjectImageType && !this.state.mainProjectImageLimit){
             let formData = new FormData(event.target);
             this.props.createNewItemEntry(formData);
+            document.getElementById("formSubmit").disabled = true;
         }
     }
     onChangeHandler(event){
@@ -93,12 +94,12 @@ export default class ItemUsedEntryForm extends React.Component {
                         <input
                             id="imgAttached" type="hidden" name="imgAttached" value={this.state.fileAttached}
                         />
-                        <p className="mt-2"><small className="text-muted">Recommended: square images</small></p>
+                        <p className="mt-3"><small className="text-muted">Recommended: square images</small></p>
                     </div>
                 </div>
                 <input type="hidden" name="project-id" value={this.props.project.id} />
                 <input type="hidden" name="user-id" value={this.props.project.user_id} />
-                <button type="submit" className="btn btn-primary mr-2" >Submit</button>
+                <button type="submit" id="formSubmit" className="btn btn-primary mr-2" >Submit</button>
                 </form>
             </div>
         );

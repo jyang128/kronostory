@@ -29,6 +29,7 @@ class App extends React.Component{
         this.createNewProject = this.createNewProject.bind(this);
         this.logoutHandler = this.logoutHandler.bind(this);
         this.loginUser = this.loginUser.bind(this);
+        this.loginGuest = this.loginGuest.bind(this);
         this.getProjects = this.getProjects.bind(this);
         this.changeFilterView = this.changeFilterView.bind(this);
     }
@@ -143,6 +144,8 @@ class App extends React.Component{
                                 projects={this.state.projects}
                                 filterView={this.state.filterView}
                                 changeFilterView={this.changeFilterView}
+                                userSeshData={this.state.userSeshData}
+                                loginGuest={this.loginGuest}
                             />
                         }/>
                         <Route path="/user-login" render={props =>
