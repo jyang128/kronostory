@@ -26,9 +26,9 @@ export default class EditProjectForm extends React.Component {
         event.preventDefault();
         const value = event.currentTarget.value;
         const fieldName = event.currentTarget.attributes[3].nodeValue;
-        if(fieldName === 'projDesc' && value.length > 140) {
+        if(fieldName === 'projDesc' && value.length > 1000) {
             this.setState({ [fieldName]: value, projDescLimit: true});
-        } else if (fieldName === 'projDesc' && value.length <= 140) {
+        } else if (fieldName === 'projDesc' && value.length <= 1000) {
             this.setState({ [fieldName]: value, projDescLimit: false});
         } else if (fieldName === 'projName' && value.length > 45) {
             this.setState({ [fieldName]: value, projNameLimit: true});
@@ -73,7 +73,6 @@ export default class EditProjectForm extends React.Component {
             this.setState({ selectedCategory: false })
         }
         event.preventDefault();
-        let checkingFormData = " ProjectId: " + this.props.projectInfo.id + " userid: "+ this.props.projectInfo.userId;
         if (!this.state.timelineDescLimit && !this.state.mainProjectImageLimit && !this.state.mainProjectImageType && !this.state.projNameLimit && !this.state.projDescLimit) {
             let formData = new FormData(event.target);
             this.props.editProject(formData, this.state);
@@ -89,7 +88,7 @@ export default class EditProjectForm extends React.Component {
                 <p className="text-danger">Project name has a 45 character limit. Currently, it is {this.state.projName.length}</p>
             </div>;
         const projDescError = <div className="form-error">
-                <p className="text-danger">Project Description has a 140 character limit. Currently, it is {this.state.projDesc.length}</p>
+                <p className="text-danger">Project Description has a 1000 character limit. Currently, it is {this.state.projDesc.length}</p>
             </div>;
         const mainProjectImageError = <div className="form-error">
                 <p className="text-danger">Main project image has a 100 character limit. Currently, it has {this.state.mainFile.name ? this.state.mainFile.name.length : "" }</p>
@@ -160,7 +159,7 @@ export default class EditProjectForm extends React.Component {
                     <hr />
                     <div className="row">
                         <input type="hidden" name="proj-id" value={this.props.projectInfo.id} />
-                        <input type="hidden" name="user-id" value={this.props.projectInfo.userId} />
+                        <input type="hidden" name="user-id" value={this.props.projectInfo.user_id} />
                         <input type="hidden" name="formHasUpload" value="true" />
                         <input type="hidden" name="status" value="published" />
                         <div className="form-group col-6"><button id="formSubmit" type="submit" className="btn btn-primary mr-2 btn-block">Edit</button></div>
