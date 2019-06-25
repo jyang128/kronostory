@@ -129,6 +129,7 @@ class App extends React.Component{
         this.setState({filterView: newView})
     }
     render(){
+        console.log(this.state.projects)
         return(
             <React.Fragment>
             <div className="wrapper">

@@ -10,7 +10,6 @@ export default class CreateProjectForm extends React.Component {
             projDesc: '',
             projTimelineDesc: '',
             mainFile: '',
-            itemFile: '',
             mainImgHasUpload: false,
             projImgHasUpload: false,
             selectedCategory: '',
@@ -21,7 +20,6 @@ export default class CreateProjectForm extends React.Component {
         }
         this.handleFormSubmit = this.handleFormSubmit.bind(this);
         this.onFileChange = this.onFileChange.bind(this);
-        this.onFileChangeItem = this.onFileChangeItem.bind(this);
         this.onRadioChange = this.onRadioChange.bind(this);
         this.onTextChange = this.onTextChange.bind(this);
     }
@@ -61,13 +59,6 @@ export default class CreateProjectForm extends React.Component {
             });
         } else {
             this.setState({mainFile:'', mainImgHasUpload: false });
-        }
-    }
-    onFileChangeItem(e) {
-        if (e.target.files[0] !== undefined) {
-            this.setState({ itemFile:e.target.files[0], projImgHasUpload: true });
-        } else {
-            this.setState({ itemFile:'', projImgHasUpload: false });
         }
     }
     onRadioChange(event) {
