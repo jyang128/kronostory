@@ -1,8 +1,9 @@
 import React from 'react';
 import './forms.css';
 import { Link } from 'react-router-dom';
+import auth from '../../hoc/auth';
 
-export default class CreateProjectForm extends React.Component {
+class CreateProjectForm extends React.Component {
     constructor(props){
         super(props);
         this.state={
@@ -205,7 +206,9 @@ export default class CreateProjectForm extends React.Component {
                                     <input type="hidden" name="user-id" value={this.props.userId} />
                                     <input type="hidden" name="formHasUpload" value="true" />
                                     <input type="hidden" name="status" value="published" />
-                                    <div className="form-group col-6"><button id="formSubmit" type="submit" className="btn btn-primary mr-2 btn-block">Create Project</button></div>
+                                    <div className="form-group col-6">
+                                        <button id="formSubmit" type="submit" className="btn btn-primary mr-2 btn-block">Create Project</button>
+                                    </div>
                                     <div className="form-group col-6">
                                         <Link to="/">
                                             <button className="btn btn-secondary btn-block">Cancel</button>
@@ -221,3 +224,5 @@ export default class CreateProjectForm extends React.Component {
         );
     }
 }
+
+export default auth(CreateProjectForm);

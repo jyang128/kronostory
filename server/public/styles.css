@@ -99,9 +99,14 @@ body {
     background-color: #A167A5;
     border: none;
 }
+.btn-primary:not(:disabled):not(.disabled).active, .btn-primary:not(:disabled):not(.disabled):active, .show>.btn-primary.dropdown-toggle {
+    background-color: #8b508f;
+    border-color: #8b508f;
+}
 .btn-primary:hover {
     background-color: #8b508f;
 }
+
 
 .radio-container label {
     margin-left: 15px;

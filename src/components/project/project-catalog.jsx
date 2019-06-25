@@ -78,7 +78,10 @@ export default class ProjectCatalog extends React.Component{
         return(
             <React.Fragment>
                 <div className="row hero-bg">
-                    <HeroPanel/>
+                    <HeroPanel 
+                        loginGuest={this.props.loginGuest} 
+                        userSeshData={this.props.userSeshData}
+                    />
                 </div>
                 <div id="project-sort" className="project-sort p-4">
                     <Slider {...settings}>

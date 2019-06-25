@@ -50,6 +50,7 @@ export default class TimelineEntryForm extends React.Component {
         if(!this.state.mainProjectImageType && !this.state.mainProjectImageLimit){
             let formData = new FormData(event.target);
             this.props.createNewEntry(formData);
+            document.getElementById("formSubmit").disabled = true;
         }
     }
     onChangeHandler(event){
@@ -123,7 +124,7 @@ export default class TimelineEntryForm extends React.Component {
                             name="entry-img"
                             onChange={this.fileUploadHandler}
                         />
-                        <label className="custom-file-label" htmlFor="entry-img">{this.state.imageFile ? this.state.imageFile.name : "Choose file up to 4MB"}</label>
+                        <label className="custom-file-label" htmlFor="entry-img">{this.state.imageFile ? this.state.imageFile.name : "Choose JPG/PNG/GIF file up to 4MB"}</label>
                         <input
                             id="imgAttached" type="hidden" name="imgAttached" value={this.state.fileAttached}
                         />
@@ -131,7 +132,7 @@ export default class TimelineEntryForm extends React.Component {
                 </div>
                 <input type="hidden" name="project-id" value={this.props.project.id} />
                 <input type="hidden" name="user-id" value={this.props.project.user_id} />
-                <button type="submit" className="btn btn-primary mr-2" >Submit</button>
+                <button type="submit" id="formSubmit" className="btn btn-primary mr-2" >Submit</button>
                 </form>
             </div>
         );
