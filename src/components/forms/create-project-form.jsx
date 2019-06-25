@@ -1,9 +1,9 @@
 import React from 'react';
 import './forms.css';
 import { Link } from 'react-router-dom';
-import Axios from 'axios';
+import auth from '../../hoc/auth';
 
-export default class CreateProjectForm extends React.Component {
+class CreateProjectForm extends React.Component {
     constructor(props){
         super(props);
         this.state={
@@ -25,14 +25,6 @@ export default class CreateProjectForm extends React.Component {
         this.onFileChangeItem = this.onFileChangeItem.bind(this);
         this.onRadioChange = this.onRadioChange.bind(this);
         this.onTextChange = this.onTextChange.bind(this);
-    }
-    componentDidMount(){
-        //need to check login status in order for this check to work
-        if(this.props.userId === null) {
-            this.props.history.push({
-                pathname: '/user-login'
-            })
-        }
     }
     onTextChange(event) {
         event.preventDefault();
@@ -241,3 +233,5 @@ export default class CreateProjectForm extends React.Component {
         );
     }
 }
+
+export default auth(CreateProjectForm);
