@@ -1,13 +1,14 @@
 import React from 'react';
 import axios from 'axios';
-import CreateProjectForm from './forms/create-project-form';
-import Dashboard from './profile/dashboard';
-import Footer from './layout/footer';
 import Header from './layout/header';
+import Footer from './layout/footer';
+import Dashboard from './profile/dashboard';
 import ProjectCatalog from './project/project-catalog';
 import ProjectDetails from './project/project-details';
+import CreateProjectForm from './forms/create-project-form';
 import UserLogin from './forms/user-login';
 import UserSignup from './forms/user-signup';
+import PageNotFound from './404/page-not-found';
 import { Route, Switch, withRouter } from 'react-router-dom';
 
 class App extends React.Component{
@@ -179,6 +180,7 @@ class App extends React.Component{
                                 }
                             />
                         )}/>
+                        <Route component={PageNotFound} />
                     </Switch>
                 </div>
             </div>

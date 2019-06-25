@@ -89,11 +89,11 @@ export default class ItemUsedEntryForm extends React.Component {
                             name="entry-img"
                             onChange={this.fileUploadHandler}
                         />
-                        <label className="custom-file-label" htmlFor="entry-img">{this.state.imageFile ? this.state.imageFile.name : "Choose file up to 4MB"}</label>
+                        <label className="custom-file-label" htmlFor="entry-img">{this.state.imageFile ? this.state.imageFile.name : "Choose JPG/PNG/GIF file up to 4MB"}</label>
                         <input
                             id="imgAttached" type="hidden" name="imgAttached" value={this.state.fileAttached}
                         />
-                        <small className="text-muted">Recommended: Square size images</small>
+                        <p className="mt-2"><small className="text-muted">Recommended: square images</small></p>
                     </div>
                 </div>
                 <input type="hidden" name="project-id" value={this.props.project.id} />

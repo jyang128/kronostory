@@ -25,6 +25,13 @@ export default class CreateProjectForm extends React.Component {
         this.onRadioChange = this.onRadioChange.bind(this);
         this.onTextChange = this.onTextChange.bind(this);
     }
+    componentDidMount(){
+        if(!this.props.userId) {
+            this.props.history.push({
+                pathname: '/user-login'
+            })
+        }
+    }
     onTextChange(event) {
         event.preventDefault();
         const value = event.currentTarget.value;
