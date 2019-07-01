@@ -23,6 +23,7 @@ export default class ProjectDetails extends React.Component {
         this.toggleItemsUsedModal = this.toggleItemsUsedModal.bind(this);
         this.toggleTimelineModal = this.toggleTimelineModal.bind(this);
         this.createNewEntry = this.createNewEntry.bind(this);
+        this.deleteItem = this.deleteItem.bind(this);
     }
     getProjectDetails(id) {
         this.setState({loading: true}, ()=> {
@@ -33,7 +34,7 @@ export default class ProjectDetails extends React.Component {
                     project: response.data[1],
                     items: response.data[1]['items_used'],
                     timelineentries: response.data[1]['timeline_entry']
-                }); 
+                },()=>{console.log("items:",this.state.items);});
             })
             .catch(error => console.error(error))
             .finally(()=>{
@@ -68,6 +69,21 @@ export default class ProjectDetails extends React.Component {
             })
         })
         .catch( error => console.error(error))
+    }
+    deleteItem(id){
+        axios.delete('/api/delete-item.php',{params:{"id":id}})
+            .then( () => {
+                    let newItems = this.state.items.slice(0);
+                    for(let i = 0; i < newItems.length; i++){
+                        if(newItems[i].project_item_id === id){
+                            newItems.splice(i,1);
+                            break;
+                        }
+                    }
+                    this.setState({items:newItems});
+                }
+            )
+            .catch(error => console.error(error))
     }
     toggleItemsUsedModal(event){
         if(!this.state.itemsUsedModalOpened) {
@@ -118,17 +134,19 @@ export default class ProjectDetails extends React.Component {
                     </div>
                 </div>
                 <div className="row">
-                    <ProjectItems 
+                    <ProjectItems
                         createNewItemsUsed={formData => this.createNewItemsUsed(formData)}
                         itemsUsedModalOpened={this.state.itemsUsedModalOpened}
                         toggleItemsUsedModal={this.toggleItemsUsedModal}
                         items={this.state.items}
                         project={this.state.project}
                         userSeshData={this.state.userSeshData}
+                        projectData={this.state.project}
+                        deleteItem={this.deleteItem}
                     />
                 </div>
                 <div className="row bg-light">
-                    <Timeline 
+                    <Timeline
                         createNewEntry={this.createNewEntry}
                         timelineModalOpened={this.state.timelineModalOpened}
                         toggleTimelineModal={this.toggleTimelineModal}

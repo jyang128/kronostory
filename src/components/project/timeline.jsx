@@ -57,11 +57,12 @@ export default class Timeline extends React.Component {
                 }
               ]
         };
-        const timelineEntries = this.props.entries.map((entry, index) => 
-            <TimelineEntry 
-                key={entry.timeline_id} 
-                entryData={this.props.entries[index]} 
+        const timelineEntries = this.props.entries.map((entry, index) =>
+            <TimelineEntry
+                key={entry.timeline_id}
+                entryData={this.props.entries[index]}
                 toggleImageModal={this.toggleImageModal}
+
             />)
 
         let addToTimelineButton;
@@ -89,17 +90,17 @@ export default class Timeline extends React.Component {
                     </Slider>
                 </div>
             </div>
-                <Modal 
-                    isModalOpen={this.props.timelineModalOpened} 
+                <Modal
+                    isModalOpen={this.props.timelineModalOpened}
                     toggleModal={this.props.toggleTimelineModal}
                 >
-                    <TimelineEntryForm 
+                    <TimelineEntryForm
                         createNewEntry={this.props.createNewEntry}
                         project={this.props.project}
                     />
                 </Modal>
                 <Modal
-                    isModalOpen={this.state.modalOpened} 
+                    isModalOpen={this.state.modalOpened}
                     toggleModal={this.toggleImageModal}
                     children={
                         <div className="col-12 col-lg-10 offset-lg-1">

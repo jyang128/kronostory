@@ -1,58 +1,16 @@
 import React from 'react';
 import './project.css';
+import DeleteDropdown from './delete-dropdown.jsx';
 import { Link } from 'react-router-dom';
 
 export default class ProjectCard extends React.Component{
-	constructor(props){
-		super(props);
-		this.state = {
-			showDelete: false
-		}
-		this.handleDelete = this.handleDelete.bind(this);
-		this.toggleDeleteButton = this.toggleDeleteButton.bind(this);
-		this.closeDropdown = this.closeDropdown.bind(this);
-	}
-	componentDidMount(){
-		document.addEventListener('click', this.closeDropdown)
-	}
-	componentWillUnmount(){
-		document.removeEventListener('click', this.closeDropdown)
-	}
-	closeDropdown(event){
-		if(event.target.className !== 'dots'){
-			this.setState({showDelete: false})
-		}
-	}
-	toggleDeleteButton(){
-		this.setState({showDelete: !this.state.showDelete})
-	}
-	handleDelete(){
-		this.toggleDeleteButton();
-		this.props.delete(this.props.projectData.id);
-	}
 	render(){
 		let deleteButton;
-		let deleteButtonClass;
-
-		if(this.state.showDelete){
-			deleteButtonClass = 'delete-button';
-		} else {
-			deleteButtonClass = 'delete-button d-none';
-		}
 
 		if(this.props.userStatus) {
 			if(this.props.userStatus.id === this.props.projectData.user_id){
-					deleteButton = (
-					<div>
-						<div className="dots" onClick={this.toggleDeleteButton} >
-							...
-							<div className={deleteButtonClass} onClick={this.handleDelete} >
-								delete
-							</div>
-						</div>
-					</div>
-					);
-			} 
+					deleteButton = <DeleteDropdown delete={this.props.delete} projectData={this.props.projectData} absolute={true}/>;
+			}
 		} else {
 			deleteButton = null;
 		}

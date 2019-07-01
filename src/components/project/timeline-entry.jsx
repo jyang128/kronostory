@@ -9,7 +9,7 @@ export default class TimelineEntry extends React.Component {
         const imgStyle = {
 			backgroundImage: 'url(' + (primaryImg ? primaryImg : "/images/placeholder-img.jpg") + ')'
         };
-        
+
         return (
             <div className="timeline-entry p-2" onClick={()=>this.props.toggleImageModal(entryData)}>
                 <div style={imgStyle} className="timeline-entry-img"></div>

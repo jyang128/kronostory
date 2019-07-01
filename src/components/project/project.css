@@ -44,6 +44,16 @@
     right: 15px;
     cursor: pointer;
 }
+.dots-relative{
+  position: relative;
+  top: -10px;
+  color: slategray;
+  font-size: 1.5em;
+  cursor: pointer;
+}
+.item-container{
+    height: 210px;
+}
 /* project-items component */
 /* .used-item {
     max-height: 150px;
@@ -115,6 +125,12 @@
     border-right: 10px solid transparent;
     border-bottom: 8px solid #b04343;
 }
+/*.dots-static .delete-button{
+  right: auto;
+}
+.dots-static .delete-button:after{
+  left: 8px;
+}*/
 /* project catalog - category sorting */
 .project-sort {
     max-width: 1000px;

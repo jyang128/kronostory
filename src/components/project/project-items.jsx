@@ -41,15 +41,16 @@ export default class ProjectItems extends React.Component {
                 }
               ]
         };
-
-        const itemsUsed = this.props.items.map(item => 
-            <ProjectItem key={item.project_item_id} image={item.project_item_image} product={item.project_item_title} />
+        const itemsUsed = this.props.items.map(item =>
+            {
+                return (<ProjectItem key={item.project_item_id} image={item.project_item_image} product={item.project_item_title} userStatus={this.props.userSeshData} projectData={this.props.projectData} deleteItem={this.props.deleteItem} itemId={item.project_item_id}/>);
+            }
         )
         let addToItemsUsedButton;
         if(this.props.userSeshData.id === this.props.project.user_id) {
             addToItemsUsedButton = (
-                <div 
-                    className="plus my-2" 
+                <div
+                    className="plus my-2"
                     onClick={this.props.toggleItemsUsedModal}
                 >
                     <i className="fas fa-plus-circle mx-1"></i>
@@ -73,8 +74,8 @@ export default class ProjectItems extends React.Component {
                         {itemsUsed}
                     </Slider>
                 </div>
-                <Modal 
-                    isModalOpen={this.props.itemsUsedModalOpened} 
+                <Modal
+                    isModalOpen={this.props.itemsUsedModalOpened}
                     toggleModal={this.props.toggleItemsUsedModal}
                 >
                     <ItemUsedEntryForm
