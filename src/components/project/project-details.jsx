@@ -26,16 +26,13 @@ export default class ProjectDetails extends React.Component {
         this.toggleItemsUsedModal = this.toggleItemsUsedModal.bind(this);
         this.toggleTimelineModal = this.toggleTimelineModal.bind(this);
         this.createNewEntry = this.createNewEntry.bind(this);
-<<<<<<< HEAD
         this.deleteItem = this.deleteItem.bind(this);
-=======
         this.toggleEditMode = this.toggleEditMode.bind(this);
         this.toggleEditModal = this.toggleEditModal.bind(this);
         this.editProject = this.editProject.bind(this);
     }
     componentDidMount() {
         this.getProjectDetails(this.props.match.params.id);
->>>>>>> fd9f23c01005b61d125752ebd6cebae24e915c28
     }
     getProjectDetails(id) {
         this.setState({loading: true}, ()=> {
@@ -46,7 +43,7 @@ export default class ProjectDetails extends React.Component {
                     project: response.data[1],
                     items: response.data[1]['items_used'],
                     timelineentries: response.data[1]['timeline_entry']
-                },()=>{console.log("items:",this.state.items);});
+                });
             })
             .catch(error => console.error(error))
             .finally(()=>{

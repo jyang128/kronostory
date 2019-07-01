@@ -3,9 +3,6 @@ import DeleteDropdown from './delete-dropdown'
 import './project.css';
 
 export default class ProjectItem extends React.Component {
-    componentDidMount(){
-      console.log("project data:",this.props.projectData);
-    }
     render() {
         let primaryImg = this.props.image;
         let deleteButton;
