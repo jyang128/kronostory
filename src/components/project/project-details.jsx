@@ -2,6 +2,8 @@ import React from 'react';
 import axios from 'axios';
 import ProjectItems from './project-items';
 import Timeline from './timeline';
+import Modal from '../layout/modal';
+import EditProjectForm from '../forms/edit-project-form';
 import './project.css';
 import { Link } from 'react-router-dom';
 
@@ -11,6 +13,7 @@ export default class ProjectDetails extends React.Component {
         this.state = {
             timelineModalOpened: false,
             itemsUsedModalOpened: false,
+            projEditModalOpened: false,
             project: {},
             items: [],
             timelineentries: [],
@@ -23,7 +26,16 @@ export default class ProjectDetails extends React.Component {
         this.toggleItemsUsedModal = this.toggleItemsUsedModal.bind(this);
         this.toggleTimelineModal = this.toggleTimelineModal.bind(this);
         this.createNewEntry = this.createNewEntry.bind(this);
+<<<<<<< HEAD
         this.deleteItem = this.deleteItem.bind(this);
+=======
+        this.toggleEditMode = this.toggleEditMode.bind(this);
+        this.toggleEditModal = this.toggleEditModal.bind(this);
+        this.editProject = this.editProject.bind(this);
+    }
+    componentDidMount() {
+        this.getProjectDetails(this.props.match.params.id);
+>>>>>>> fd9f23c01005b61d125752ebd6cebae24e915c28
     }
     getProjectDetails(id) {
         this.setState({loading: true}, ()=> {
@@ -85,6 +97,31 @@ export default class ProjectDetails extends React.Component {
             )
             .catch(error => console.error(error))
     }
+    editProject(data) {
+        axios.post('/api/edit/edit-project.php', data, {
+            headers: {
+                'Content-Type': 'multipart/form-data'
+            }
+        })
+        .then(response => {
+            this.setState({
+                projEditModalOpened: false,
+                project: response.data[0]
+            });
+        })
+        .catch(error => console.error(error))
+    }
+    toggleEditModal(event){
+        if(!this.state.projEditModalOpened) {
+            this.setState({
+                projEditModalOpened: true
+            });
+        } else if (event.target.id === 'cancel-btn' || event.target.className === 'fas fa-times') {
+            this.setState({
+                projEditModalOpened: false
+            });
+        }
+    }
     toggleItemsUsedModal(event){
         if(!this.state.itemsUsedModalOpened) {
             this.setState({
@@ -107,22 +144,36 @@ export default class ProjectDetails extends React.Component {
             });
         }
     }
-    componentDidMount() {
-        this.getProjectDetails(this.props.match.params.id);
+    toggleEditMode() {
+        this.setState({projEditModalOpened: true});
     }
     render() {
         let primaryImg = this.state.project.primary_image;
+        let editIcon = null;
         let loader = null;
+
         if (this.state.loading) {
             loader = <div className="loader"><img className="loading-icon" src="/images/loader.svg" /></div>
         }
+
+        if(this.state.userSeshData.id === this.state.project.user_id) {
+            editIcon = (
+                <div
+                    className="edit-icon"
+                    onClick={this.toggleEditMode}
+                >
+                    <i className="fas fa-pencil-alt"></i> Edit
+                </div>
+            )
+        }
         return (
             <React.Fragment>
-                <div className="row bg-light p-4">
+                <div className="row bg-light p-2 p-md-4">
                     <div className="col-12 col-md-5">
                         <img src={primaryImg ? primaryImg : "/images/placeholder-img.jpg"} className="img-fluid img-w-border proj-detail-main-img" alt="Project Image" />
                     </div>
-                    <div className="col-12 col-md-7 mt-4 mt-md-0">
+                    <div className="col-12 col-md-7 mt-4 mt-md-0 position-relative" data-type="proj-desc">
+                        {editIcon}
                         <h3>{this.state.project.project_title}</h3>
                         <h6 className="mt-3 user-link">
                             By:{' '}
@@ -156,6 +207,13 @@ export default class ProjectDetails extends React.Component {
                     />
                 </div>
                 {loader}
+
+                <Modal
+                    isModalOpen={this.state.projEditModalOpened}
+                    toggleModal={this.toggleEditModal}
+                >
+                    <EditProjectForm editProject={this.editProject} projectInfo={this.state.project} />
+                </Modal>
             </React.Fragment>
         )
     }

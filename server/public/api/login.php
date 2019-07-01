@@ -16,6 +16,8 @@ $password = $_GET['password'];
 $invalidEmailFormat = "";
 $empty = "";
 
+$password = hash('sha256', $password);
+
 if($email === ""){
     $empty = $empty."#email";
 }

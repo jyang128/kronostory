@@ -1,0 +1,18 @@
+body {
+    margin: 0;
+}
+.page-not-found {
+    min-height: 80vh;
+    position: relative;
+}
+.page-not-found-inner{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+.page-not-found-icon {
+    color: #A167A5;
+    text-align: center;
+    text-decoration: none;
+}

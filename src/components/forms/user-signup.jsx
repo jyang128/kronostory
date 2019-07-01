@@ -1,6 +1,5 @@
 import React from 'react';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
 
 export default class UserSignup extends React.Component {
 	constructor(props){
@@ -133,8 +132,28 @@ export default class UserSignup extends React.Component {
 		return (
 			<div className="col-10 offset-1 col-sm-6 offset-sm-3 col-lg-4 offset-lg-4 text-center py-4 my-2">
 				<form className="form-signin">
-					<h1 className="font-weight-light text-primary">KronoStory</h1>
+					<h1 className="font-weight-light user-form-title">KronoStory</h1>
 					<h1 className="h3 mb-3 font-weight-light">Sign Up</h1>
+					<label htmlFor="inputPassword" className="sr-only">First Name</label>
+					<input
+						type="text"
+						id="firstName"
+						className="form-control mb-2"
+						placeholder="First Name"
+						onChange={this.onChangeHandler}
+					/>
+					<p className={this.state.firstNameEmpty ? "text-danger" : "text-danger d-none"}>{this.state.firstNameEmpty}</p>
+					<label htmlFor="inputPassword" className="sr-only">Last Name</label>
+					<input
+						type="text"
+						id="lastName"
+						className="form-control mb-2"
+						placeholder="Last Name"
+						onChange={this.onChangeHandler}
+					/>
+					<p className={this.state.lastNameEmpty ? "text-danger" : "text-danger d-none"}>{this.state.lastNameEmpty}</p>
+					<div className="checkbox">
+					</div>
                     <label htmlFor="inputEmail" className="sr-only">Username</label>
 					<input
 						type="email"
@@ -148,7 +167,7 @@ export default class UserSignup extends React.Component {
 					<p className={this.state.keywordError ? "text-danger" : "text-danger d-none"}>{this.state.keywordError}</p>
 					<p className={this.state.dashesError ? "text-danger" : "text-danger d-none"}>{this.state.dashesError}</p>
 					<p className={this.state.usernameEmpty ? "text-danger" : "text-danger d-none"}>{this.state.usernameEmpty}</p>
-					<label htmlFor="inputEmail" className="sr-only">Email address</label>
+					<label htmlFor="inputEmail" className="sr-only">Email Address</label>
 					<input
 						type="email"
 						id="inputEmail"
@@ -180,28 +199,9 @@ export default class UserSignup extends React.Component {
 						required="password"
 						onChange={this.onChangeHandler} />
 					<p className={this.state.passwordMismatch ? "text-danger" : "text-danger d-none"}>{this.state.passwordMismatch}</p>
-					<label htmlFor="inputPassword" className="sr-only">First Name</label>
-					<input
-						type="text"
-						id="firstName"
-						className="form-control mb-2"
-						placeholder="First Name"
-						onChange={this.onChangeHandler}
-					/>
-					<p className={this.state.firstNameEmpty ? "text-danger" : "text-danger d-none"}>{this.state.firstNameEmpty}</p>
-					<label htmlFor="inputPassword" className="sr-only">Last Name</label>
-					<input
-						type="text"
-						id="lastName"
-						className="form-control mb-2"
-						placeholder="Last Name"
-						onChange={this.onChangeHandler}
-					/>
-					<p className={this.state.lastNameEmpty ? "text-danger" : "text-danger d-none"}>{this.state.lastNameEmpty}</p>
-					<div className="checkbox">
-					</div>
+					<p><small class="text-muted">Password must have at least 1 capital letter and 1 number.</small></p>
 					<button
-						className="btn btn-lg btn-primary btn-block"
+						className="btn btn-lg btn-primary btn-block mt-4"
 						onClick={this.signupHandler}
 					>
 						Sign Up

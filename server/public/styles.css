@@ -23,7 +23,23 @@ body {
     border: 5px solid #FFF;
     box-shadow: 0 5px 5px rgba(0,0,0,.5);
 }
-
+.img-sm-thumbnail {
+    width: 65px;
+}
+/*edit icon*/
+.edit-icon {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    display: inline-block;
+    cursor: pointer;
+    font-size: .8rem;
+    color: #4A306D;
+    z-index: 1;
+}
+.edit-icon:hover {
+    color: #212529;
+}
 /*loading icon*/
 .loader {
     position: fixed;
@@ -54,7 +70,7 @@ body {
 }
 .modal-body{
     box-sizing: border-box;
-    padding: 40px 20px;
+    padding: 30px 20px;
     background-color: white;
     position: absolute;
     left: 50%;
@@ -83,9 +99,14 @@ body {
     background-color: #A167A5;
     border: none;
 }
+.btn-primary:not(:disabled):not(.disabled).active, .btn-primary:not(:disabled):not(.disabled):active, .show>.btn-primary.dropdown-toggle {
+    background-color: #8b508f;
+    border-color: #8b508f;
+}
 .btn-primary:hover {
     background-color: #8b508f;
 }
+
 
 .radio-container label {
     margin-left: 15px;

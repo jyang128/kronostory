@@ -79,6 +79,9 @@ if($invalidUsername || $invalidEmail || $mismatchPassword || $invalidUppercase |
     print($invalidUsername.$invalidEmail.$mismatchPassword.$invalidUppercase.$invalidNumber.$invalidEmailFormat.$keyword.$dashes.$empty);
     exit();
 }
+
+$password = hash('sha256', $password);
+
 $postQuery = "INSERT INTO `user`(`first_name`, `last_name`, `username`, `password`, `email`)
     VALUES ('{$firstName}','{$lastName}','{$username}','{$password}','{$email}')";
 

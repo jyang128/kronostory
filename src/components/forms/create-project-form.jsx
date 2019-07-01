@@ -1,8 +1,9 @@
 import React from 'react';
 import './forms.css';
 import { Link } from 'react-router-dom';
+import auth from '../../hoc/auth';
 
-export default class CreateProjectForm extends React.Component {
+class CreateProjectForm extends React.Component {
     constructor(props){
         super(props);
         this.state={
@@ -10,7 +11,6 @@ export default class CreateProjectForm extends React.Component {
             projDesc: '',
             projTimelineDesc: '',
             mainFile: '',
-            itemFile: '',
             mainImgHasUpload: false,
             projImgHasUpload: false,
             selectedCategory: '',
@@ -21,7 +21,6 @@ export default class CreateProjectForm extends React.Component {
         }
         this.handleFormSubmit = this.handleFormSubmit.bind(this);
         this.onFileChange = this.onFileChange.bind(this);
-        this.onFileChangeItem = this.onFileChangeItem.bind(this);
         this.onRadioChange = this.onRadioChange.bind(this);
         this.onTextChange = this.onTextChange.bind(this);
     }
@@ -61,13 +60,6 @@ export default class CreateProjectForm extends React.Component {
             });
         } else {
             this.setState({mainFile:'', mainImgHasUpload: false });
-        }
-    }
-    onFileChangeItem(e) {
-        if (e.target.files[0] !== undefined) {
-            this.setState({ itemFile:e.target.files[0], projImgHasUpload: true });
-        } else {
-            this.setState({ itemFile:'', projImgHasUpload: false });
         }
     }
     onRadioChange(event) {
@@ -214,7 +206,9 @@ export default class CreateProjectForm extends React.Component {
                                     <input type="hidden" name="user-id" value={this.props.userId} />
                                     <input type="hidden" name="formHasUpload" value="true" />
                                     <input type="hidden" name="status" value="published" />
-                                    <div className="form-group col-6"><button id="formSubmit" type="submit" className="btn btn-primary mr-2 btn-block">Create Project</button></div>
+                                    <div className="form-group col-6">
+                                        <button id="formSubmit" type="submit" className="btn btn-primary mr-2 btn-block">Create Project</button>
+                                    </div>
                                     <div className="form-group col-6">
                                         <Link to="/">
                                             <button className="btn btn-secondary btn-block">Cancel</button>
@@ -230,3 +224,5 @@ export default class CreateProjectForm extends React.Component {
         );
     }
 }
+
+export default auth(CreateProjectForm);
