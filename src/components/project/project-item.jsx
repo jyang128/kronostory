@@ -9,7 +9,12 @@ export default class ProjectItem extends React.Component {
 
 		if(this.props.userStatus) {
 			if(this.props.userStatus.id === this.props.projectData.user_id){
-					deleteButton = <DeleteDropdown delete={this.props.deleteItem} itemId={this.props.itemId} absolute={0}/>;
+                    deleteButton = (<DeleteDropdown 
+                        delete={this.props.deleteItem} 
+                        itemId={this.props.itemId} 
+                        styleOption={0}
+                        icon={String.fromCharCode(215)}
+                    />);
 			}
 		} else {
 			deleteButton = null;
@@ -23,8 +28,8 @@ export default class ProjectItem extends React.Component {
                 <div className="project-item-img" style={imgStyle}></div>
                 <div className="container">
                     <div className="row">
-                        <div className="col-9 text-right">{this.props.product}</div>
-                        <div className="col-3">{deleteButton}</div>
+                        <div className="col-12 text-center">{this.props.product}</div>
+                        {deleteButton}
                     </div>
                 </div>
             </div>

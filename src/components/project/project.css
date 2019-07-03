@@ -17,7 +17,6 @@
     font-weight: bold;
     color: #000;
 }
-
 .card-body {
     position: relative;
     padding: .5rem;
@@ -36,43 +35,18 @@
     transition: all .5s;
     opacity: .8;
 }
-.dots {
-    position: absolute;
-    color: slategray;
-    font-size: 1.5em;
-    top: 10px;
-    right: 15px;
-    cursor: pointer;
-}
-.dots-2 {
-    position: absolute;
-    color: slategray;
-    font-size: 1.5em;
-    bottom: 115px;
-    right: 45px;
-    cursor: pointer;
-}
-.dots-relative{
-  position: relative;
-  top: -10px;
-  color: slategray;
-  font-size: 1.5em;
-  cursor: pointer;
-}
+/* project-items component */
 .item-container{
     height: 210px;
+    position: relative;
 }
-/* project-items component */
-/* .used-item {
-    max-height: 150px;
-    margin: auto;
-} */
 /* timeline component */
 .timeline-entry-img {
     height: 240px;
     margin-bottom: 5px;
     background-size: cover;
     background-position: center;
+    cursor: pointer;
 }
 .proj-detail-main-img {
     max-height: 400px;
@@ -86,11 +60,11 @@
     background-position: top center;
     margin: auto;
 }
+.timeline-entry {
+    position: relative;
+}
 .timeline-entry p {
     font-size: .9rem;
-}
-.timeline-entry:hover {
-    cursor: pointer;
 }
 .timeline-entry h5 {
     color: #A167A5;
@@ -110,7 +84,31 @@
 .plus:hover {
     color: #A167A5;
 }
-/* project card - delete button */
+/* delete dropdown component */
+.project-remove {
+    position: absolute;
+    color: slategray;
+    font-size: 1.5em;
+    top: 10px;
+    right: 15px;
+    cursor: pointer;
+}
+.entry-remove {
+    position: absolute;
+    color: slategray;
+    font-size: 1.5em;
+    top: 250px;
+    right: 10px;
+    cursor: pointer;
+}
+.item-remove{
+  position: absolute;
+  right: 10px;
+  top: 118px;
+  color: slategray;
+  font-size: 1.5em;
+  cursor: pointer;
+}
 .delete-button {
     position: absolute;
     top: 50px;
@@ -133,12 +131,6 @@
     border-right: 10px solid transparent;
     border-bottom: 8px solid #b04343;
 }
-/*.dots-static .delete-button{
-  right: auto;
-}
-.dots-static .delete-button:after{
-  left: 8px;
-}*/
 /* project catalog - category sorting */
 .project-sort {
     max-width: 1000px;

@@ -17,7 +17,7 @@ export default class ProjectCard extends React.Component{
 		document.removeEventListener('click', this.closeDropdown)
 	}
 	closeDropdown(event){
-		if(event.target.className !== 'dots' && event.target.className !== 'dots-relative' && event.target.className !== 'dots-2'){
+		if(event.target.className !== 'project-remove' && event.target.className !== 'item-remove' && event.target.className !== 'entry-remove'){
 			this.setState({showDelete: false})
 		}
 	}
@@ -37,23 +37,21 @@ export default class ProjectCard extends React.Component{
         }
 	}
     render(){
-        let deleteButtonClass;
-		let classdict = ["dots-relative","dots","dots-2"];
+        let deleteButtonStyle;
+		let iconStyle = ["item-remove","project-remove","entry-remove"];
 
 		if(this.state.showDelete){
-			deleteButtonClass = 'delete-button';
+			deleteButtonStyle = 'delete-button';
 		} else {
-			deleteButtonClass = 'delete-button d-none';
+			deleteButtonStyle = 'delete-button d-none';
 		}
         return (
-        <div className={this.props.absolute === 2 ? "position-relative" : ""}>
-            <div className={classdict[this.props.absolute]} onClick={this.toggleDeleteButton} >
-                ...
-                <div className={deleteButtonClass} onClick={this.handleDelete} >
+            <div className={iconStyle[this.props.styleOption]} onClick={this.toggleDeleteButton} >
+                {this.props.icon}
+                <div className={deleteButtonStyle} onClick={this.handleDelete} >
                     delete
                 </div>
             </div>
-        </div>
         );
     }
 }
