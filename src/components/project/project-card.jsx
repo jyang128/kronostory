@@ -9,7 +9,7 @@ export default class ProjectCard extends React.Component{
 
 		if(this.props.userStatus) {
 			if(this.props.userStatus.id === this.props.projectData.user_id){
-					deleteButton = <DeleteDropdown delete={this.props.delete} projectData={this.props.projectData} absolute={true}/>;
+					deleteButton = <DeleteDropdown delete={this.props.delete} projectData={this.props.projectData} absolute={1}/>;
 			}
 		} else {
 			deleteButton = null;

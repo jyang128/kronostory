@@ -17,7 +17,7 @@ export default class ProjectCard extends React.Component{
 		document.removeEventListener('click', this.closeDropdown)
 	}
 	closeDropdown(event){
-		if(event.target.className !== 'dots' && event.target.className !== 'dots-relative'){
+		if(event.target.className !== 'dots' && event.target.className !== 'dots-relative' && event.target.className !== 'dots-2'){
 			this.setState({showDelete: false})
 		}
 	}
@@ -29,12 +29,16 @@ export default class ProjectCard extends React.Component{
         if(this.props.itemId){
             this.props.delete(this.props.itemId);
         }
+		else if(this.props.entryId){
+			this.props.delete(this.props.entryId);
+		}
         else{
             this.props.delete(this.props.projectData.id);
         }
 	}
     render(){
         let deleteButtonClass;
+		let classdict = ["dots-relative","dots","dots-2"];
 
 		if(this.state.showDelete){
 			deleteButtonClass = 'delete-button';
@@ -42,8 +46,8 @@ export default class ProjectCard extends React.Component{
 			deleteButtonClass = 'delete-button d-none';
 		}
         return (
-        <div>
-            <div className={this.props.absolute ? "dots" : "dots-relative"} onClick={this.toggleDeleteButton} >
+        <div className={this.props.absolute === 2 ? "position-relative" : ""}>
+            <div className={classdict[this.props.absolute]} onClick={this.toggleDeleteButton} >
                 ...
                 <div className={deleteButtonClass} onClick={this.handleDelete} >
                     delete

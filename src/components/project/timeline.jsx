@@ -62,7 +62,10 @@ export default class Timeline extends React.Component {
                 key={entry.timeline_id}
                 entryData={this.props.entries[index]}
                 toggleImageModal={this.toggleImageModal}
-
+                project={this.props.project}
+                userStatus={this.props.userSeshData}
+                deleteEntry={this.props.deleteEntry}
+                entryId={entry.timeline_id}
             />)
 
         let addToTimelineButton;

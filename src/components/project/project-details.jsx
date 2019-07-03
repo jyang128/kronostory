@@ -27,6 +27,7 @@ export default class ProjectDetails extends React.Component {
         this.toggleTimelineModal = this.toggleTimelineModal.bind(this);
         this.createNewEntry = this.createNewEntry.bind(this);
         this.deleteItem = this.deleteItem.bind(this);
+        this.deleteEntry = this.deleteEntry.bind(this);
         this.toggleEditMode = this.toggleEditMode.bind(this);
         this.toggleEditModal = this.toggleEditModal.bind(this);
         this.editProject = this.editProject.bind(this);
@@ -78,6 +79,21 @@ export default class ProjectDetails extends React.Component {
             })
         })
         .catch( error => console.error(error))
+    }
+    deleteEntry(id){
+        axios.delete('/api/delete-entry.php',{params:{"id":id}})
+            .then( () => {
+                    let newEntries = this.state.timelineentries.slice(0);
+                    for(let i = 0; i < newEntries.length; i++){
+                        if(newEntries[i].timeline_id === id){
+                            newEntries.splice(i,1);
+                            break;
+                        }
+                    }
+                    this.setState({timelineentries:newEntries});
+                }
+            )
+            .catch(error => console.error(error));
     }
     deleteItem(id){
         axios.delete('/api/delete-item.php',{params:{"id":id}})
@@ -201,6 +217,7 @@ export default class ProjectDetails extends React.Component {
                         entries={this.state.timelineentries}
                         project={this.state.project}
                         userSeshData={this.state.userSeshData}
+                        deleteEntry={this.deleteEntry}
                     />
                 </div>
                 {loader}

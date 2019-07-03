@@ -44,6 +44,14 @@
     right: 15px;
     cursor: pointer;
 }
+.dots-2 {
+    position: absolute;
+    color: slategray;
+    font-size: 1.5em;
+    bottom: 115px;
+    right: 45px;
+    cursor: pointer;
+}
 .dots-relative{
   position: relative;
   top: -10px;

@@ -9,7 +9,7 @@ export default class ProjectItem extends React.Component {
 
 		if(this.props.userStatus) {
 			if(this.props.userStatus.id === this.props.projectData.user_id){
-					deleteButton = <DeleteDropdown delete={this.props.deleteItem} itemId={this.props.itemId}/>;
+					deleteButton = <DeleteDropdown delete={this.props.deleteItem} itemId={this.props.itemId} absolute={0}/>;
 			}
 		} else {
 			deleteButton = null;
