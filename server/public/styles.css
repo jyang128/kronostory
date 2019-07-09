@@ -1,0 +1,148 @@
+
+body {
+    font-family: 'Muli', sans-serif;
+    position: relative;
+}
+
+.wrapper {
+    min-height: 90vh;
+}
+
+.logo {
+    font-family: 'Quicksand', sans-serif;
+}
+.logo-icon {
+    max-width: 20px;
+    margin-right: 5px;
+}
+.logo h4 {
+    margin: 0;
+}
+
+.img-w-border {
+    border: 5px solid #FFF;
+    box-shadow: 0 5px 5px rgba(0,0,0,.5);
+}
+.img-sm-thumbnail {
+    width: 65px;
+}
+/*edit icon*/
+.edit-icon {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    display: inline-block;
+    cursor: pointer;
+    font-size: .8rem;
+    color: #4A306D;
+    z-index: 1;
+}
+.edit-icon:hover {
+    color: #212529;
+}
+/*loading icon*/
+.loader {
+    position: fixed;
+    top: 65px;
+    left:0;
+    z-index: 100;
+    width: 100%;
+    height: 100%;
+    background-color: #FFF;
+}
+.loading-icon {
+    position: absolute;
+    top: 45%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 200px;
+    
+}
+/* modal (timeline entry form) */
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.6);
+    z-index: 14;
+}
+.modal-body{
+    box-sizing: border-box;
+    padding: 30px 20px;
+    background-color: white;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    max-height: 95%;
+    overflow: auto;
+}
+.close-modal {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 1.3em;
+    line-height: 0;
+    cursor: pointer;
+}
+/* modal (timeline entry image) */
+.modal-image {
+    width: 100%;
+    max-width: 420px;
+    display: block;
+    margin: 0 auto;
+}
+/* button styling */
+.btn-primary {
+    background-color: #A167A5;
+    border: none;
+}
+.btn-primary:not(:disabled):not(.disabled).active, .btn-primary:not(:disabled):not(.disabled):active, .show>.btn-primary.dropdown-toggle {
+    background-color: #8b508f;
+    border-color: #8b508f;
+}
+.btn-primary:hover {
+    background-color: #8b508f;
+}
+
+
+.radio-container label {
+    margin-left: 15px;
+}
+
+.radio-container input[type=radio] {
+    display: none;
+}
+
+.radio-container input[type=radio] + label {
+    position: relative;
+}
+
+.radio-container input[type=radio] + label:before {
+    content: "";
+    position: absolute;
+    left: -25px;
+    top:50%;
+    transform: translateY(-50%);
+    width: 20px;
+    height: 20px;
+    background-color: #fff;
+    border: 1px solid #CCC;
+}
+
+.radio-container input[type=radio]:checked + label {
+    font-weight:bold;
+}
+
+.radio-container input[type=radio]:checked + label:before {
+    background-image: url(images/checkmark.svg);
+    background-position: center;
+}
+
+/* slick slider */
+
+.slick-next:before, .slick-prev:before {
+    color: #8b508f;
+}

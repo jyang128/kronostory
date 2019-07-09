@@ -1,0 +1,24 @@
+.custom-file-label{
+    overflow: hidden;
+}
+.form-container {
+    background-color: #EFF3F8;
+}
+
+.create-project-form{
+    max-width: 900px;
+    margin: auto;
+}
+
+.guest {
+    cursor: pointer;
+    color: #A167A5;
+}
+
+.guest:hover {
+    color: #8b508f;
+}
+
+.user-form-title {
+    color: #A167A5;
+}
