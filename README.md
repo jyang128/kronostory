@@ -27,13 +27,13 @@ KronoStory is a community platform for finding and showcasing creative work and 
 
 ### Technology
 
-Created with JavaScript, React.js, Axios, React Router, PHP, MySQL, Bootstrap 4, HTML5, and CSS3
+Created with JavaScript, React.js, Axios, React Router, PHP, MySQL, Bootstrap 4, HTML5, CSS3, AWS EC2
 
 ### Setup Instructions
 
 In Progress.
 
-### Members 
+### Authors 
 - Paulina Chee (https://github.com/paulinawebdev)
 - Jonathan Lo (https://github.com/jlo169)
 - Jessica Yang (https://github.com/jyang128)
