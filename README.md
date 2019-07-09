@@ -14,11 +14,9 @@ KronoStory is a community platform for finding and showcasing creative work and 
 - Visitors can filter projects by category
 - Visitors can view user profiles to see their projects
 
-Wireframes/Figma:
-https://www.figma.com/file/fw8ogUefUw1fv32UNSrHSaMU/Final-Project-Build-Sharing-Social-Media?node-id=0%3A1
-
-Task Management:
-https://www.meistertask.com/app/project/pZkCyVP3/progress-tracker
+### Project Management
+- [Wireframes/Figma](https://www.figma.com/file/fw8ogUefUw1fv32UNSrHSaMU/Final-Project-Build-Sharing-Social-Media?node-id=0%3A1)
+- [Task Management](https://www.meistertask.com/app/project/pZkCyVP3/progress-tracker)
 
 ### Future Enhancements
 - Implement Amazon S3 for file upload and retrieval
@@ -30,6 +28,10 @@ https://www.meistertask.com/app/project/pZkCyVP3/progress-tracker
 ### Technology
 
 Created with JavaScript, React.js, Axios, React Router, PHP, MySQL, Bootstrap 4, HTML5, and CSS3
+
+### Setup Instructions
+
+In Progress.
 
 ### Members 
 - Paulina Chee (https://github.com/paulinawebdev)
