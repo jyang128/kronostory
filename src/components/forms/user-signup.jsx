@@ -202,7 +202,7 @@ export default class UserSignup extends React.Component {
 						required="password"
 						onChange={this.onChangeHandler} />
 					<p className={this.state.passwordMismatch ? "text-danger" : "text-danger d-none"}>{this.state.passwordMismatch}</p>
-					<p><small class="text-muted">Password must have at least 1 capital letter and 1 number.</small></p>
+					<p><small className="text-muted">Password must have at least 1 capital letter and 1 number.</small></p>
 					<button
 						className="btn btn-lg btn-primary btn-block mt-4"
 						onClick={this.signupHandler}

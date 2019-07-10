@@ -33,7 +33,7 @@ if($empty || $invalidEmailFormat){
 }
 
 $query = "SELECT * FROM `user`
-    WHERE `email` = '{$email}' AND 'password' = '{$password}'";
+    WHERE `email` = '{$email}' AND `password` = '{$password}'";
 
 if ($result = mysqli_query($conn, $query)) {
     $numRows = mysqli_num_rows($result);
