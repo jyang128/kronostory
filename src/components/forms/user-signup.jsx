@@ -123,7 +123,10 @@ export default class UserSignup extends React.Component {
 					}
 				}
 				else{
-					this.props.loginUser(response.data[0]);
+					this.props.loginUser({
+						email: this.state.email,
+						password: this.state.password
+					});
 				}
             })
             .catch( error => console.error(error));
