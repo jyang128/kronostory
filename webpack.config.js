@@ -45,7 +45,7 @@ module.exports = {
     proxy: {
       '/api': {
         changeOrigin: true,
-        target: 'http://localhost/c319_DIYblogging_tracker/server/public'
+        target: 'http://localhost/kronostory/server/public'
       }
     }
   }

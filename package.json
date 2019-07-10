@@ -1,7 +1,7 @@
 {
-  "name": "npm",
+  "name": "kronostory",
   "version": "1.0.0",
-  "description": "https://docs.google.com/document/d/e/2PACX-1vRauhWRk7vpNEu01MwACXjRWW409xyoJb5UMtY_z6szJgijtQ6B2IesVYpN3ERk45Ac4ovrwpA9F1jI/pub",
+  "description": "KronoStory is a community platform for finding and showcasing creative work and personal endeavors, featuring timelines that make it easy to see the whole process.",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -17,8 +17,7 @@
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "react-router-dom": "^5.0.0",
-    "react-slick": "^0.24.0",
-    "reactstrap": "^8.0.0"
+    "react-slick": "^0.24.0"
   },
   "devDependencies": {
     "@babel/core": "^7.4.5",
@@ -32,10 +31,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Learning-Fuze/c319_DIYblogging_tracker.git"
+    "url": "git+https://github.com/paulinawebdev/kronostory.git"
   },
   "bugs": {
-    "url": "https://github.com/Learning-Fuze/c319_DIYblogging_tracker/issues"
+    "url": "https://github.com/paulinawebdev/kronostory/issues"
   },
-  "homepage": "https://github.com/Learning-Fuze/c319_DIYblogging_tracker#readme"
+  "homepage": "https://github.com/paulinawebdev/kronostory#readme"
 }
