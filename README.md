@@ -1,6 +1,6 @@
 # KronoStory
 
-https://kronostory.com/
+https://kronostory.com/ (not currently live)
 
 KronoStory is a community platform for finding and showcasing creative work and personal endeavors, featuring timelines that make it easy to see the whole process. 
 
